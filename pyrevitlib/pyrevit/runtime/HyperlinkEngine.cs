@@ -29,7 +29,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
             catch (Exception hyperlinkEx) {
                 var dialog = new TaskDialog(PyRevitLabsConsts.ProductName);
                 dialog.MainInstruction = "Error opening link.";
-                dialog.ExpandedContent = string.Format("{0}\n{1}", hyperlinkEx.Message, hyperlinkEx.StackTrace);
+                dialog.ExpandedContent = $"{hyperlinkEx.Message}\n{hyperlinkEx.StackTrace}";
                 dialog.Show();
                 return ScriptExecutorResultCodes.ExecutionException;
             }

@@ -74,7 +74,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                 // if failed in finding RhinoInside.Revit.dll, assume no rhino
                 var dialog = new TaskDialog(PyRevitLabsConsts.ProductName);
                 dialog.MainInstruction = "Error executing Grasshopper script.";
-                dialog.ExpandedContent = string.Format("{0}\n{1}", ghEx.Message, ghEx.StackTrace);
+                dialog.ExpandedContent = $"{ghEx.Message}\n{ghEx.StackTrace}";
                 dialog.Show();
                 return ScriptExecutorResultCodes.ExecutionException;
             }

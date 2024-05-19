@@ -11,8 +11,8 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private WeakReference<ScriptRuntime> _runtime;
         private WeakReference<ScriptConsole> _gui;
         private string _outputBuffer;
-        private bool _inputReceived = false;
-        private bool _errored = false;
+        private bool _inputReceived;
+        private bool _errored;
         private ScriptEngineType _erroredEngine;
 
         public bool PrintDebugInfo = false;
@@ -43,11 +43,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
             return null;
         }
 
-        public Encoding OutputEncoding {
-            get {
-                return Encoding.UTF8;
-            }
-        }
+        public Encoding OutputEncoding => Encoding.UTF8;
 
         // this is for python stream compatibility
         public void write(string content) {
@@ -95,7 +91,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                     // log buffer information in debug mode
                     if (PrintDebugInfo)
                         output.AppendText(
-                            string.Format("<---- W offset: {0} count: {1} ---->", offset, count),
+                            $"<---- W offset: {offset} count: {count} ---->",
                             ScriptConsoleConfigs.DefaultBlock);
 
                     if (count < 1024) {
@@ -181,7 +177,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                     // log buffer information in debug mode
                     if (PrintDebugInfo)
                         output.AppendText(
-                            string.Format("<---- R offset: {0} count: {1} ---->", offset, count),
+                            $"<---- R offset: {offset} count: {count} ---->",
                             ScriptConsoleConfigs.DefaultBlock);
 
                     var inputBytes = OutputEncoding.GetBytes(input);
@@ -190,7 +186,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                         Buffer.BlockCopy(inputBytes, 0, buffer, offset, copyCount);
                         if (PrintDebugInfo)
                             output.AppendText(
-                                string.Format("<---- R copied: \"{0}\" size: {1} ---->", input, copyCount),
+                                $"<---- R copied: \"{input}\" size: {copyCount} ---->",
                                 ScriptConsoleConfigs.DefaultBlock);
                     }
 
@@ -202,24 +198,16 @@ namespace PyRevitLabs.PyRevit.Runtime {
             return 0;
         }
 
-        public override bool CanRead {
-            get { return true; }
-        }
+        public override bool CanRead => true;
 
-        public override bool CanSeek {
-            get { return false; }
-        }
+        public override bool CanSeek => false;
 
-        public override bool CanWrite {
-            get { return true; }
-        }
+        public override bool CanWrite => true;
 
-        public override long Length {
-            get { return 0; }
-        }
+        public override long Length => 0;
 
         public override long Position {
-            get { return 0; }
+            get => 0;
             set { }
         }
 

@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RevitVersion>2024</RevitVersion>
+    <TargetFramework>net48</TargetFramework>
+    <IronPythonVersion>IPY341</IronPythonVersion>
+    <UsePyRevitIronPython>true</UsePyRevitIronPython>
+    <IronPythonStdLib>python_341_lib.zip</IronPythonStdLib>
+    <Version>$(RevitVersion).3.4.1</Version>
+  </PropertyGroup>
+
+  <Import Project="Loader.Common.Props" />
+</Project>
