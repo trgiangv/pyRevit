@@ -67,10 +67,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                     return outputWindowList;
             }
 
-            set
-            {
-                AppDomain.CurrentDomain.SetData(DomainStorageKeys.OutputWindowsDictKey, value);
-            }
+            set => AppDomain.CurrentDomain.SetData(DomainStorageKeys.OutputWindowsDictKey, value);
         }
 
         public static List<Object> GetAllActiveOutputWindows(string outputWindowId = null)

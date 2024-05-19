@@ -53,7 +53,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                     catch (Exception loadEx) {
                         var dialog = new TaskDialog(PyRevitLabsConsts.ProductName);
                         dialog.MainInstruction = "Failed loading content.";
-                        dialog.ExpandedContent = string.Format("{0}\n{1}", loadEx.Message, loadEx.StackTrace);
+                        dialog.ExpandedContent = $"{loadEx.Message}\n{loadEx.StackTrace}";
                         dialog.Show();
                         return ScriptExecutorResultCodes.FailedLoadingContent;
                     }
@@ -61,7 +61,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
                 if (contentFamily == null) {
                     TaskDialog.Show(PyRevitLabsConsts.ProductName,
-                        string.Format("Failed finding or loading bundle content at:\n{0}", familySourceFile));
+                        $"Failed finding or loading bundle content at:\n{familySourceFile}");
                     return ScriptExecutorResultCodes.FailedLoadingContent;
                 }
 
@@ -82,7 +82,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                         catch (Exception promptEx) {
                             var dialog = new TaskDialog(PyRevitLabsConsts.ProductName);
                             dialog.MainInstruction = "Failed placing content.";
-                            dialog.ExpandedContent = string.Format("{0}\n{1}", promptEx.Message, promptEx.StackTrace);
+                            dialog.ExpandedContent = $"{promptEx.Message}\n{promptEx.StackTrace}";
                             dialog.Show();
                             return ScriptExecutorResultCodes.FailedLoadingContent;
                         }

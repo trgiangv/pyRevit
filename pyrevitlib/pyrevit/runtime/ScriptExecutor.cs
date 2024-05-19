@@ -103,10 +103,6 @@ namespace PyRevitLabs.PyRevit.Runtime {
                         ExecuteManagedScript<CLREngine>(ref runtime);
                         break;
 
-                    case ScriptEngineType.IronRuby:
-                        ExecuteManagedScript<IronRubyEngine>(ref runtime);
-                        break;
-
                     case ScriptEngineType.DynamoBIM:
                         ExecuteManagedScript<DynamoBIMEngine>(ref runtime);
                         break;

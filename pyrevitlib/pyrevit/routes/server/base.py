@@ -1,8 +1,8 @@
 """Utility functions and types."""
 #pylint: disable=import-error,invalid-name,broad-except
 #pylint: disable=unused-import,useless-object-inheritance
-from pyrevit.compat import IRONPY340, PY3
-if IRONPY340:
+from pyrevit.compat import IRONPY341, PY3
+if IRONPY341:
     from http.client import OK, ACCEPTED, INTERNAL_SERVER_ERROR, NO_CONTENT
 elif PY3:
     from http import HTTPStatus as _s

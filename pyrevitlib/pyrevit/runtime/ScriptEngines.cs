@@ -8,7 +8,6 @@ namespace PyRevitLabs.PyRevit.Runtime {
         CSharp,
         Invoke,
         VisualBasic,
-        IronRuby,
         DynamoBIM,
         Grasshopper,
         Content,

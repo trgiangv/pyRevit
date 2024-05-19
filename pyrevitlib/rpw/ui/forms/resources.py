@@ -10,7 +10,7 @@ from abc import ABCMeta
 import clr
 
 import os.path as op
-from pyrevit.compat import PY3, PY2
+from pyrevit.compat import PY3, PY2, IRONPY341
 import pyrevit.engine as eng
 
 # WPF/Form Imports
@@ -41,7 +41,7 @@ ASSEMBLY_FILE_EXT = '.dll'
 
 ipy_assmname = '{prefix}IronPython'.format(prefix=eng.EnginePrefix)
 ipy_dllpath = op.join(eng.EnginePath, ipy_assmname + ASSEMBLY_FILE_EXT)
-if PY3:
+if PY3 and not IRONPY341:
     clr.AddReference(ipy_dllpath)
 else:
     clr.AddReferenceToFileAndPath(ipy_dllpath)

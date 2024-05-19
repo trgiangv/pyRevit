@@ -3,6 +3,7 @@
 
     <PropertyGroup>
         <DefineConstants>$(DefineConstants);REVIT$(RevitVersion)</DefineConstants>
+        <LanguageVersion>latest</LanguageVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,6 +13,19 @@
     </ItemGroup>
 
     <ItemGroup>
+        
+        <!-- pyRevitLabs.PythonNet -->
+        <Reference Include="pyRevitLabs.PythonNet" HintPath="$(PyRevitEnginesDir)\CPY385\pyRevitLabs.PythonNet.dll" />
+        
+        <!-- pyRevitLabs -->
+        <Reference Include="pyRevitLabs.Common" HintPath="$(PyRevitBinDir)\pyRevitLabs.Common.dll" />
+        <Reference Include="pyRevitLabs.CommonWPF" HintPath="$(PyRevitBinDir)\pyRevitLabs.CommonWPF.dll" />
+        <Reference Include="pyRevitLabs.Emojis" HintPath="$(PyRevitBinDir)\pyRevitLabs.Emojis.dll" />
+        <Reference Include="pyRevitLabs.PyRevit" HintPath="$(PyRevitBinDir)\pyRevitLabs.PyRevit.dll" />
+        <Reference Include="pyRevitLabs.PyRevit.Runtime.Shared" HintPath="$(PyRevitBinDir)\pyRevitLabs.PyRevit.Runtime.Shared.dll" />
+        <Reference Include="pyRevitLabs.TargetApps.Revit" HintPath="$(PyRevitBinDir)\pyRevitLabs.TargetApps.Revit.dll" />
+        
+        <!-- System -->
         <Reference Include="WindowsBase" />
         <Reference Include="WindowsFormsIntegration" />
         <Reference Include="PresentationCore" />
@@ -19,30 +33,59 @@
         <Reference Include="System.Windows.Forms" />
         <Reference Include="System.Xaml" />
         <Reference Include="System.Web" />
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="System.Windows.Interop" />
+    </ItemGroup>
 
-        <Reference Include="pyRevitLoader" HintPath="$(PyRevitEnginesDir)\IPY2711PR\pyRevitLoader.dll" />
-        <Reference Include="IronPython" HintPath="$(PyRevitEnginesDir)\IPY2711PR\pyRevitLabs.IronPython.dll" />
-        <Reference Include="IronPython.Modules" HintPath="$(PyRevitEnginesDir)\IPY2711PR\pyRevitLabs.IronPython.Modules.dll" />
-        <Reference Include="IronPython.SQLite" HintPath="$(PyRevitEnginesDir)\IPY2711PR\pyRevitLabs.IronPython.SQLite.dll" />
-        <Reference Include="IronPython.Wpf" HintPath="$(PyRevitEnginesDir)\IPY2711PR\pyRevitLabs.IronPython.Wpf.dll" />
-        <Reference Include="IronPython.Wpf" HintPath="$(PyRevitEnginesDir)\IPY2711PR\pyRevitLabs.IronPython.Wpf.dll" />
-        <Reference Include="Microsoft.Dynamic" HintPath="$(PyRevitEnginesDir)\IPY2711PR\pyRevitLabs.Microsoft.Dynamic.dll" />
-        <Reference Include="Microsoft.Scripting" HintPath="$(PyRevitEnginesDir)\IPY2711PR\pyRevitLabs.Microsoft.Scripting.dll" />
+    <Choose>
+        <When Condition="$(RevitVersion) == '2019'">
+            <ItemGroup>
+                <PackageReference Include="ModPlus.Revit.API.2019" Version="4.0.0" />
+            </ItemGroup>
+        </When>
+        <When Condition="$(RevitVersion) == '2020'">
+            <ItemGroup>
+                <PackageReference Include="ModPlus.Revit.API.2020" Version="4.0.0" />
+            </ItemGroup>
+        </When>
+        <When Condition="$(RevitVersion) == '2021'">
+            <ItemGroup>
+                <PackageReference Include="ModPlus.Revit.API.2021" Version="4.0.0" />
+            </ItemGroup>
+        </When>
+        <When Condition="$(RevitVersion) == '2022'">
+            <ItemGroup>
+                <PackageReference Include="ModPlus.Revit.API.2022" Version="4.0.0" />
+            </ItemGroup>
+        </When>
+        <When Condition="$(RevitVersion) == '2023'">
+            <ItemGroup>
+                <PackageReference Include="ModPlus.Revit.API.2023" Version="4.0.0" />
+            </ItemGroup>
+        </When>
+        <When Condition="$(RevitVersion) == '2024'">
+            <ItemGroup>
+                <PackageReference Include="ModPlus.Revit.API.2024" Version="4.0.0" />
+            </ItemGroup>
+        </When>
+        <When Condition="$(RevitVersion) == '2025'">
+            <ItemGroup>
+                <PackageReference Include="ModPlus.Revit.API.2025" Version="4.0.0" />
+            </ItemGroup>
+        </When>
+    </Choose>
 
-        <Reference Include="pyRevitLabs.PythonNet" HintPath="$(PyRevitEnginesDir)\CPY385\pyRevitLabs.PythonNet.dll" />
 
-        <Reference Include="pyRevitLabs.Common" HintPath="$(PyRevitBinDir)\pyRevitLabs.Common.dll" />
-        <Reference Include="pyRevitLabs.CommonWPF" HintPath="$(PyRevitBinDir)\pyRevitLabs.CommonWPF.dll" />
-        <Reference Include="pyRevitLabs.Emojis" HintPath="$(PyRevitBinDir)\pyRevitLabs.Emojis.dll" />
-        <Reference Include="pyRevitLabs.PyRevit" HintPath="$(PyRevitBinDir)\pyRevitLabs.PyRevit.dll" />
-        <Reference Include="pyRevitLabs.PyRevit.Runtime.Shared" HintPath="$(PyRevitBinDir)\pyRevitLabs.PyRevit.Runtime.Shared.dll" />
-        <Reference Include="pyRevitLabs.TargetApps.Revit" HintPath="$(PyRevitBinDir)\pyRevitLabs.TargetApps.Revit.dll" />
-
-        <Reference Include="AdWindows" HintPath="$(PyRevitDevLibsDir)\Revit\$(RevitVersion)\AdWindows.dll" />
-        <Reference Include="UIFramework" HintPath="$(PyRevitDevLibsDir)\Revit\$(RevitVersion)\UIFramework.dll" />
-        <Reference Include="RevitAPI" HintPath="$(PyRevitDevLibsDir)\Revit\$(RevitVersion)\RevitAPI.dll" />
-        <Reference Include="RevitAPIUI" HintPath="$(PyRevitDevLibsDir)\Revit\$(RevitVersion)\RevitAPIUI.dll" />
-        <Reference Include="Xceed.Wpf.AvalonDock" HintPath="$(PyRevitDevLibsDir)\Revit\$(RevitVersion)\Xceed.Wpf.AvalonDock.dll" />
+    <ItemGroup>
+        <!-- IronPython-->
+        <Reference Include="pyRevitLoader" HintPath="$(PyRevitEnginesDir)\IPY341\pyRevitLoader.dll" />
+        <Reference Include="IronPython" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.dll" />
+        <Reference Include="IronPython.Modules" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.Modules.dll" />
+        <Reference Include="IronPython.SQLite" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.SQLite.dll" />
+        <Reference Include="IronPython.Wpf" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.Wpf.dll" />
+        <Reference Include="IronPython.Wpf" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.Wpf.dll" />
+        <Reference Include="Microsoft.Dynamic" HintPath="$(PyRevitEnginesDir)\IPY341\Microsoft.Dynamic.dll" />
+        <Reference Include="Microsoft.Scripting" HintPath="$(PyRevitEnginesDir)\IPY341\Microsoft.Scripting.dll" />
     </ItemGroup>
 
     <ItemGroup>
@@ -61,7 +104,6 @@
         <Compile Include="$(PyRevitLibDir)\pyrevit\runtime\HyperlinkEngine.cs" />
         <Compile Include="$(PyRevitLibDir)\pyrevit\runtime\InvokableDLLEngine.cs" />
         <Compile Include="$(PyRevitLibDir)\pyrevit\runtime\IronPythonEngine.cs" />
-        <Compile Include="$(PyRevitLibDir)\pyrevit\runtime\IronRubyEngine.cs" />
         <Compile Include="$(PyRevitLibDir)\pyrevit\runtime\UpdaterListener.cs" />
         <Compile Include="$(PyRevitLibDir)\pyrevit\runtime\JournalListener.cs" />
         <Compile Include="$(PyRevitLibDir)\pyrevit\runtime\ScriptCommands.cs" />

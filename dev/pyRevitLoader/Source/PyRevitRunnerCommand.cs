@@ -28,7 +28,7 @@ namespace PyRevitRunner {
                 ModuleSearchPaths = new List<string>(dataMap["SearchPaths"].Split(';'));
                 ModelPaths = new List<string>();
                 var modelPaths = dataMap["Models"];
-                if (modelPaths != null && modelPaths != string.Empty)
+                if (!string.IsNullOrEmpty(modelPaths))
                     ModelPaths.AddRange(modelPaths.Split(';'));
                 LogFile = dataMap["LogFile"];
 
