@@ -19,7 +19,7 @@ namespace pyRevitLabs.PyRevit {
         public string DeploymentName;
 
         public override string ToString() {
-            return string.Format("Url: \"{0}\" | Branch: \"{1}\" | Deployment: \"{2}\"", Url, BranchName, DeploymentName);
+            return $"Url: \"{Url}\" | Branch: \"{BranchName}\" | Deployment: \"{DeploymentName}\"";
         }
     }
 
@@ -47,7 +47,7 @@ namespace pyRevitLabs.PyRevit {
                 _clonePath = FindValidClonePathBelow(clonePath);
                 if (_clonePath is null)
                     throw new PyRevitException(
-                        string.Format("Path does not point to a valid clone \"{0}\"", clonePath)
+                        $"Path does not point to a valid clone \"{clonePath}\""
                     );
             }
 
@@ -58,10 +58,10 @@ namespace pyRevitLabs.PyRevit {
                     Name = name;
                 }
                 else
-                    throw new PyRevitException(string.Format("Name \"{0}\" is reserved.", name));
+                    throw new PyRevitException($"Name \"{name}\" is reserved.");
             }
             else
-                Name = string.Format("Unnamed-{0}", ClonePath.GenerateMD5Hash().GetHashShort());
+                Name = $"Unnamed-{ClonePath.GenerateMD5Hash().GetHashShort()}";
         }
 
         private PyRevitClone(string clonePath) : this(clonePath, null) {}
@@ -77,7 +77,7 @@ namespace pyRevitLabs.PyRevit {
             if (IsRepoDeploy)
                 return string.Format(
                     "{0} | Branch: \"{1}\" | Version: \"{2}\" | Path: \"{3}\"",
-                    Name, Branch, string.Format("{0}:{1}", ModuleVersion, ShortCommit), ClonePath);
+                    Name, Branch, $"{ModuleVersion}:{ShortCommit}", ClonePath);
             else {
                 return string.Format(
                     "{0} | Deploy: \"{1}\" | Branch: \"{2}\" | Version: \"{3}\" | Path: \"{4}\"",
@@ -556,8 +556,8 @@ namespace pyRevitLabs.PyRevit {
                 }
                 else
                     throw new PyRevitException(
-                        string.Format("Error determining latest engine from \"{0}\"", enginesDir)
-                        );
+                        $"Error determining latest engine from \"{enginesDir}\""
+                    );
             }
             else {
                 foreach (var engine in FindEngines(enginesDir)) {
@@ -568,7 +568,7 @@ namespace pyRevitLabs.PyRevit {
                 }
             }
 
-            throw new PyRevitException(string.Format("Engine \"{0}\" is not available at \"{1}\"", engineVer, enginesDir));
+            throw new PyRevitException($"Engine \"{engineVer}\" is not available at \"{enginesDir}\"");
         }
 
         // find all engines under a given engine path

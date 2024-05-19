@@ -38,14 +38,6 @@ import rpws.models as models
 # Thus the server version was added to the url after 2012 version.
 # Otherwise the url for two servers called X for 2016 and 2017 Revit models
 # would have been the same url.
-sroots = {"2012": "/RevitServerAdminRESTService/AdminRESTService.svc",
-          "2013": "/RevitServerAdminRESTService2013/AdminRESTService.svc",
-          "2014": "/RevitServerAdminRESTService2014/AdminRESTService.svc",
-          "2015": "/RevitServerAdminRESTService2015/AdminRESTService.svc",
-          "2016": "/RevitServerAdminRESTService2016/AdminRESTService.svc",
-          "2017": "/RevitServerAdminRESTService2017/AdminRESTService.svc",
-          "2018": "/RevitServerAdminRESTService2018/AdminRESTService.svc",
-          }
 
 
 class RevitServer(object):
@@ -78,15 +70,9 @@ class RevitServer(object):
         if type(version) == int:
             version = str(version)
 
-        # verify server version is supported
-        if version not in sroots:
-            raise rpws.ServerVersionNotSupported(
-                'Supported versions are: {}'
-                .format([x for x in sroots.keys()]))
-
         self.name = name
         self.version = version
-        self._base_uri = "http://" + self.name + sroots[self.version]
+        self._base_uri = "http://{}/RevitServerAdminRESTService{}/AdminRESTService.svc".format(self.name, self.version)
 
         if username:
             self._huser = username

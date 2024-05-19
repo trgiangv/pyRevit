@@ -56,7 +56,7 @@ namespace PyRevitLoader {
         private static string GetStartupScriptPath() {
             var loaderDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var dllDir = Path.GetDirectoryName(loaderDir);
-            return Path.Combine(dllDir, string.Format("{0}.py", Assembly.GetExecutingAssembly().GetName().Name));
+            return Path.Combine(dllDir, $"{Assembly.GetExecutingAssembly().GetName().Name}.py");
         }
 
         Result IExternalApplication.OnShutdown(UIControlledApplication application) {

@@ -28,23 +28,15 @@ namespace PyRevitLabs.PyRevit.Runtime {
         public IronPythonEngineConfigs ExecEngineConfigs = new IronPythonEngineConfigs();
 
         public static Tuple<Stream, System.Text.Encoding> DefaultOutputStreamConfig {
-            get {
-                return (Tuple<Stream, System.Text.Encoding>)AppDomain.CurrentDomain.GetData(DomainStorageKeys.IronPythonEngineDefaultOutputStreamCfgKey);
-            }
+            get => (Tuple<Stream, System.Text.Encoding>)AppDomain.CurrentDomain.GetData(DomainStorageKeys.IronPythonEngineDefaultOutputStreamCfgKey);
 
-            set {
-                AppDomain.CurrentDomain.SetData(DomainStorageKeys.IronPythonEngineDefaultOutputStreamCfgKey, value);
-            }
+            set => AppDomain.CurrentDomain.SetData(DomainStorageKeys.IronPythonEngineDefaultOutputStreamCfgKey, value);
         }
 
         public static Tuple<Stream, System.Text.Encoding> DefaultInputStreamConfig {
-            get {
-                return (Tuple<Stream, System.Text.Encoding>)AppDomain.CurrentDomain.GetData(DomainStorageKeys.IronPythonEngineDefaultInputStreamCfgKey);
-            }
+            get => (Tuple<Stream, System.Text.Encoding>)AppDomain.CurrentDomain.GetData(DomainStorageKeys.IronPythonEngineDefaultInputStreamCfgKey);
 
-            set {
-                AppDomain.CurrentDomain.SetData(DomainStorageKeys.IronPythonEngineDefaultInputStreamCfgKey, value);
-            }
+            set => AppDomain.CurrentDomain.SetData(DomainStorageKeys.IronPythonEngineDefaultInputStreamCfgKey, value);
         }
 
         public override void Init(ref ScriptRuntime runtime) {
@@ -113,12 +105,12 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
             // Setting up error reporter and compile the script
             // setting module to be the main module so __name__ == __main__ is True
-            var compiler_options = (PythonCompilerOptions)Engine.GetCompilerOptions(scope);
-            compiler_options.ModuleName = "__main__";
-            compiler_options.Module |= IronPython.Runtime.ModuleOptions.Initialize;
+            var compilerOptions = (PythonCompilerOptions)Engine.GetCompilerOptions(scope);
+            compilerOptions.ModuleName = "__main__";
+            compilerOptions.Module |= IronPython.Runtime.ModuleOptions.Initialize;
 
             var errors = new IronPythonErrorReporter();
-            var command = script.Compile(compiler_options, errors);
+            var command = script.Compile(compilerOptions, errors);
 
             // Process compile errors if any
             if (command == null) {
@@ -194,7 +186,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private void SetupBuiltins(ref ScriptRuntime runtime) {
             // BUILTINS -----------------------------------------------------------------------------------------------
             // Get builtin to add custom variables
-            var builtin = IronPython.Hosting.Python.GetBuiltinModule(Engine);
+            var builtin = Engine.GetBuiltinModule();
 
             // Add timestamp and executuin uuid
             builtin.SetVariable("__execid__", runtime.ExecId);
@@ -258,15 +250,18 @@ namespace PyRevitLabs.PyRevit.Runtime {
             // engine.Setup.Options["Arguments"] = arguments;
             // engine.Runtime.Setup.HostArguments = new List<object>(arguments);
             var sysmodule = Engine.GetSysModule();
-            var pythonArgv = PythonOps.MakeEmptyList(2);
+            var pythonArgv = PythonOps.MakeEmptyList();
             // for python make sure the first argument is the script
             pythonArgv.append(runtime.ScriptSourceFile);
-            pythonArgv.extend(runtime.ScriptRuntimeConfigs.Arguments);
+            foreach (var obj in runtime.ScriptRuntimeConfigs.Arguments)
+            {
+                pythonArgv.append(obj);
+            }
             sysmodule.SetVariable("argv", pythonArgv);
         }
 
         private void CleanupBuiltins() {
-            var builtin = IronPython.Hosting.Python.GetBuiltinModule(Engine);
+            var builtin = Engine.GetBuiltinModule();
 
             builtin.SetVariable("__cachedengine__", (object)null);
             builtin.SetVariable("__cachedengineid__", (object)null);
@@ -310,11 +305,9 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         public override void ErrorReported(ScriptSource source, string message,
                                            SourceSpan span, int errorCode, Severity severity) {
-            Errors.Add(string.Format("{0} (line {1})", message, span.Start.Line));
+            Errors.Add($"{message} (line {span.Start.Line})");
         }
 
-        public int Count {
-            get { return Errors.Count; }
-        }
+        public int Count => Errors.Count;
     }
 }

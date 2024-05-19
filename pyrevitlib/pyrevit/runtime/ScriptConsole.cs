@@ -165,10 +165,10 @@ namespace PyRevitLabs.PyRevit.Runtime {
     public partial class ScriptConsole : ScriptConsoleTemplate, IComponentConnector, IDisposable {
         private bool _contentLoaded;
         private bool _debugMode;
-        private bool _frozen = false;
+        private bool _frozen;
         private string _lastLine = string.Empty;
         private DispatcherTimer _animationTimer;
-        private System.Windows.Forms.HtmlElement _lastDocumentBody = null;
+        private System.Windows.Forms.HtmlElement _lastDocumentBody;
         private UIApplication _uiApp;
 
         private List<ScriptConsoleDebugger> _supportedDebuggers = 
@@ -203,14 +203,14 @@ namespace PyRevitLabs.PyRevit.Runtime {
         public string OutputId;
 
         // to track if user manually closed the window
-        public bool ClosedByUser = false;
+        public bool ClosedByUser;
 
         // is window collapsed?
-        private double prevHeight = 0;
-        public bool IsCollapsed = false;
-        public bool IsAutoCollapseActive = false;
+        private double prevHeight;
+        public bool IsCollapsed;
+        public bool IsAutoCollapseActive;
         // is window expanded?
-        public bool IsExpanded = false;
+        public bool IsExpanded;
 
         // Html renderer and its Winforms host, and navigate handler method
         public System.Windows.Forms.Integration.WindowsFormsHost host;
@@ -391,7 +391,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                 cssFilePath
                 );
             // create default html
-            renderer.DocumentText = string.Format("{0}<html><body></body></html>", dochead);
+            renderer.DocumentText = $"{dochead}<html><body></body></html>";
 
             while (ActiveDocument.Body == null)
                 System.Windows.Forms.Application.DoEvents();
@@ -708,7 +708,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
                 SetProgressBarVisibility(true);
 
-                var newWidthStyleProperty = string.Format("width:{0}%;", (curValue / maxValue) * 100);
+                var newWidthStyleProperty = $"width:{(curValue / maxValue) * 100}%;";
                 if (pbargraph.Style == null)
                     pbargraph.Style = newWidthStyleProperty;
                 else
@@ -894,7 +894,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         }
 
         private string SaveContentsToTemp() {
-            string tempHtml = Path.Combine(UserEnv.UserTemp, string.Format("{0}.html", OutputTitle));
+            string tempHtml = Path.Combine(UserEnv.UserTemp, $"{OutputTitle}.html");
             var f = File.CreateText(tempHtml);
             f.Write(GetFullHtml());
             f.Close();
@@ -902,7 +902,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         }
 
         private void OpenButton_Click(object sender, RoutedEventArgs e) {
-            Process.Start(string.Format("file:///{0}", SaveContentsToTemp()));
+            Process.Start($"file:///{SaveContentsToTemp()}");
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e) {

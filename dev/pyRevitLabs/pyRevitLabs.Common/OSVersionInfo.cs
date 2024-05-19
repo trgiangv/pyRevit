@@ -1,15 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Management;
-using System.Security.Principal;
-using System.IO;
-
-using DotNetVersionFinder;
-using System.Security.AccessControl;
 
 namespace pyRevitLabs.Common {
     // https://code.msdn.microsoft.com/windowsapps/How-to-determine-the-263b1850

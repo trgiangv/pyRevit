@@ -2,15 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Text.RegularExpressions;
-using System.Security.Principal;
-using System.Text;
-
 using pyRevitLabs.Common;
 using pyRevitLabs.Common.Extensions;
-
-using MadMilkman.Ini;
-using pyRevitLabs.Json.Linq;
 using pyRevitLabs.NLog;
 
 namespace pyRevitLabs.PyRevit {
@@ -21,7 +14,7 @@ namespace pyRevitLabs.PyRevit {
 
         public override string Message {
             get {
-                return string.Format("Path \"{0}\" is not a valid git pyRevit clone.", Path);
+                return $"Path \"{Path}\" is not a valid git pyRevit clone.";
             }
         }
     }
@@ -52,8 +45,8 @@ namespace pyRevitLabs.PyRevit {
             }
             else
                 throw new PyRevitException(
-                    string.Format("Clone with repo path \"{0}\" already exists.", clone.ClonePath)
-                    );
+                    $"Clone with repo path \"{clone.ClonePath}\" already exists."
+                );
         }
 
         // renames a clone in a configs
@@ -134,7 +127,7 @@ namespace pyRevitLabs.PyRevit {
                 if (clone.Matches(cloneNameOrRepoPath))
                     return clone;
 
-            throw new PyRevitException(string.Format("Can not find clone \"{0}\"", cloneNameOrRepoPath));
+            throw new PyRevitException($"Can not find clone \"{cloneNameOrRepoPath}\"");
         }
 
         public static void CreateImageFromClone(PyRevitClone clone, IEnumerable<string> paths, string destPath) {
@@ -205,7 +198,7 @@ namespace pyRevitLabs.PyRevit {
                 destPath = Path.Combine(destPath, cloneName);
                 logger.Debug("Using subpath {0}", destPath);
                 if (CommonUtils.VerifyPath(destPath))
-                    throw new PyRevitException(string.Format("Destination path already exists \"{0}\"", destPath));
+                    throw new PyRevitException($"Destination path already exists \"{destPath}\"");
             }
 
             // start the clone process
@@ -243,8 +236,7 @@ namespace pyRevitLabs.PyRevit {
                 }
             }
             else
-                throw new PyRevitException(string.Format("Error installing pyRevit. Null repo error on \"{0}\"",
-                                                         repoUrl));
+                throw new PyRevitException($"Error installing pyRevit. Null repo error on \"{repoUrl}\"");
         }
 
         public static void DeployFromImage(string cloneName,
@@ -273,7 +265,7 @@ namespace pyRevitLabs.PyRevit {
                 destPath = Path.Combine(destPath, cloneName);
                 logger.Debug("Using subpath {0}", destPath);
                 if (CommonUtils.VerifyPath(destPath))
-                    throw new PyRevitException(string.Format("Destination path already exists \"{0}\"", destPath));
+                    throw new PyRevitException($"Destination path already exists \"{destPath}\"");
             }
 
             logger.Debug("Destination path determined as \"{0}\"", destPath);
@@ -291,8 +283,8 @@ namespace pyRevitLabs.PyRevit {
                 }
                 catch (Exception ex) {
                     throw new PyRevitException(
-                        string.Format("Error downloading repo image file \"{0}\" | {1}", imageSource, ex.Message)
-                        );
+                        $"Error downloading repo image file \"{imageSource}\" | {ex.Message}"
+                    );
                 }
             }
             // otherwise check if the source is a file and exists
@@ -301,7 +293,7 @@ namespace pyRevitLabs.PyRevit {
             }
             // otherwise the source format is unknown
             else {
-                throw new PyRevitException(string.Format("Unknown source \"{0}\"", imageSource));
+                throw new PyRevitException($"Unknown source \"{imageSource}\"");
             }
 
             // now extract the file
@@ -326,8 +318,8 @@ namespace pyRevitLabs.PyRevit {
                 }
                 catch (Exception ex) {
                     throw new PyRevitException(
-                        string.Format("Error unpacking \"{0}\" | {1}", imageFilePath, ex.Message)
-                        );
+                        $"Error unpacking \"{imageFilePath}\" | {ex.Message}"
+                    );
                 }
 
                 // make a pyrevit clone and handle deployment
@@ -362,8 +354,8 @@ namespace pyRevitLabs.PyRevit {
                         RecordDeploymentArgs(cloneName, deploymentName, branchName, imageSource, destPath);
                     }
                     catch (Exception ex) {
-                        logger.Debug(string.Format("Exception occured after clone from image complete. " +
-                                                   "Deleting clone \"{0}\" | {1}", destPath, ex.Message));
+                        logger.Debug("Exception occured after clone from image complete. " +
+                                     $"Deleting clone \"{destPath}\" | {ex.Message}");
                         try {
                             CommonUtils.DeleteDirectory(destPath);
                         }
@@ -387,8 +379,8 @@ namespace pyRevitLabs.PyRevit {
             }
             else
                 throw new PyRevitException(
-                    string.Format("Unknown error occured getting package from \"{0}\"", imageSource)
-                    );
+                    $"Unknown error occured getting package from \"{imageSource}\""
+                );
         }
 
         // test clone validity and register
@@ -534,7 +526,7 @@ namespace pyRevitLabs.PyRevit {
             if (clone.IsRepoDeploy) {
                 var res = GitInstaller.ForcedUpdate(clone.ClonePath, credentials);
                 if (res <= UpdateStatus.Conflicts)
-                    throw new PyRevitException(string.Format("Error updating clone \"{0}\"", clone.Name));
+                    throw new PyRevitException($"Error updating clone \"{clone.Name}\"");
             }
             else {
                 // re-deploying is how the no-git clones get updated

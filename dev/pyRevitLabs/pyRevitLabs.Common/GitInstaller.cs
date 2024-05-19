@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LibGit2Sharp;
 using pyRevitLabs.NLog;
 
@@ -17,7 +13,7 @@ namespace pyRevitLabs.Common {
 
         public override string Message {
             get {
-                return String.Format("Path \"{0}\" is not a valid git clone.", Path);
+                return $"Path \"{Path}\" is not a valid git clone.";
             }
         }
     }
@@ -108,8 +104,8 @@ namespace pyRevitLabs.Common {
                 // get local branch, or make one (and fetch from remote) if doesn't exist
                 Branch targetBranch = repo.Branches[branchName];
                 if (targetBranch is null) {
-                    logger.Debug(string.Format("Branch \"{0}\" does not exist in local clone. " +
-                                               "Attemping to checkout from remotes...", branchName));
+                    logger.Debug($"Branch \"{branchName}\" does not exist in local clone. " +
+                                 "Attemping to checkout from remotes...");
                     // lookup remotes for the branch otherwise
                     foreach (Remote remote in repo.Network.Remotes) {
                         string remoteBranchPath = remote.Name + "/" + branchName;
@@ -204,7 +200,7 @@ namespace pyRevitLabs.Common {
 
             // if it gets here with no errors, it means commit could not be found
             // I'm avoiding throwing an exception inside my own try:catch
-            throw new PyRevitException(String.Format("Can not find commit with hash \"{0}\"", commitHash));
+            throw new PyRevitException($"Can not find commit with hash \"{commitHash}\"");
         }
 
         // rebase current branch to a specific tag
@@ -230,7 +226,7 @@ namespace pyRevitLabs.Common {
 
             // if it gets here with no errors, it means commit could not be found
             // I'm avoiding throwing an exception inside my own try:catch
-            throw new PyRevitException(String.Format("Can not find commit targetted by tag \"{0}\"", tagName));
+            throw new PyRevitException($"Can not find commit targetted by tag \"{tagName}\"");
         }
 
         // change origin url to the provided url

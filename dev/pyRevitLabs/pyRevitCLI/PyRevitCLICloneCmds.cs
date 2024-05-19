@@ -1,23 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Diagnostics;
-
 using pyRevitLabs.Common;
-using pyRevitLabs.CommonCLI;
-using pyRevitLabs.Common.Extensions;
 using pyRevitLabs.TargetApps.Revit;
 using pyRevitLabs.PyRevit;
-using pyRevitLabs.Language.Properties;
-
 using pyRevitLabs.NLog;
-using pyRevitLabs.Json;
-using pyRevitLabs.Json.Serialization;
-
 using Console = Colorful.Console;
 
 namespace pyRevitCLI {
@@ -213,9 +200,9 @@ namespace pyRevitCLI {
         PrintCloneDeployments(string cloneName) {
             if (cloneName != null) {
                 var clone = PyRevitClones.GetRegisteredClone(cloneName);
-                PyRevitCLIAppCmds.PrintHeader(string.Format("Deployments for \"{0}\"", clone.Name));
+                PyRevitCLIAppCmds.PrintHeader($"Deployments for \"{clone.Name}\"");
                 foreach (var dep in clone.GetConfiguredDeployments()) {
-                    Console.WriteLine(string.Format("\"{0}\" deploys:", dep.Name));
+                    Console.WriteLine($"\"{dep.Name}\" deploys:");
                     foreach (var path in dep.Paths)
                         Console.WriteLine("    " + path);
                     Console.WriteLine();
@@ -227,7 +214,7 @@ namespace pyRevitCLI {
         PrintCloneEngines(string cloneName) {
             if (cloneName != null) {
                 var clone = PyRevitClones.GetRegisteredClone(cloneName);
-                PyRevitCLIAppCmds.PrintHeader(string.Format("Deployments for \"{0}\"", clone.Name));
+                PyRevitCLIAppCmds.PrintHeader($"Deployments for \"{clone.Name}\"");
                 foreach (var engine in clone.GetConfiguredEngines()) {
                     Console.WriteLine(engine);
                 }
@@ -307,7 +294,7 @@ namespace pyRevitCLI {
                 if (int.TryParse(revitYear, out revitYearNumber))
                     PyRevitAttachments.Detach(revitYearNumber, currentAndAllUsers: true);
                 else
-                    throw new PyRevitException(string.Format("Invalid Revit year \"{0}\"", revitYear));
+                    throw new PyRevitException($"Invalid Revit year \"{revitYear}\"");
             }
             else if (all)
                 PyRevitAttachments.DetachAll(currentAndAllUsers);
@@ -320,7 +307,7 @@ namespace pyRevitCLI {
                 if (int.TryParse(revitYear, out revitYearNumber))
                     PrintAttachments(revitYear: revitYearNumber);
                 else
-                    throw new PyRevitException(string.Format("Invalid Revit year \"{0}\"", revitYear));
+                    throw new PyRevitException($"Invalid Revit year \"{revitYear}\"");
             }
             else
                 PrintAttachments();
@@ -342,18 +329,16 @@ namespace pyRevitCLI {
                         }
                         else
                             throw new PyRevitException(
-                                string.Format("Can not determine attachment engine for Revit \"{0}\"",
-                                              revitYear)
-                                );
+                                $"Can not determine attachment engine for Revit \"{revitYear}\""
+                            );
                     }
                     else
                         throw new PyRevitException(
-                            string.Format("Can not determine existing attachment for Revit \"{0}\"",
-                                          revitYear)
-                            );
+                            $"Can not determine existing attachment for Revit \"{revitYear}\""
+                        );
                 }
                 else
-                    throw new PyRevitException(string.Format("Invalid Revit year \"{0}\"", revitYear));
+                    throw new PyRevitException($"Invalid Revit year \"{revitYear}\"");
             }
             else {
                 // read current attachments and reattach using the same config with the new clone
@@ -381,8 +366,8 @@ namespace pyRevitCLI {
                 var destPath = Path.GetDirectoryName(imageFilePath);
                 if (!CommonUtils.VerifyPath(destPath))
                     throw new PyRevitException(
-                        string.Format("Destination path does not exist: \"{0}\"", destPath)
-                        );
+                        $"Destination path does not exist: \"{destPath}\""
+                    );
 
                 PyRevitClones.CreateImageFromClone(PyRevitClones.GetRegisteredClone(cloneName), paths, imageFilePath);
             }

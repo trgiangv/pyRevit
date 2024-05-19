@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pyRevitLabs.DeffrelDB {
     internal static class DataFunctions {
@@ -18,8 +16,8 @@ namespace pyRevitLabs.DeffrelDB {
             // check if existing data store is defined and matches the provided type
             if (exstDStoreType != null && !exstDStoreType.Equals(dstore.DataStoreType))
                 throw new Exception(
-                    string.Format("Datastore type does not match existing \"{0}\"", exstDStoreType)
-                    );
+                    $"Datastore type does not match existing \"{exstDStoreType}\""
+                );
 
             // if no existing dstore type is found, create based on input dstore type
             if (exstDStoreType is null) {
@@ -57,7 +55,7 @@ namespace pyRevitLabs.DeffrelDB {
             var exstDBDef =
                 dstore.DataFormatter.ReadDBDefinition(dstoreEntries, dstore.DataStoreType, dbName);
             if (exstDBDef != null)
-                throw new Exception(string.Format("Database already exists \"{0}\"", dbName));
+                throw new Exception($"Database already exists \"{dbName}\"");
 
             // build db entries
             var ecReq = dstore.DataFormatter.BuildDBEntry(
@@ -80,7 +78,7 @@ namespace pyRevitLabs.DeffrelDB {
                 dstore.DataLines.Select(x => x.Contents).ToList(), dstore.DataStoreType, dbName
                 );
             if (dbDef is null)
-                throw new Exception(string.Format("Database \"{0}\" does not exist.", dbName));
+                throw new Exception($"Database \"{dbName}\" does not exist.");
             return dbDef;
         }
 
@@ -168,8 +166,8 @@ namespace pyRevitLabs.DeffrelDB {
             else {
                 // if new record does not have key throw exception
                 throw new Exception(
-                    string.Format("Record must provide a value for the key defined for table \"{0}\".", tableName)
-                    );
+                    $"Record must provide a value for the key defined for table \"{tableName}\"."
+                );
             }
 
             // TODO: verify relationships to other records if any
@@ -209,7 +207,7 @@ namespace pyRevitLabs.DeffrelDB {
                 recordKey);
 
             if (recordDef is null)
-                throw new Exception(string.Format("Record does not exist in table \"{0}\".", tableName));
+                throw new Exception($"Record does not exist in table \"{tableName}\".");
 
             return recordDef;
         }
@@ -228,9 +226,8 @@ namespace pyRevitLabs.DeffrelDB {
             if (targetRecordKey != null) {
                 if (dstore.DataFormatter.ReadRecordData(dstoreEntries, dstore.DataStoreType, exstDbDef, exstTableDef, targetRecordKey) != null)
                     throw new Exception(
-                        string.Format("Record with primary key already exists in the table (\"{0}\")",
-                                      targetRecordKey)
-                        );
+                        $"Record with primary key already exists in the table (\"{targetRecordKey}\")"
+                    );
             }
 
             // update the existing record data with new field values

@@ -87,7 +87,7 @@ namespace pyRevitLabs.TargetApps.Revit {
                     );
             }
             else
-                throw new PyRevitException(string.Format("Target is not a valid Revit model \"{0}\"", filePath));
+                throw new PyRevitException($"Target is not a valid Revit model \"{filePath}\"");
 
             // extract ProjectInformation (Revit Project Files)
             // ProjectInformation is a PK Zip stream
@@ -132,7 +132,7 @@ namespace pyRevitLabs.TargetApps.Revit {
         }
 
         private Regex buildFieldRegex(string fieldName, string captureId) {
-            return new Regex(string.Format(@"{0}(?<{1}>.*$)", fieldName, captureId));
+            return new Regex($@"{fieldName}(?<{captureId}>.*$)");
         }
 
         private void ProcessBasicFileInfo(IEnumerable<string> basicInfoDataLines) {

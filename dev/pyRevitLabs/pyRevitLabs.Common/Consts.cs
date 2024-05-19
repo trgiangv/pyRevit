@@ -1,9 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pyRevitLabs.Common {
     public class PyRevitLabsConsts {
@@ -36,8 +32,8 @@ namespace pyRevitLabs.Common {
 
         // consts for the official pyRevit repo
         public const string OriginalRepoName = ProductName;
-        public static string OriginalRepoId = string.Format(@"pyrevitlabs/{0}", ProductName);
-        public static string OriginalRepoBasePath = string.Format(@"https://github.com/{0}", OriginalRepoId);
+        public static string OriginalRepoId = $@"pyrevitlabs/{ProductName}";
+        public static string OriginalRepoBasePath = $@"https://github.com/{OriginalRepoId}";
         public static string OriginalRepoGitPath = OriginalRepoBasePath + DefaultGitDirName;
 
         // consts for recording pyrevit.exe config in the pyRevit configuration file

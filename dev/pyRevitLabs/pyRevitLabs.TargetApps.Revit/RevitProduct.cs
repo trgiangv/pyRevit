@@ -129,7 +129,7 @@ namespace pyRevitLabs.TargetApps.Revit {
             var fileInfo = FileVersionInfo.GetVersionInfo(binaryPath);
             return new HostProductInfo {
                 // attempt at creating a nice name, based on version
-                release = string.Format("{0} 20{1}", fileInfo.ProductName, fileInfo.FileVersion.Substring(0, 2)),
+                release = $"{fileInfo.ProductName} 20{fileInfo.FileVersion.Substring(0, 2)}",
                 version = fileInfo.FileVersion,
                 build = ExtractBuildNumberFromString(fileInfo.ProductVersion),
                 target = ExtractBuildTargetFromString(fileInfo.ProductVersion)
@@ -156,7 +156,8 @@ namespace pyRevitLabs.TargetApps.Revit {
         }
 
         public override string ToString() {
-            return string.Format("{0} | Version: {1} | Build: {2}({3}) | Language: {4} | Path: \"{5}\"", Name, Version, BuildNumber, BuildTarget, LanguageCode, InstallLocation);
+            return
+                $"{Name} | Version: {Version} | Build: {BuildNumber}({BuildTarget}) | Language: {LanguageCode} | Path: \"{InstallLocation}\"";
         }
 
         public override int GetHashCode() {
@@ -187,7 +188,7 @@ namespace pyRevitLabs.TargetApps.Revit {
                 if (_registeredInstallPath is null || _registeredInstallPath == string.Empty) {
                     string revitInstallDirName = string.Empty;
                     if (ProductYear != 0)
-                        revitInstallDirName = string.Format("Revit {0}", ProductYear);
+                        revitInstallDirName = $"Revit {ProductYear}";
 
                     if (revitInstallDirName != string.Empty) {
                         var expectedPath = Path.Combine(DefaultInstallLocation, "Autodesk", revitInstallDirName);

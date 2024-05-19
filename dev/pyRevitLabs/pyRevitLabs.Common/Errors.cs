@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pyRevitLabs.Common {
     // ERROR CODES ===================================================================================================
@@ -60,7 +56,7 @@ namespace pyRevitLabs.Common {
 
         public override string Message {
             get {
-                return String.Format("\"{0}\" does not exist.", Path);
+                return $"\"{Path}\" does not exist.";
             }
         }
     }
@@ -83,7 +79,7 @@ namespace pyRevitLabs.Common {
 
         public override string Message {
             get {
-                return string.Format("Invalid URL {0}", URL);
+                return $"Invalid URL {URL}";
             }
         }
 

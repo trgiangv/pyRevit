@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-
-using pyRevitLabs.Common;
 using pyRevitLabs.Common.Extensions;
 
 using pyRevitLabs.NLog;
@@ -144,6 +141,7 @@ namespace pyRevitLabs.Common {
                 );
         }
 
-        public static string GetRawUrl(string repoId, string branchName, string filePath) => string.Format(@"https://raw.githubusercontent.com/{0}/{1}/{2}", repoId, branchName, filePath);
+        public static string GetRawUrl(string repoId, string branchName, string filePath) =>
+            $@"https://raw.githubusercontent.com/{repoId}/{branchName}/{filePath}";
     }
 }

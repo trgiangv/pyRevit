@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -117,7 +116,7 @@ namespace pyRevitLabs.CommonWPF.Controls {
             _taskCounter--;
             RefreshProgressState();
 
-            ConsoleLog(String.Format("✓ {0} Task Completed.", taskName));
+            ConsoleLog($"✓ {taskName} Task Completed.");
             return task;
         }
 
@@ -131,7 +130,7 @@ namespace pyRevitLabs.CommonWPF.Controls {
             _taskCounter--;
             RefreshProgressState();
 
-            ConsoleLog(String.Format("✓ {0} Task Completed.", taskName));
+            ConsoleLog($"✓ {taskName} Task Completed.");
         }
 
         private void actionBar_Click(object sender, MouseButtonEventArgs e) {

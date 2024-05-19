@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
@@ -13,9 +12,10 @@ namespace pyRevitLabs.PyRevit {
         // repo info
         public const string DefaultCloneInstallName = PyRevitLabsConsts.ProductName;
         public const string DefaultCloneRemoteName = PyRevitLabsConsts.DefaultRemoteName;
-        public static string DefaultCopyInstallName = string.Format("{0}Copy", PyRevitLabsConsts.ProductName);
+        public static string DefaultCopyInstallName = $"{PyRevitLabsConsts.ProductName}Copy";
 
-        public static string ExtensionsDefinitionFileUri = string.Format(@"https://github.com/pyrevitlabs/pyRevit/raw/{0}/extensions/{1}", PyRevitLabsConsts.TragetBranch, ExtensionsDefFileName);
+        public static string ExtensionsDefinitionFileUri =
+            $@"https://github.com/pyrevitlabs/pyRevit/raw/{PyRevitLabsConsts.TragetBranch}/extensions/{ExtensionsDefFileName}";
 
         // cli
         public const string CLIHelpUrl = @"https://github.com/pyrevitlabs/pyRevit/blob/cli-v{0}/docs/cli.md";

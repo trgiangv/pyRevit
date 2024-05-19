@@ -543,8 +543,7 @@ namespace pyRevitLabs.DeffrelDB {
                 }
                 catch (Exception initEx) {
                     throw new Exception(
-                        string.Format("Exception occured when trying to initialize connection. | {0}",
-                                      initEx.Message));
+                        $"Exception occured when trying to initialize connection. | {initEx.Message}");
                 }
             }
         }
@@ -609,8 +608,7 @@ namespace pyRevitLabs.DeffrelDB {
                     }
                     catch (Exception commitEx) {
                         throw new Exception(
-                            string.Format("Exception occured while trying to commit changes. | {0}",
-                                          commitEx.Message));
+                            $"Exception occured while trying to commit changes. | {commitEx.Message}");
                     }
                     finally {
                         // drop all new locks created by this connection
@@ -671,8 +669,8 @@ namespace pyRevitLabs.DeffrelDB {
             catch (Exception ex) {
                 // throw an exception if the lock table is not configured
                 throw new Exception(
-                    string.Format("Transaction database has not been configured. | {0}", ex.Message)
-                    );
+                    $"Transaction database has not been configured. | {ex.Message}"
+                );
             }
 
             return lockList;
@@ -717,8 +715,8 @@ namespace pyRevitLabs.DeffrelDB {
                     catch (Exception lockEx) {
                         // finally statement closes the dstore and release the exclusivity if throwing an exception
                         throw new Exception(
-                            string.Format("Error creating lock: {0} | {1}", newLock, lockEx.Message)
-                            );
+                            $"Error creating lock: {newLock} | {lockEx.Message}"
+                        );
                     }
                     finally {
                         try {
@@ -728,8 +726,8 @@ namespace pyRevitLabs.DeffrelDB {
                         catch (Exception commitEx) {
                             // finally statement closes the dstore and release the exclusivity if throwing an exception
                             throw new Exception(
-                                string.Format("Exception occured when commiting new locks. | {0}", commitEx.Message)
-                                );
+                                $"Exception occured when commiting new locks. | {commitEx.Message}"
+                            );
                         }
                     }
                 }
@@ -757,8 +755,8 @@ namespace pyRevitLabs.DeffrelDB {
                 catch (Exception dropEx) {
                     // finally statement closes the dstore and release the exclusivity if throwing an exception
                     throw new Exception(
-                        string.Format("Exception occured when dropping lock records. | {0}", dropEx.Message)
-                        );
+                        $"Exception occured when dropping lock records. | {dropEx.Message}"
+                    );
                 }
                 finally {
                     try {
@@ -768,8 +766,8 @@ namespace pyRevitLabs.DeffrelDB {
                     catch (Exception commitEx) {
                         // finally statement closes the dstore and release the exclusivity if throwing an exception
                         throw new Exception(
-                            string.Format("Exception occured when commiting released locks. | {0}", commitEx.Message)
-                            );
+                            $"Exception occured when commiting released locks. | {commitEx.Message}"
+                        );
                     }
                 }
             }

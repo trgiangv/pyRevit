@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Security.Principal;
-using System.Security.AccessControl;
-
 using pyRevitLabs.Common;
 using pyRevitLabs.NLog;
 
@@ -23,7 +21,7 @@ namespace pyRevitLabs.PyRevit
         {
             get
             {
-                return String.Format("Config value not set \"{0}:{1}\"", ConfigSection, ConfigKey);
+                return $"Config value not set \"{ConfigSection}:{ConfigKey}\"";
             }
         }
     }
@@ -72,7 +70,8 @@ namespace pyRevitLabs.PyRevit
                 }
                 catch (Exception ex)
                 {
-                    throw new PyRevitException(string.Format("Failed deleting config file \"{0}\" | {1}", PyRevitConsts.ConfigFilePath, ex.Message));
+                    throw new PyRevitException(
+                        $"Failed deleting config file \"{PyRevitConsts.ConfigFilePath}\" | {ex.Message}");
                 }
         }
 
@@ -100,11 +99,9 @@ namespace pyRevitLabs.PyRevit
                         catch (InvalidOperationException ex)
                         {
                             logger.Error(
-                                string.Format(
-                                    "You cannot assign ownership to user \"{0}\"." +
-                                    "Either you don't have TakeOwnership permissions, " +
-                                    "or it is not your user account. | {1}", currentUser.Name, ex.Message
-                                    )
+                                $"You cannot assign ownership to user \"{currentUser.Name}\"." +
+                                "Either you don't have TakeOwnership permissions, " +
+                                $"or it is not your user account. | {ex.Message}"
                             );
                         }
                     }
@@ -112,7 +109,7 @@ namespace pyRevitLabs.PyRevit
             }
             catch (Exception ex)
             {
-                throw new PyRevitException(string.Format("Failed seeding config file. | {0}", ex.Message));
+                throw new PyRevitException($"Failed seeding config file. | {ex.Message}");
             }
         }
 
@@ -310,7 +307,7 @@ namespace pyRevitLabs.PyRevit
         public static void EnableAppTelemetry(string apptelemetryServerUrl = null)
         {
             var cfg = GetConfigFile();
-            logger.Debug(string.Format("Enabling app telemetry... server: {0}", apptelemetryServerUrl));
+            logger.Debug($"Enabling app telemetry... server: {apptelemetryServerUrl}");
             SetAppTelemetryStatus(true);
 
             if (apptelemetryServerUrl != null)

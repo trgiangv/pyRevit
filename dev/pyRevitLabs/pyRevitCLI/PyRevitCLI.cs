@@ -12,7 +12,6 @@ using pyRevitLabs.NLog.Config;
 using pyRevitLabs.NLog.Targets;
 
 using pyRevitLabs.PyRevit;
-using pyRevitLabs.TargetApps.Revit;
 using pyRevitCLI.Properties;
 
 using Console = Colorful.Console;
@@ -612,32 +611,30 @@ namespace pyRevitCLI {
                     if (any("enable", "disable"))
                         PyRevitConfigs.SetBinaryCaches(arguments["enable"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("Binary cache is {0}",
-                                                        PyRevitConfigs.GetBinaryCaches() ? "Enabled" : "Disabled"));
+                        Console.WriteLine(
+                            $"Binary cache is {(PyRevitConfigs.GetBinaryCaches() ? "Enabled" : "Disabled")}");
                 }
 
                 else if (all("checkupdates")) {
                     if (any("enable", "disable"))
                         PyRevitConfigs.SetCheckUpdates(arguments["enable"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("Check Updates is {0}",
-                                                        PyRevitConfigs.GetCheckUpdates() ? "Enabled" : "Disabled"));
+                        Console.WriteLine(
+                            $"Check Updates is {(PyRevitConfigs.GetCheckUpdates() ? "Enabled" : "Disabled")}");
                 }
 
                 else if (all("autoupdate")) {
                     if (any("enable", "disable"))
                         PyRevitConfigs.SetAutoUpdate(arguments["enable"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("Auto Update is {0}",
-                                                        PyRevitConfigs.GetAutoUpdate() ? "Enabled" : "Disabled"));
+                        Console.WriteLine($"Auto Update is {(PyRevitConfigs.GetAutoUpdate() ? "Enabled" : "Disabled")}");
                 }
 
                 else if (all("rocketmode")) {
                     if (any("enable", "disable"))
                         PyRevitConfigs.SetRocketMode(arguments["enable"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("Rocket Mode is {0}",
-                                                        PyRevitConfigs.GetRocketMode() ? "Enabled" : "Disabled"));
+                        Console.WriteLine($"Rocket Mode is {(PyRevitConfigs.GetRocketMode() ? "Enabled" : "Disabled")}");
                 }
 
                 else if (all("logs")) {
@@ -651,21 +648,20 @@ namespace pyRevitCLI {
                         PyRevitConfigs.SetLoggingLevel(PyRevitLogLevels.Debug);
 
                     else
-                        Console.WriteLine(string.Format("Logging Level is {0}", PyRevitConfigs.GetLoggingLevel().ToString()));
+                        Console.WriteLine($"Logging Level is {PyRevitConfigs.GetLoggingLevel().ToString()}");
                 }
 
                 else if (all("filelogging")) {
                     if (any("enable", "disable"))
                         PyRevitConfigs.SetFileLogging(arguments["enable"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("File Logging is {0}",
-                                                        PyRevitConfigs.GetFileLogging() ? "Enabled" : "Disabled"));
+                        Console.WriteLine(
+                            $"File Logging is {(PyRevitConfigs.GetFileLogging() ? "Enabled" : "Disabled")}");
                 }
 
                 else if (all("startuptimeout")) {
                     if (arguments["<timeout>"] is null)
-                        Console.WriteLine(string.Format("Startup log timeout is set to: {0}",
-                                                        PyRevitConfigs.GetStartupLogTimeout()));
+                        Console.WriteLine($"Startup log timeout is set to: {PyRevitConfigs.GetStartupLogTimeout()}");
                     else
                         PyRevitConfigs.SetStartupLogTimeout(int.Parse(TryGetValue("<timeout>")));
                 }
@@ -674,14 +670,13 @@ namespace pyRevitCLI {
                     if (any("enable", "disable"))
                         PyRevitConfigs.SetLoadBetaTools(arguments["enable"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("Load Beta is {0}",
-                                                        PyRevitConfigs.GetLoadBetaTools() ? "Enabled" : "Disabled"));
+                        Console.WriteLine(
+                            $"Load Beta is {(PyRevitConfigs.GetLoadBetaTools() ? "Enabled" : "Disabled")}");
                 }
 
                 else if (all("cpyversion")) {
                     if (arguments["<cpy_version>"] is null)
-                        Console.WriteLine(string.Format("CPython version is set to: {0}",
-                                                        PyRevitConfigs.GetCpythonEngineVersion()));
+                        Console.WriteLine($"CPython version is set to: {PyRevitConfigs.GetCpythonEngineVersion()}");
                     else
                         PyRevitConfigs.SetCpythonEngineVersion(int.Parse(TryGetValue("<cpy_version>")));
                 }
@@ -690,24 +685,21 @@ namespace pyRevitCLI {
                     if (any("yes", "no"))
                         PyRevitConfigs.SetUserCanUpdate(arguments["yes"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("User {0} update",
-                                                        PyRevitConfigs.GetUserCanUpdate() ? "CAN" : "CAN NOT"));
+                        Console.WriteLine($"User {(PyRevitConfigs.GetUserCanUpdate() ? "CAN" : "CAN NOT")} update");
                 }
 
                 else if (all("usercanextend")) {
                     if (any("yes", "no"))
                         PyRevitConfigs.SetUserCanExtend(arguments["yes"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("User {0} extend",
-                                                        PyRevitConfigs.GetUserCanExtend() ? "CAN" : "CAN NOT"));
+                        Console.WriteLine($"User {(PyRevitConfigs.GetUserCanExtend() ? "CAN" : "CAN NOT")} extend");
                 }
 
                 else if (all("usercanconfig")) {
                     if (any("yes", "no"))
                         PyRevitConfigs.SetUserCanConfig(arguments["yes"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("User {0} config",
-                                                        PyRevitConfigs.GetUserCanConfig() ? "CAN" : "CAN NOT"));
+                        Console.WriteLine($"User {(PyRevitConfigs.GetUserCanConfig() ? "CAN" : "CAN NOT")} config");
 
                 }
 
@@ -715,23 +707,23 @@ namespace pyRevitCLI {
                     if (any("enable", "disable"))
                         PyRevitConfigs.SetColorizeDocs(arguments["enable"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("Doc Colorizer is {0}",
-                                                        PyRevitConfigs.GetColorizeDocs() ? "Enabled" : "Disabled"));
+                        Console.WriteLine(
+                            $"Doc Colorizer is {(PyRevitConfigs.GetColorizeDocs() ? "Enabled" : "Disabled")}");
                 }
 
                 else if (all("tooltipdebuginfo")) {
                     if (any("enable", "disable"))
                         PyRevitConfigs.SetAppendTooltipEx(arguments["enable"].IsTrue);
                     else
-                        Console.WriteLine(string.Format("Doc Colorizer is {0}",
-                                                        PyRevitConfigs.GetAppendTooltipEx() ? "Enabled" : "Disabled"));
+                        Console.WriteLine(
+                            $"Doc Colorizer is {(PyRevitConfigs.GetAppendTooltipEx() ? "Enabled" : "Disabled")}");
                 }
 
                 else if (all("routes")) {
                     if (all("port")) {
                         var portNumber = TryGetValue("<port_number>");
                         if (portNumber is null) {
-                            Console.WriteLine(string.Format("Routes Port: {0}", PyRevitConfigs.GetRoutesServerPort()));
+                            Console.WriteLine($"Routes Port: {PyRevitConfigs.GetRoutesServerPort()}");
                         }
                         else
                             PyRevitConfigs.SetRoutesServerPort(int.Parse(portNumber));
@@ -743,8 +735,8 @@ namespace pyRevitCLI {
                         else if (all("disable"))
                             PyRevitConfigs.SetRoutesLoadCoreAPIStatus(false);
                         else
-                            Console.WriteLine(string.Format("Routes Core API is {0}",
-                                                            PyRevitConfigs.GetRoutesLoadCoreAPIStatus() ? "Enabled" : "Disabled"));
+                            Console.WriteLine(
+                                $"Routes Core API is {(PyRevitConfigs.GetRoutesLoadCoreAPIStatus() ? "Enabled" : "Disabled")}");
                     }
 
                     else if (all("enable"))
@@ -754,8 +746,8 @@ namespace pyRevitCLI {
                         PyRevitConfigs.DisableRoutesServer();
 
                     else {
-                        Console.WriteLine(string.Format("Routes Server is {0}",
-                                                        PyRevitConfigs.GetRoutesServerStatus() ? "Enabled" : "Disabled"));
+                        Console.WriteLine(
+                            $"Routes Server is {(PyRevitConfigs.GetRoutesServerStatus() ? "Enabled" : "Disabled")}");
                     }
                 }
 
@@ -770,7 +762,7 @@ namespace pyRevitCLI {
                     else if (all("file")) {
                         var destPath = TryGetValue("<dest_path>");
                         if (destPath is null)
-                            Console.WriteLine(string.Format("Telemetry File Path: {0}", PyRevitConfigs.GetAppTelemetryFlags()));
+                            Console.WriteLine($"Telemetry File Path: {PyRevitConfigs.GetAppTelemetryFlags()}");
                         else
                             PyRevitConfigs.EnableTelemetry(telemetryFileDir: destPath);
                     }
@@ -778,7 +770,7 @@ namespace pyRevitCLI {
                     else if (all("server")) {
                         var serverUrl = TryGetValue("<dest_path>");
                         if (serverUrl is null)
-                            Console.WriteLine(string.Format("Telemetry Server Url: {0}", PyRevitConfigs.GetAppTelemetryFlags()));
+                            Console.WriteLine($"Telemetry Server Url: {PyRevitConfigs.GetAppTelemetryFlags()}");
                         else
                             PyRevitConfigs.EnableTelemetry(telemetryServerUrl: serverUrl);
 
@@ -798,10 +790,10 @@ namespace pyRevitCLI {
                         PyRevitConfigs.DisableTelemetry();
 
                     else {
-                        Console.WriteLine(string.Format("Telemetry is {0}",
-                                                        PyRevitConfigs.GetTelemetryStatus() ? "Enabled" : "Disabled"));
-                        Console.WriteLine(string.Format("File Path: {0}", PyRevitConfigs.GetTelemetryFilePath()));
-                        Console.WriteLine(string.Format("Server Url: {0}", PyRevitConfigs.GetTelemetryServerUrl()));
+                        Console.WriteLine(
+                            $"Telemetry is {(PyRevitConfigs.GetTelemetryStatus() ? "Enabled" : "Disabled")}");
+                        Console.WriteLine($"File Path: {PyRevitConfigs.GetTelemetryFilePath()}");
+                        Console.WriteLine($"Server Url: {PyRevitConfigs.GetTelemetryServerUrl()}");
                     }
                 }
 
@@ -809,7 +801,7 @@ namespace pyRevitCLI {
                     if (all("flags")) {
                         var flagsValue = TryGetValue("<flags>");
                         if (flagsValue is null)
-                            Console.WriteLine(string.Format("App Telemetry Flags: {0}", PyRevitConfigs.GetAppTelemetryFlags()));
+                            Console.WriteLine($"App Telemetry Flags: {PyRevitConfigs.GetAppTelemetryFlags()}");
                         else
                             PyRevitConfigs.SetAppTelemetryFlags(flags: flagsValue);
                     }
@@ -817,7 +809,7 @@ namespace pyRevitCLI {
                     else if (all("server")) {
                         var serverPath = TryGetValue("<server_path>");
                         if (serverPath is null)
-                            Console.WriteLine(string.Format("App Telemetry Server: {0}", PyRevitConfigs.GetAppTelemetryServerUrl()));
+                            Console.WriteLine($"App Telemetry Server: {PyRevitConfigs.GetAppTelemetryServerUrl()}");
                         else
                             PyRevitConfigs.EnableAppTelemetry(apptelemetryServerUrl: serverPath);
 
@@ -830,18 +822,16 @@ namespace pyRevitCLI {
                         PyRevitConfigs.DisableAppTelemetry();
 
                     else {
-                        Console.WriteLine(string.Format("App Telemetry is {0}",
-                                                        PyRevitConfigs.GetAppTelemetryStatus() ? "Enabled" : "Disabled"));
-                        Console.WriteLine(string.Format("Server Url: {0}", PyRevitConfigs.GetAppTelemetryServerUrl()));
-                        Console.WriteLine(string.Format("App Telemetry flag is {0}",
-                                                        PyRevitConfigs.GetAppTelemetryFlags()));
+                        Console.WriteLine(
+                            $"App Telemetry is {(PyRevitConfigs.GetAppTelemetryStatus() ? "Enabled" : "Disabled")}");
+                        Console.WriteLine($"Server Url: {PyRevitConfigs.GetAppTelemetryServerUrl()}");
+                        Console.WriteLine($"App Telemetry flag is {PyRevitConfigs.GetAppTelemetryFlags()}");
                     }
                 }
 
                 else if (all("outputcss")) {
                     if (arguments["<css_path>"] is null)
-                        Console.WriteLine(string.Format("Output Style Sheet is set to: {0}",
-                                                        PyRevitConfigs.GetOutputStyleSheet()));
+                        Console.WriteLine($"Output Style Sheet is set to: {PyRevitConfigs.GetOutputStyleSheet()}");
                     else
                         PyRevitConfigs.SetOutputStyleSheet(TryGetValue("<css_path>"));
                 }
@@ -882,9 +872,9 @@ namespace pyRevitCLI {
                             else if (optValue is null) {
                                 var existingVal = cfg.GetValue(configSection, configOption);
                                 if (existingVal != null)
-                                    Console.WriteLine( string.Format("{0} = {1}", configOption, existingVal));
+                                    Console.WriteLine($"{configOption} = {existingVal}");
                                 else
-                                    Console.WriteLine(string.Format("Configuration key \"{0}\" is not set", configOption));
+                                    Console.WriteLine($"Configuration key \"{configOption}\" is not set");
                             }
                         }
                         else
@@ -962,9 +952,9 @@ namespace pyRevitCLI {
 
         private static void LogException(Exception ex, PyRevitCLILogLevel logLevel) {
             if (logLevel == PyRevitCLILogLevel.Debug)
-                logger.Error(string.Format("{0} ({1})\n{2}", ex.Message, ex.GetType().ToString(), ex.StackTrace));
+                logger.Error($"{ex.Message} ({ex.GetType().ToString()})\n{ex.StackTrace}");
             else
-                logger.Error(string.Format("{0}\nRun with \"--debug\" option to see debug messages", ex.Message));
+                logger.Error($"{ex.Message}\nRun with \"--debug\" option to see debug messages");
         }
     }
 }

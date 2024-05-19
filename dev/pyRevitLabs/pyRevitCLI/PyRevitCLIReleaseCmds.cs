@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Diagnostics;
-
 using pyRevitLabs.Common;
-using pyRevitLabs.CommonCLI;
 using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.TargetApps.Revit;
 using pyRevitLabs.PyRevit;
-using pyRevitLabs.Language.Properties;
-
 using pyRevitLabs.NLog;
-using pyRevitLabs.Json;
-using pyRevitLabs.Json.Serialization;
-
 using Console = Colorful.Console;
 
 namespace pyRevitCLI {
@@ -69,8 +56,8 @@ namespace pyRevitCLI {
                 matchedRelease = PyRevitReleases.FindReleases(searchPattern, includePreRelease: listPreReleases).FirstOrDefault();
                 if (matchedRelease is null)
                     throw new PyRevitException(
-                        string.Format("No release matching \"{0}\" were found.", searchPattern)
-                        );
+                        $"No release matching \"{searchPattern}\" were found."
+                    );
             }
 
             CommonUtils.OpenUrl(matchedRelease.Url);
@@ -98,8 +85,8 @@ namespace pyRevitCLI {
 
                 if (matchedRelease is null)
                     throw new PyRevitException(
-                        string.Format("No release matching \"{0}\" were found.", searchPattern)
-                        );
+                        $"No release matching \"{searchPattern}\" were found."
+                    );
             }
 
             // grab download url
@@ -129,8 +116,8 @@ namespace pyRevitCLI {
                 // download file and report
                 CommonUtils.DownloadFile(downloadUrl, destPath);
                 Console.WriteLine(
-                    string.Format("Downloaded package to \"{0}\"", destPath)
-                    );
+                    $"Downloaded package to \"{destPath}\""
+                );
             }
         }
     }

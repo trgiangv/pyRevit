@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pyRevitLabs.DeffrelDB {
     public class DeffrelDBException : Exception {
@@ -26,7 +22,7 @@ namespace pyRevitLabs.DeffrelDB {
 
         public override string Message {
             get {
-                return string.Format("Requested lock {0} is restricted by {1}", NewLock, RestrictingLock);
+                return $"Requested lock {NewLock} is restricted by {RestrictingLock}";
             }
         }
     }
@@ -44,8 +40,8 @@ namespace pyRevitLabs.DeffrelDB {
 
         public override string Message {
             get {
-                return string.Format("Requested lock {0} is not on the same path as active connection lock"
-                                     + " {1}. Active lock must be released first.", NewLock, RestrictingLock);
+                return $"Requested lock {NewLock} is not on the same path as active connection lock" +
+                       $" {RestrictingLock}. Active lock must be released first.";
             }
         }
     }

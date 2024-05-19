@@ -1,15 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Text.RegularExpressions;
-using System.Security.Principal;
-using System.Text;
-
 using pyRevitLabs.Common;
 using pyRevitLabs.Common.Extensions;
-
-using MadMilkman.Ini;
 using pyRevitLabs.Json.Linq;
 using pyRevitLabs.NLog;
 
@@ -53,7 +47,7 @@ namespace pyRevitLabs.PyRevit {
                 if (CompareExtensionNames(ext.Name, searchPattern))
                     return ext;
             
-            throw new PyRevitException(string.Format("Can not find extension matching \"{0}\"", searchPattern));
+            throw new PyRevitException($"Can not find extension matching \"{searchPattern}\"");
         }
 
         // list registered extensions based on search pattern if provided, if not list all
@@ -69,10 +63,9 @@ namespace pyRevitLabs.PyRevit {
             }
             catch (Exception ex) {
                 logger.Error(
-                    string.Format(
-                        "Error looking up extension with pattern \"{0}\" in default extension source."
-                        + " | {1}", searchPattern, ex.Message)
-                        );
+                    $"Error looking up extension with pattern \"{searchPattern}\" in default extension source." +
+                    $" | {ex.Message}"
+                );
             }
 
             // if not found in downloaded file or downlod failed, try the additional sources
@@ -86,10 +79,9 @@ namespace pyRevitLabs.PyRevit {
                     }
                     catch (Exception ex) {
                         logger.Error(
-                            string.Format(
-                                "Error looking up extension with pattern \"{0}\" in extension lookup source \"{1}\""
-                                + " | {2}", searchPattern, extLookupSrc, ex.Message)
-                                );
+                            $"Error looking up extension with pattern \"{searchPattern}\" in extension lookup source \"{extLookupSrc}\"" +
+                            $" | {ex.Message}"
+                        );
                     }
                 }
 
@@ -103,7 +95,7 @@ namespace pyRevitLabs.PyRevit {
             logger.Debug("Looking up registered extension \"{0}\"...", extensionName);
             var matchingExts = LookupRegisteredExtensions(extensionName);
             if (matchingExts.Count == 0) {
-                throw new PyRevitException(string.Format("Can not find extension \"{0}\"", extensionName));
+                throw new PyRevitException($"Can not find extension \"{extensionName}\"");
             }
             else if (matchingExts.Count == 1) {
                 logger.Debug("Extension found \"{0}\"...", matchingExts[0].Name);
@@ -144,7 +136,7 @@ namespace pyRevitLabs.PyRevit {
                 }
             }
 
-            throw new PyRevitException(string.Format("Installed extension \"{0}\" not found.", searchPattern));
+            throw new PyRevitException($"Installed extension \"{searchPattern}\" not found.");
         }
 
         // return a list of installed extensions found under registered search paths
@@ -209,8 +201,7 @@ namespace pyRevitLabs.PyRevit {
                 }
             }
             else
-                throw new PyRevitException(string.Format("Error installing extension. Null repo error on \"{0}\"",
-                                                         repoPath));
+                throw new PyRevitException($"Error installing extension. Null repo error on \"{repoPath}\"");
 
         }
 
@@ -258,8 +249,8 @@ namespace pyRevitLabs.PyRevit {
             var res = GitInstaller.ForcedUpdate(ext.InstallPath, credentials);
             if (res <= UpdateStatus.Conflicts)
                 throw new PyRevitException(
-                    string.Format("Error updating extension \"{0}\" installed at \"{1}\"", ext.Name, ext.InstallPath)
-                    );
+                    $"Error updating extension \"{ext.Name}\" installed at \"{ext.InstallPath}\""
+                );
         }
 
         public static void UpdateExtension(string extName, GitInstallerCredentials credentials = null) {
@@ -453,15 +444,15 @@ namespace pyRevitLabs.PyRevit {
                     }
                     catch (Exception ex) {
                         throw new PyRevitException(
-                            string.Format("Error downloading extension metadata file. | {0}", ex.Message)
-                            );
+                            $"Error downloading extension metadata file. | {ex.Message}"
+                        );
                     }
                 }
             }
             else
                 throw new PyRevitException(
-                    string.Format("Source is not a valid file or remote resource \"{0}\"", fileOrUri)
-                    );
+                    $"Source is not a valid file or remote resource \"{fileOrUri}\""
+                );
 
             // process file now
             if (filePath != null) {
@@ -474,7 +465,7 @@ namespace pyRevitLabs.PyRevit {
                             extensionsObj = JObject.Parse(File.ReadAllText(filePath));
                         }
                         catch (Exception ex) {
-                            throw new PyRevitException(string.Format("Error parsing extension metadata. | {0}", ex.Message));
+                            throw new PyRevitException($"Error parsing extension metadata. | {ex.Message}");
                         }
 
                         // make extension list
@@ -496,8 +487,8 @@ namespace pyRevitLabs.PyRevit {
                 }
                 else
                     throw new PyRevitException(
-                        string.Format("Definition file is not a valid json file \"{0}\"", filePath)
-                        );
+                        $"Definition file is not a valid json file \"{filePath}\""
+                    );
             }
 
             return pyrevtExts;

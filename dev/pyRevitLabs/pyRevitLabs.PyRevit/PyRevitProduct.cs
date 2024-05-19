@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-using Microsoft.Win32;
-
 using pyRevitLabs.Common;
-using pyRevitLabs.Common.Extensions;
 using pyRevitLabs.NLog;
 
 namespace pyRevitLabs.PyRevit {
@@ -65,7 +57,7 @@ namespace pyRevitLabs.PyRevit {
         }
 
         public override string ToString() {
-            return string.Format("{0} | Version: {1} | Release: {2} | Installer Id: \"{3}\"", Name, Version, Release, InstallerId);
+            return $"{Name} | Version: {Version} | Release: {Release} | Installer Id: \"{InstallerId}\"";
         }
 
         public override int GetHashCode() {

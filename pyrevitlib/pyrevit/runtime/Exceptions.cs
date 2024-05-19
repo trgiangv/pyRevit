@@ -6,11 +6,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         public NotSupportedFeatureException() { }
 
-        public override string Message {
-            get {
-                return NotSupportedMessage;
-            }
-        }
+        public override string Message => NotSupportedMessage;
     }
 }
 

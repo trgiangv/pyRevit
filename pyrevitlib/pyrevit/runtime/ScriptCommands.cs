@@ -509,7 +509,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         }
 
         public abstract class CompoundCondition: Condition {
-            public bool IsNot { get; set; } = false;
+            public bool IsNot { get; set; }
             
             public abstract string Separator { get; }
 
@@ -825,7 +825,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
             }
         }
 
-        public ContextFilter CompiledContextFilter = null;
+        public ContextFilter CompiledContextFilter;
 
         public bool IsCommandAvailable(UIApplication uiApp, CategorySet selectedCategories) {
             if (CompiledContextFilter is ContextFilter ctxFilter) {

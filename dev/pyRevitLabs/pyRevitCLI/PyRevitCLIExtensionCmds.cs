@@ -1,23 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 using System.Diagnostics;
 
 using pyRevitLabs.Common;
-using pyRevitLabs.CommonCLI;
-using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.TargetApps.Revit;
 using pyRevitLabs.PyRevit;
-using pyRevitLabs.Language.Properties;
-
 using pyRevitLabs.NLog;
-using pyRevitLabs.Json;
-using pyRevitLabs.Json.Serialization;
-
 using Console = Colorful.Console;
 
 namespace pyRevitCLI {
@@ -29,14 +16,14 @@ namespace pyRevitCLI {
             if (extList is null)
                 extList = PyRevitExtensions.GetInstalledExtensions();
 
-            PyRevitCLIAppCmds.PrintHeader(string.Format("{0} Extensions", headerPrefix));
+            PyRevitCLIAppCmds.PrintHeader($"{headerPrefix} Extensions");
             foreach (PyRevitExtension ext in extList.OrderBy(x => x.Name))
                 Console.WriteLine(ext);
         }
 
         internal static void
         PrintExtensionDefinitions(string searchPattern, string headerPrefix = "Registered") {
-            PyRevitCLIAppCmds.PrintHeader(string.Format("{0} Extensions", headerPrefix));
+            PyRevitCLIAppCmds.PrintHeader($"{headerPrefix} Extensions");
             foreach (PyRevitExtensionDefinition ext in PyRevitExtensions.LookupRegisteredExtensions(searchPattern))
                 Console.WriteLine(ext);
         }
@@ -69,12 +56,10 @@ namespace pyRevitCLI {
             else {
                 if (Errors.LatestError == ErrorCodes.MoreThanOneItemMatched)
                     throw new PyRevitException(
-                        string.Format("More than one extension matches the name \"{0}\"",
-                                        extName));
+                        $"More than one extension matches the name \"{extName}\"");
                 else
                     throw new PyRevitException(
-                        string.Format("Not valid extension name or repo url \"{0}\"",
-                                        extName));
+                        $"Not valid extension name or repo url \"{extName}\"");
             }
 
         }
@@ -140,9 +125,8 @@ namespace pyRevitCLI {
                             extension.SetOrigin(ext.Url);
                         else
                             throw new PyRevitException(
-                                string.Format("Can not find the original url in the extension " +
-                                              "database for extension \"{0}\"",
-                                              extension.Name));
+                                "Can not find the original url in the extension " +
+                                $"database for extension \"{extension.Name}\"");
                     }
                     else if (originUrl != null) {
                         extension.SetOrigin(originUrl);

@@ -33,7 +33,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
     }
 
     public static class Telemetry {
-        private static string _exeBuild = null;
+        private static string _exeBuild;
 
         public static string DefaultUser { get; set; } = string.Empty;
 
@@ -155,7 +155,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                 if (revitExePath != null && revitExePath != string.Empty) {
                     HostProductInfo pinfo = RevitProductData.GetBinaryProductInfo(revitExePath);
                     if (pinfo.build != null && pinfo.build != string.Empty) {
-                        revitbuild = string.Format("{0}({1})", pinfo.build, pinfo.target);
+                        revitbuild = $"{pinfo.build}({pinfo.target})";
                         _exeBuild = revitbuild;
                     }
                 }

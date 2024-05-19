@@ -6,7 +6,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Reflection;
-using System.Resources;
 
 namespace pyRevitLabs.Emojis {
     public static class Emojis {
@@ -2654,9 +2653,9 @@ namespace pyRevitLabs.Emojis {
             foreach (var emojiShortCode in matches) {
                 if (EmojiDict.ContainsKey(emojiShortCode)) {
                     // find the emoji unicode
-                    var shortHand = string.Format(":{0}:", emojiShortCode);
+                    var shortHand = $":{emojiShortCode}:";
                     // find the emoji image
-                    var emojiFile = string.Format("{0}.png", EmojiDict[emojiShortCode].ToLower());
+                    var emojiFile = $"{EmojiDict[emojiShortCode].ToLower()}.png";
                     // convert emoji image data to base64
                     try {
                         string encodedEmoji = string.Empty;

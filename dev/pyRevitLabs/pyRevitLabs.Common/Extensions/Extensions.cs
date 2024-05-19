@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.CodeDom.Compiler;
 using System.CodeDom;
-using System.Web;
-
 using pyRevitLabs.NLog;
 using pyRevitLabs.Json;
 
@@ -351,7 +347,7 @@ namespace pyRevitLabs.Common.Extensions {
 
     public static class DateTimeExtensions {
         public static string NeatTime(this DateTime sourceDate) {
-            return String.Format("{0:dd/MM/yyyy HH:mm:ss}", sourceDate);
+            return $"{sourceDate:dd/MM/yyyy HH:mm:ss}";
         }
     }
 

@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics;
 
 using pyRevitLabs.Common;
-using pyRevitLabs.CommonCLI;
 using pyRevitLabs.Common.Extensions;
 using pyRevitLabs.TargetApps.Revit;
 using pyRevitLabs.PyRevit;
@@ -44,13 +40,12 @@ namespace pyRevitCLI {
         internal static string GetProcessPath() => Path.GetDirectoryName(GetProcessFileName());
 
         internal static void PrintHeader(string header) =>
-            Console.WriteLine(string.Format("==> {0}", header), Color.Green);
+            Console.WriteLine($"==> {header}", Color.Green);
 
         internal static void ReportCloneAsNoGit(PyRevitClone clone) =>
             Console.WriteLine(
-                string.Format("Clone \"{0}\" is a deployment and is not a git repo.",
-                clone.Name)
-                );
+                $"Clone \"{clone.Name}\" is a deployment and is not a git repo."
+            );
 
         internal static bool IsRunningInsideClone(PyRevitClone clone) =>
             GetProcessPath().NormalizeAsPath().Contains(clone.ClonePath.NormalizeAsPath());
@@ -107,7 +102,7 @@ namespace pyRevitCLI {
                         { "pyrevitDataDir", PyRevitLabsConsts.PyRevitPath },
                         { "userEnv", new Dictionary<string, object>() {
                                 { "osVersion", UserEnv.GetWindowsVersion() },
-                                { "execUser", string.Format("{0}\\{1}", Environment.UserDomainName, Environment.UserName) },
+                                { "execUser", $"{Environment.UserDomainName}\\{Environment.UserName}" },
                                 { "activeUser", UserEnv.GetLoggedInUserName() },
                                 { "isAdmin", UserEnv.IsRunAsAdmin() },
                                 { "userAppdata", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) },
@@ -152,17 +147,15 @@ namespace pyRevitCLI {
             Console.WriteLine(UserEnv.GetWindowsVersion());
             Console.WriteLine(string.Format("Executing User: {0}\\{1}",
                                             Environment.UserDomainName, Environment.UserName));
-            Console.WriteLine(string.Format("Active User: {0}", UserEnv.GetLoggedInUserName()));
-            Console.WriteLine(string.Format("Admin Access: {0}", UserEnv.IsRunAsAdmin() ? "Yes" : "No"));
-            Console.WriteLine(string.Format("%APPDATA%: \"{0}\"",
-                                            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)));
-            Console.WriteLine(string.Format("Latest Installed .Net Framework: {0}",
-                                            UserEnv.GetInstalledDotNetVersion()));
+            Console.WriteLine($"Active User: {UserEnv.GetLoggedInUserName()}");
+            Console.WriteLine($"Admin Access: {(UserEnv.IsRunAsAdmin() ? "Yes" : "No")}");
+            Console.WriteLine($"%APPDATA%: \"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\"");
+            Console.WriteLine($"Latest Installed .Net Framework: {UserEnv.GetInstalledDotNetVersion()}");
             try {
                 string targetPacks = "";
                 foreach (string targetPackagePath in UserEnv.GetInstalledDotnetTargetPacks())
-                    targetPacks += string.Format("{0} ", Path.GetFileName(targetPackagePath));
-                Console.WriteLine(string.Format("Installed .Net Target Packs: {0}", targetPacks));
+                    targetPacks += $"{Path.GetFileName(targetPackagePath)} ";
+                Console.WriteLine($"Installed .Net Target Packs: {targetPacks}");
             }
             catch {
                 Console.WriteLine("No .Net Target Packs are installed.");
@@ -171,14 +164,14 @@ namespace pyRevitCLI {
             try {
                 string targetPacks = "";
                 foreach (string targetPackagePath in UserEnv.GetInstalledDotnetCoreTargetPacks())
-                    targetPacks += string.Format("v{0} ", Path.GetFileName(targetPackagePath));
-                Console.WriteLine(string.Format("Installed .Net-Core Target Packs: {0}", targetPacks));
+                    targetPacks += $"v{Path.GetFileName(targetPackagePath)} ";
+                Console.WriteLine($"Installed .Net-Core Target Packs: {targetPacks}");
             }
             catch {
                 Console.WriteLine("No .Ne-Core Target Packs are installed.");
             }
 
-            Console.WriteLine(string.Format("pyRevit CLI v{0}", PyRevitCLI.CLIInfoVersion));
+            Console.WriteLine($"pyRevit CLI v{PyRevitCLI.CLIInfoVersion}");
         }
 
         // cli specific commands

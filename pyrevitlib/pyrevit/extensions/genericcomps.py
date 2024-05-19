@@ -810,8 +810,12 @@ class GenericUICommand(GenericUIComponent):
 
     @property
     def is_cpython(self):
-        with open(self.script_file, 'r') as script_f:
-            return exts.CPYTHON_HASHBANG in script_f.readline()
+        if not PY3:
+            with open(self.script_file, 'r') as script_f:
+                return exts.CPYTHON_HASHBANG in script_f.readline()
+        else:
+            with codecs.open(self.script_file, 'r', encoding='utf-8') as script_f:
+                return exts.CPYTHON_HASHBANG in script_f.readline()
 
     def has_config_script(self):
         return self.config_script_file != self.script_file

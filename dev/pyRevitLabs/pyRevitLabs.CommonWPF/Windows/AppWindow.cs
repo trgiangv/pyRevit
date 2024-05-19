@@ -6,10 +6,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
 using System.Windows.Data;
-using System.Xaml;
 
 // packages
-using pyRevitLabs.MahAppsMetro;
 using pyRevitLabs.MahAppsMetro.Controls;
 
 namespace pyRevitLabs.CommonWPF.Windows {

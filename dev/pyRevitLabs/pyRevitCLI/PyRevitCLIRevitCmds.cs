@@ -3,21 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Diagnostics;
-
 using pyRevitLabs.Common;
-using pyRevitLabs.CommonCLI;
 using pyRevitLabs.Common.Extensions;
 using pyRevitLabs.TargetApps.Revit;
 using pyRevitLabs.PyRevit;
-using pyRevitLabs.Language.Properties;
-
 using pyRevitLabs.NLog;
 using pyRevitLabs.Json;
-using pyRevitLabs.Json.Serialization;
-
 using Console = Colorful.Console;
 
 namespace pyRevitCLI {
@@ -78,15 +69,15 @@ namespace pyRevitCLI {
                 if (includeRFT)
                     fileSearchPatterns.Add("*.rft");
 
-                logger.Info(string.Format("Searching for revit files under \"{0}\"", targetPath));
+                logger.Info($"Searching for revit files under \"{targetPath}\"");
                 FileAttributes attr = File.GetAttributes(targetPath);
                 if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
                     foreach(string searchPattern in fileSearchPatterns) {
                         var files = Directory.EnumerateFiles(targetPath, searchPattern, SearchOption.AllDirectories);
-                        logger.Info(string.Format(" {0} revit files found under \"{1}\"", files.Count(), targetPath));
+                        logger.Info($" {files.Count()} revit files found under \"{targetPath}\"");
                         foreach (var file in files) {
                             try {
-                                logger.Info(string.Format("Revit file found \"{0}\"", file));
+                                logger.Info($"Revit file found \"{file}\"");
                                 var model = new RevitModelFile(file);
                                 models.Add(model);
                             }
@@ -111,7 +102,7 @@ namespace pyRevitCLI {
                     if (errorList.Count > 0) {
                         Console.WriteLine("An error occured while processing these files:");
                         foreach (var errinfo in errorList)
-                            Console.WriteLine(string.Format("\"{0}\": {1}\n", errinfo.Item1, errinfo.Item2));
+                            Console.WriteLine($"\"{errinfo.Item1}\": {errinfo.Item2}\n");
                     }
                 }
             }
@@ -263,8 +254,8 @@ namespace pyRevitCLI {
                     // if command is not found, stop
                     if (commandScriptPath is null)
                         throw new PyRevitException(
-                            string.Format("Run command not found: \"{0}\"", commandName)
-                            );
+                            $"Run command not found: \"{commandName}\""
+                        );
 
                     // RUN!
                     var execEnv = PyRevitRunner.Run(
@@ -276,15 +267,15 @@ namespace pyRevitCLI {
 
                     // print results (exec env)
                     PyRevitCLIAppCmds.PrintHeader("Execution Environment");
-                    Console.WriteLine(string.Format("Execution Id: \"{0}\"", execEnv.ExecutionId));
-                    Console.WriteLine(string.Format("Product: {0}", execEnv.Revit));
-                    Console.WriteLine(string.Format("Clone: {0}", execEnv.Clone));
-                    Console.WriteLine(string.Format("Engine: {0}", execEnv.Engine));
-                    Console.WriteLine(string.Format("Script: \"{0}\"", execEnv.Script));
-                    Console.WriteLine(string.Format("Working Directory: \"{0}\"", execEnv.WorkingDirectory));
-                    Console.WriteLine(string.Format("Journal File: \"{0}\"", execEnv.JournalFile));
-                    Console.WriteLine(string.Format("Manifest File: \"{0}\"", execEnv.PyRevitRunnerManifestFile));
-                    Console.WriteLine(string.Format("Log File: \"{0}\"", execEnv.LogFile));
+                    Console.WriteLine($"Execution Id: \"{execEnv.ExecutionId}\"");
+                    Console.WriteLine($"Product: {execEnv.Revit}");
+                    Console.WriteLine($"Clone: {execEnv.Clone}");
+                    Console.WriteLine($"Engine: {execEnv.Engine}");
+                    Console.WriteLine($"Script: \"{execEnv.Script}\"");
+                    Console.WriteLine($"Working Directory: \"{execEnv.WorkingDirectory}\"");
+                    Console.WriteLine($"Journal File: \"{execEnv.JournalFile}\"");
+                    Console.WriteLine($"Manifest File: \"{execEnv.PyRevitRunnerManifestFile}\"");
+                    Console.WriteLine($"Log File: \"{execEnv.LogFile}\"");
                     // report whether the env was purge or not
                     if (execEnv.Purged)
                         Console.WriteLine("Execution env is successfully purged.");
@@ -315,13 +306,13 @@ namespace pyRevitCLI {
             else
                 Console.WriteLine(model.BuildInfoLine);
 
-            Console.WriteLine(string.Format("Workshared: {0}", model.IsWorkshared ? "Yes" : "No"));
+            Console.WriteLine($"Workshared: {(model.IsWorkshared ? "Yes" : "No")}");
             if (model.IsWorkshared)
-                Console.WriteLine(string.Format("Central Model Path: {0}", model.CentralModelPath));
-            Console.WriteLine(string.Format("Last Saved Path: {0}", model.LastSavedPath));
-            Console.WriteLine(string.Format("Document Id: {0}", model.UniqueId));
-            Console.WriteLine(string.Format("Open Workset Settings: {0}", model.OpenWorksetConfig));
-            Console.WriteLine(string.Format("Document Increment: {0}", model.DocumentIncrement));
+                Console.WriteLine($"Central Model Path: {model.CentralModelPath}");
+            Console.WriteLine($"Last Saved Path: {model.LastSavedPath}");
+            Console.WriteLine($"Document Id: {model.UniqueId}");
+            Console.WriteLine($"Open Workset Settings: {model.OpenWorksetConfig}");
+            Console.WriteLine($"Document Increment: {model.DocumentIncrement}");
 
             // print project information properties
             Console.WriteLine("Project Information (Properties):");
@@ -331,15 +322,16 @@ namespace pyRevitCLI {
 
             if (model.IsFamily) {
                 Console.WriteLine("Model is a Revit Family!");
-                Console.WriteLine(string.Format("Category Name: {0}", model.CategoryName));
-                Console.WriteLine(string.Format("Host Category Name: {0}", model.HostCategoryName));
+                Console.WriteLine($"Category Name: {model.CategoryName}");
+                Console.WriteLine($"Host Category Name: {model.HostCategoryName}");
             }
         }
 
         private static void PrintBuildInfo() {
             PyRevitCLIAppCmds.PrintHeader("Supported Revits");
             foreach (var revit in RevitProduct.ListSupportedProducts().OrderByDescending(x => x.Version))
-                Console.WriteLine(string.Format("{0} | Version: {1} | Build: {2}({3})", revit.Name, revit.Version, revit.BuildNumber, revit.BuildTarget));
+                Console.WriteLine(
+                    $"{revit.Name} | Version: {revit.Version} | Build: {revit.BuildNumber}({revit.BuildTarget})");
 
         }
 
@@ -347,7 +339,7 @@ namespace pyRevitCLI {
         private static void ExportModelInfoToCSV(IEnumerable<RevitModelFile> models,
                                                  string outputCSV,
                                                  List<(string, string)> errorList = null) {
-            logger.Info(string.Format("Building CSV data to \"{0}\"", outputCSV));
+            logger.Info($"Building CSV data to \"{outputCSV}\"");
             var csv = new StringBuilder();
             csv.Append(
                 "filepath,productname,buildnumber,isworkshared,centralmodelpath,lastsavedpath,uniqueid,projectinfo,error\n"
@@ -361,13 +353,13 @@ namespace pyRevitCLI {
 
                 // create csv entry
                 var data = new List<string>() {
-                    string.Format("\"{0}\"", model.FilePath),
-                    string.Format("\"{0}\"", model.RevitProduct != null ? model.RevitProduct.Name : ""),
-                    string.Format("\"{0}\"", model.RevitProduct != null ? model.RevitProduct.BuildNumber : ""),
-                    string.Format("\"{0}\"", model.IsWorkshared ? "True" : "False"),
-                    string.Format("\"{0}\"", model.CentralModelPath),
-                    string.Format("\"{0}\"", model.LastSavedPath),
-                    string.Format("\"{0}\"", model.UniqueId.ToString()),
+                    $"\"{model.FilePath}\"",
+                    $"\"{(model.RevitProduct != null ? model.RevitProduct.Name : "")}\"",
+                    $"\"{(model.RevitProduct != null ? model.RevitProduct.BuildNumber : "")}\"",
+                    $"\"{(model.IsWorkshared ? "True" : "False")}\"",
+                    $"\"{model.CentralModelPath}\"",
+                    $"\"{model.LastSavedPath}\"",
+                    $"\"{model.UniqueId.ToString()}\"",
                     JsonConvert.SerializeObject(jsonData).PrepareJSONForCSV(),
                     ""
                 };
@@ -379,16 +371,16 @@ namespace pyRevitCLI {
             if (errorList != null) {
                 logger.Debug("Adding errors to \"{0}\"", outputCSV);
                 foreach (var errinfo in errorList)
-                    csv.Append(string.Format("\"{0}\",,,,,,,,\"{1}\"\n", errinfo.Item1, errinfo.Item2));
+                    csv.Append($"\"{errinfo.Item1}\",,,,,,,,\"{errinfo.Item2}\"\n");
             }
 
-            logger.Info(string.Format("Writing results to \"{0}\"", outputCSV));
+            logger.Info($"Writing results to \"{outputCSV}\"");
             File.WriteAllText(outputCSV, csv.ToString());
         }
 
         // export build info to csv
         private static void ExportBuildInfoToCSV(string outputCSV) {
-            logger.Info(string.Format("Building CSV data to \"{0}\"", outputCSV));
+            logger.Info($"Building CSV data to \"{outputCSV}\"");
             var csv = new StringBuilder();
             csv.Append(
                 "\"buildnum\",\"buildversion\",\"productname\"\n"
@@ -396,15 +388,15 @@ namespace pyRevitCLI {
             foreach (var revit in RevitProduct.ListSupportedProducts().OrderByDescending(x => x.Version)) {
                 // create csv entry
                 var data = new List<string>() {
-                    string.Format("\"{0}\"", revit.BuildNumber),
-                    string.Format("\"{0}\"", revit.Version),
-                    string.Format("\"{0}\"", revit.Name),
+                    $"\"{revit.BuildNumber}\"",
+                    $"\"{revit.Version}\"",
+                    $"\"{revit.Name}\"",
                 };
 
                 csv.Append(string.Join(",", data) + "\n");
             }
 
-            logger.Info(string.Format("Writing results to \"{0}\"", outputCSV));
+            logger.Info($"Writing results to \"{outputCSV}\"");
             File.WriteAllText(outputCSV, csv.ToString());
         }
     }

@@ -1,15 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using pyRevitLabs.Common;
-using pyRevitLabs.TargetApps.Revit;
 using pyRevitLabs.PyRevit;
-using pyRevitLabs.UnitTests;
 
 namespace pyRevitLabs.UnitTests.pyRevit {
     [TestClass()]
@@ -36,7 +29,7 @@ namespace pyRevitLabs.UnitTests.pyRevit {
             var clone = PyRevitClones.GetRegisteredClone(testCloneName);
             PyRevitClones.UnregisterClone(clone);
 
-            Assert.AreEqual(testCloneBranch, clone.Branch, string.Format("{0} != {1}", testCloneBranch, clone.Branch));
+            Assert.AreEqual(testCloneBranch, clone.Branch, $"{testCloneBranch} != {clone.Branch}");
         }
 
         [TestMethod()]
@@ -55,8 +48,9 @@ namespace pyRevitLabs.UnitTests.pyRevit {
             var clone = PyRevitClones.GetRegisteredClone(testCloneName);
             PyRevitClones.UnregisterClone(clone);
 
-            Assert.AreEqual(testCloneDeployment, clone.Deployment.Name, string.Format("{0} != {1}", testCloneDeployment, clone.Deployment.Name));
-            Assert.AreEqual(testCloneBranch, clone.Branch, string.Format("{0} != {1}", testCloneBranch, clone.Branch));
+            Assert.AreEqual(testCloneDeployment, clone.Deployment.Name,
+                $"{testCloneDeployment} != {clone.Deployment.Name}");
+            Assert.AreEqual(testCloneBranch, clone.Branch, $"{testCloneBranch} != {clone.Branch}");
         }
 
         [TestMethod()]

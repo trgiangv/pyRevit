@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-
-using pyRevitLabs.Common.Extensions;
+﻿using pyRevitLabs.Common.Extensions;
 
 namespace pyRevitLabs.PyRevit {
     public class PyRevitEngineVersion {

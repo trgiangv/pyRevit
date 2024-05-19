@@ -15,7 +15,7 @@ namespace pyRevitLabs.TargetApps.Revit {
         }
 
         public override string ToString() {
-            return String.Format("{0} / {1}", Version, Name);
+            return $"{Version} / {Name}";
         }
     }
 

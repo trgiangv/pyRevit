@@ -16,7 +16,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
     }
 
     public class ScriptRuntimeConfigs : IDisposable {
-        private object _eventSender = null;
+        private object _eventSender;
 
         public ControlledApplication ControlledApp { get; set; }
         public Application App { get; set; }
@@ -30,7 +30,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         public List<string> Arguments { get; set; }
 
         public object EventSender {
-            get { return _eventSender; }
+            get => _eventSender;
             set {
                 if (value != null) {
                     // detemine sender type
@@ -66,15 +66,15 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
     public class ScriptRuntime : IDisposable {
         // app handles
-        private UIApplication _uiApp = null;
-        private Application _app = null;
+        private UIApplication _uiApp;
+        private Application _app;
 
         // output window and stream
         private WeakReference<ScriptConsole> _scriptOutput = new WeakReference<ScriptConsole>(null);
         private WeakReference<ScriptIO> _outputStream = new WeakReference<ScriptIO>(null);
 
         // dict for command result data
-        private Dictionary<string, string> _resultsDict = null;
+        private Dictionary<string, string> _resultsDict;
 
         public ScriptRuntime(ScriptData scriptData, ScriptRuntimeConfigs scriptRuntimeCfg) {
             // setup a new id and timestamp
@@ -130,11 +130,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
             }
         }
 
-        public string ScriptSourceFileSignature {
-            get {
-                return CommonUtils.GetFileSignature(ScriptSourceFile);
-            }
-        }
+        public string ScriptSourceFileSignature => CommonUtils.GetFileSignature(ScriptSourceFile);
 
         public ScriptRuntimeType RuntimeType {
             get {
@@ -220,33 +216,17 @@ namespace PyRevitLabs.PyRevit.Runtime {
             }
         }
 
-        public Autodesk.Windows.RibbonItem UIControl {
-            get {
-                return ((UIFramework.RevitRibbonControl)Autodesk.Windows.ComponentManager.Ribbon).findRibbonItem(ScriptData.CommandControlId, false);
-            }
-        }
+        public Autodesk.Windows.RibbonItem UIControl => ((UIFramework.RevitRibbonControl)Autodesk.Windows.ComponentManager.Ribbon).findRibbonItem(ScriptData.CommandControlId, false);
 
         // environment
         // pyrevit
         public EnvDictionary EnvDict { get; set; }
 
-        public string PyRevitVersion {
-            get {
-                return EnvDict.PyRevitVersion;
-            }
-        }
+        public string PyRevitVersion => EnvDict.PyRevitVersion;
 
-        public string CloneName {
-            get {
-                return EnvDict.PyRevitClone;
-            }
-        }
+        public string CloneName => EnvDict.PyRevitClone;
 
-        public string SessionUUID {
-            get {
-                return EnvDict.SessionUUID;
-            }
-        }
+        public string SessionUUID => EnvDict.SessionUUID;
 
         // revit
         public string DocumentName {
@@ -280,9 +260,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                 return null;
             }
 
-            set {
-                _app = value;
-            }
+            set => _app = value;
         }
 
         public UIControlledApplication UIControlledApp { get; set; }
@@ -296,9 +274,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                 return null;
             }
 
-            set {
-                _uiApp = value;
-            }
+            set => _uiApp = value;
         }
 
         // output

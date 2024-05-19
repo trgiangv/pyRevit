@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Text.RegularExpressions;
-using System.Security.Principal;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using pyRevitLabs.Common;
-using pyRevitLabs.Common.Extensions;
-
-using MadMilkman.Ini;
-using pyRevitLabs.Json.Linq;
 using pyRevitLabs.NLog;
 using pyRevitLabs.TargetApps.Revit;
 
@@ -31,7 +21,7 @@ namespace pyRevitLabs.PyRevit {
             var engine = clone.GetEngine(engineVer);
 
             if (engine.Runtime) {
-                logger.Debug(string.Format("Attaching Clone \"{0}\" @ \"{1}\" to Revit {2}", clone.Name, clone.ClonePath, revitYear));
+                logger.Debug($"Attaching Clone \"{clone.Name}\" @ \"{clone.ClonePath}\" to Revit {revitYear}");
 
                 // remove existing attachments first
                 // this is critical as there might be invalid attachments to expired clones

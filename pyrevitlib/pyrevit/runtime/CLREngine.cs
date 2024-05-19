@@ -61,8 +61,8 @@ namespace PyRevitLabs.PyRevit.Runtime
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private string scriptSig = string.Empty;
-        private bool scriptDbg = false;
-        private Assembly scriptAssm = null;
+        private bool scriptDbg;
+        private Assembly scriptAssm;
 
         public override void Init(ref ScriptRuntime runtime)
         {
@@ -114,7 +114,7 @@ namespace PyRevitLabs.PyRevit.Runtime
                         string errorReport = string.Empty;
                         foreach (var errline in errors)
                             errorReport += $"{errline}\n";
-                        errorReport += string.Format("\nTrace:\n{0}\n{1}", compileEx.Message, traceMessage);
+                        errorReport += $"\nTrace:\n{compileEx.Message}\n{traceMessage}";
                         dialog.ExpandedContent = errorReport;
                         dialog.Show();
                     }
@@ -134,10 +134,7 @@ namespace PyRevitLabs.PyRevit.Runtime
                         var resultCode = ExecuteExternalCommand(scriptAssm, null, ref runtime);
                         if (resultCode == ScriptExecutorResultCodes.ExternalInterfaceNotImplementedException)
                             TaskDialog.Show(PyRevitLabsConsts.ProductName,
-                                string.Format(
-                                    "Can not find any type implementing IExternalCommand in assembly \"{0}\"",
-                                    scriptAssm.Location
-                                    ));
+                                $"Can not find any type implementing IExternalCommand in assembly \"{scriptAssm.Location}\"");
                         return resultCode;
                     }
                     catch (Exception execEx)
@@ -148,7 +145,7 @@ namespace PyRevitLabs.PyRevit.Runtime
 
                         var dialog = new TaskDialog(PyRevitLabsConsts.ProductName);
                         dialog.MainInstruction = "Error executing .NET script.";
-                        dialog.ExpandedContent = string.Format("{0}\n{1}", traceMessage, execEx.StackTrace);
+                        dialog.ExpandedContent = $"{traceMessage}\n{execEx.StackTrace}";
                         dialog.Show();
 
                         return ScriptExecutorResultCodes.ExecutionException;
@@ -212,8 +209,8 @@ namespace PyRevitLabs.PyRevit.Runtime
             // create output assembly
             string outputAssembly = Path.Combine(
                 UserEnv.UserTemp,
-                string.Format("{0}_{1}.dll", runtime.ScriptData.CommandName, runtime.ScriptSourceFileSignature)
-                );
+                $"{runtime.ScriptData.CommandName}_{runtime.ScriptSourceFileSignature}.dll"
+            );
 
             List<string> defines = new List<string> {
                 $"REVIT{runtime.App.VersionNumber}",

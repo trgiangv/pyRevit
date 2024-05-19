@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pyRevitLabs.DeffrelDB {
     // database
@@ -18,7 +15,7 @@ namespace pyRevitLabs.DeffrelDB {
         public string Description = "";
 
         public override string ToString() {
-            return string.Format("<DatabaseDefinition name:{0} desc:{1}>", Name, Description);
+            return $"<DatabaseDefinition name:{Name} desc:{Description}>";
         }
     }
 

@@ -72,7 +72,8 @@ namespace PyRevitLabs.PyRevit.Runtime {
                             cleanedPyTraceback = string.Empty;
                             foreach (string tbLine in pyTraceback.ConvertFromTomlListString()) {
                                 if (tbLine.Contains("File \"<string>\"")) {
-                                    var fixedTbLine = tbLine.Replace("File \"<string>\"", string.Format("File \"{0}\"", runtime.ScriptSourceFile));
+                                    var fixedTbLine = tbLine.Replace("File \"<string>\"",
+                                        $"File \"{runtime.ScriptSourceFile}\"");
                                     cleanedPyTraceback += fixedTbLine;
                                     var lineNo = new Regex(@"\,\sline\s(?<lineno>\d+)\,").Match(tbLine).Groups["lineno"].Value;
                                     cleanedPyTraceback += scriptContents.Split('\n')[int.Parse(lineNo.Trim()) - 1] + "\n";
