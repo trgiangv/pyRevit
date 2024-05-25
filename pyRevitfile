@@ -1,21 +1,24 @@
 [engines]
 
-[engines.IPY340PR]
+[engines.DEFAULT]
 kernel = 'IronPython 3'
-version = 340
+version = 341
+netversion = 'net48'
 runtime = true
-path = 'bin\engines\IPY340PR'
+path = 'bin\engines\net48\IPY341'
 assembly = 'pyRevitLoader.dll'
 compatproducts = []
 description = 'IronPython 3 Engine'
 
 [engines.DEFAULT]
-kernel = 'IronPython'
-version = 2711
+kernel = 'IronPython 3'
+version = 341
+netversion = 'net8'
 runtime = true
-path = 'bin\engines\IPY2711PR'
+path = 'bin\engines\net8\IPY341'
 assembly = 'pyRevitLoader.dll'
-description = 'Custom pyRevit IronPython Engine'
+compatproducts = []
+description = 'IronPython 3 Engine'
 
 [engines.CPY378]
 kernel = 'CPython'

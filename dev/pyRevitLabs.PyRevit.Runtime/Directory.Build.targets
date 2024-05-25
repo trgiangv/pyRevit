@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <PropertyGroup>
-        <DefineConstants>$(DefineConstants);REVIT$(RevitVersion)</DefineConstants>
-        <LanguageVersion>latest</LanguageVersion>
-    </PropertyGroup>
-
     <ItemGroup>
         <Reference Include="pyRevitLabs.Json" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.Json.dll" Private="false" />
         <Reference Include="pyRevitLabs.NLog" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.NLog.dll" Private="false" />
         <Reference Include="pyRevitLabs.MahAppsMetro" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.MahAppsMetro.dll" Private="false" />
     </ItemGroup>
 
-    <ItemGroup>
-        
+    <ItemGroup>        
         <!-- pyRevitLabs.PythonNet -->
         <Reference Include="pyRevitLabs.PythonNet" HintPath="$(PyRevitEnginesDir)\CPY385\pyRevitLabs.PythonNet.dll" />
         
@@ -26,66 +20,13 @@
         <Reference Include="pyRevitLabs.TargetApps.Revit" HintPath="$(PyRevitBinDir)\pyRevitLabs.TargetApps.Revit.dll" />
         
         <!-- System -->
-        <Reference Include="WindowsBase" />
-        <Reference Include="WindowsFormsIntegration" />
-        <Reference Include="PresentationCore" />
-        <Reference Include="PresentationFramework" />
-        <Reference Include="System.Windows.Forms" />
-        <Reference Include="System.Xaml" />
-        <Reference Include="System.Web" />
         <Reference Include="Microsoft.CSharp" />
-        <Reference Include="System.Windows.Interop" />
     </ItemGroup>
-
-    <Choose>
-        <When Condition="$(RevitVersion) == '2019'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2019" Version="4.0.0" />
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2020'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2020" Version="4.0.0" />
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2021'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2021" Version="4.0.0" />
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2022'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2022" Version="4.0.0" />
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2023'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2023" Version="4.0.0" />
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2024'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2024" Version="4.0.0" />
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2025'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2025" Version="4.0.0" />
-            </ItemGroup>
-        </When>
-    </Choose>
 
 
     <ItemGroup>
         <!-- IronPython-->
         <Reference Include="pyRevitLoader" HintPath="$(PyRevitEnginesDir)\IPY341\pyRevitLoader.dll" />
-        <Reference Include="IronPython" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.dll" />
-        <Reference Include="IronPython.Modules" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.Modules.dll" />
-        <Reference Include="IronPython.SQLite" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.SQLite.dll" />
-        <Reference Include="IronPython.Wpf" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.Wpf.dll" />
-        <Reference Include="IronPython.Wpf" HintPath="$(PyRevitEnginesDir)\IPY341\IronPython.Wpf.dll" />
-        <Reference Include="Microsoft.Dynamic" HintPath="$(PyRevitEnginesDir)\IPY341\Microsoft.Dynamic.dll" />
-        <Reference Include="Microsoft.Scripting" HintPath="$(PyRevitEnginesDir)\IPY341\Microsoft.Scripting.dll" />
     </ItemGroup>
 
     <ItemGroup>
