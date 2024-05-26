@@ -20,9 +20,14 @@
         <EmbeddedResource Include="$(IronPythonStdLibDir)\$(IronPythonStdLib)" />
     </ItemGroup>
 
-    <Target Name="Deploy" AfterTargets="AfterBuild">
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PyRevitEnginesDir)\$(IronPythonVersion)" />
+    <Target Name="DeployToNET8" AfterTargets="AfterBuild" Condition="$(TargetFramework) != 'net48'">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PyRevitEnginesDir)\NETCore\$(IronPythonVersion)" />
     </Target>
+
+    <Target Name="DeployToNET48" AfterTargets="AfterBuild" Condition="$(TargetFramework) == 'net48'">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PyRevitEnginesDir)\NETFramework\$(IronPythonVersion)" />
+    </Target>
+    
 
     <Import Project="../Directory.Build.targets" />
 </Project>

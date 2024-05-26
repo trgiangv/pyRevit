@@ -1,13 +1,9 @@
-using System;
 using System.IO;
-using System.Linq;
-using System.Collections.Generic;
 using System.Runtime.Remoting;
 using System.Reflection;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.DB;
-
 using pyRevitLabs.Common;
+using TaskDialog = Autodesk.Revit.UI.TaskDialog;
+using View = Autodesk.Revit.DB.View;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class GrasshoppertEngine : ScriptEngine {

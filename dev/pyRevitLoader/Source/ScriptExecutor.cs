@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Text;
 using System.IO;
 using IronPython.Runtime.Exceptions;
@@ -7,9 +5,7 @@ using IronPython.Compiler;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Hosting;
 using Autodesk.Revit.UI;
-using System.Collections.Generic;
 using System.Reflection;
-using IronPython.Runtime.Operations;
 
 namespace PyRevitLoader {
     // Executes a script
@@ -36,7 +32,7 @@ namespace PyRevitLoader {
         public static string EngineVersion {
             get {
                 var assmVersion = Assembly.GetAssembly(typeof(ScriptExecutor)).GetName().Version;
-                return string.Format("{0}{1}{2}", assmVersion.Minor, assmVersion.Build, assmVersion.Revision);
+                return $"{assmVersion.Minor}{assmVersion.Build}{assmVersion.Revision}";
             }
         }
 
@@ -146,7 +142,7 @@ namespace PyRevitLoader {
 #if PYREVITLABS_ENGINE
             string resName = string.Format("python_{0}pr_lib.zip", EngineVersion);
 #else
-            string resName = string.Format("python_{0}_lib.zip", EngineVersion);
+            string resName = $"python_{EngineVersion}_lib.zip";
 #endif
             var resQuery = from name in asm.GetManifestResourceNames()
                            where name.ToLowerInvariant().EndsWith(resName)
@@ -187,7 +183,7 @@ namespace PyRevitLoader {
         public List<String> Errors = new List<string>();
 
         public override void ErrorReported(ScriptSource source, string message, SourceSpan span, int errorCode, Severity severity) {
-            Errors.Add(string.Format("{0} (line {1})", message, span.Start.Line));
+            Errors.Add($"{message} (line {span.Start.Line})");
         }
 
         public int Count {

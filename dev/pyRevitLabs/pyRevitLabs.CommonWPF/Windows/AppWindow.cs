@@ -1,16 +1,18 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
 using System.Windows.Data;
-using System.Xaml;
+using MahApps.Metro.Controls;
+using Binding = System.Windows.Data.Binding;
+using Button = System.Windows.Controls.Button;
+using CharacterCasing = System.Windows.Controls.CharacterCasing;
+using Clipboard = System.Windows.Forms.Clipboard;
+using ToolTip = System.Windows.Controls.ToolTip;
 
 // packages
-using pyRevitLabs.MahAppsMetro;
-using pyRevitLabs.MahAppsMetro.Controls;
 
 namespace pyRevitLabs.CommonWPF.Windows {
     /// <summary>
@@ -42,7 +44,7 @@ namespace pyRevitLabs.CommonWPF.Windows {
             userButton.Click += Copy_Button_Title;
             windowButtons.Items.Add(userButton);
 
-            if (AppVersion != null && AppVersion != string.Empty) {
+            if (!string.IsNullOrEmpty(AppVersion)) {
                 // create a toolbar button and bind to appversion
                 Binding myBinding = new Binding();
                 myBinding.Source = this;

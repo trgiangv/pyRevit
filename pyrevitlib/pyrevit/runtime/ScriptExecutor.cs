@@ -1,9 +1,8 @@
 using System.IO;
-using System.Threading;
-
 using Autodesk.Revit.UI;
 
 using pyRevitLabs.Common;
+using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public static class ScriptExecutorResultCodes {

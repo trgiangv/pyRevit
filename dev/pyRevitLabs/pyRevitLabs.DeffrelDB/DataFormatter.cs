@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace pyRevitLabs.DeffrelDB {
+﻿namespace pyRevitLabs.DeffrelDB {
     // data formatter
     public enum EntryChangeType {
         Insert,
@@ -20,7 +14,7 @@ namespace pyRevitLabs.DeffrelDB {
         public int Count { get { return Last - First + 1; } }
 
         public override string ToString() {
-            return string.Format("<DataFormatRange {0}:{1} of {2} count:{3}>", First, Last, Total, Count);
+            return $"<DataFormatRange {First}:{Last} of {Total} count:{Count}>";
         }
     }
 

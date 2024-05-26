@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using System.Text.RegularExpressions;
 
 using pyRevitDoctor.Properties;
@@ -24,7 +19,8 @@ Usage:
 ";
 
         static DoctorCommand[] Commands = new DoctorCommand[] {
-            new DoctorCommand {
+            new()
+            {
                 Name = "purge-installs",
                 HelpMsg = "Clean up records of old installations from registry",
                 Command = PurgeInstalls.PurgeOldInstalls
@@ -78,7 +74,7 @@ Usage:
                 Console.WriteLine($"    {command.Name,-25} {command.HelpMsg}");
         }
 
-        static Regex productFinder = new Regex(
+        static Regex productFinder = new(
                 @"\{$\s*""product"":\s+""(.+)"",$\s*""release"":\s+""(.+)"",$\s*""version"":\s+""(.+)"",$\s*""key"":\s+""(.+)""$\s*\}",
                 RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.Compiled
             );

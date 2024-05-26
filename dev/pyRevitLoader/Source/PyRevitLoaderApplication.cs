@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.Attributes;
+using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 /* Note:
  * It is necessary that this code object do not have any references to IronPython.
@@ -55,8 +55,9 @@ namespace PyRevitLoader {
 
         private static string GetStartupScriptPath() {
             var loaderDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var dllDir = Path.GetDirectoryName(loaderDir);
-            return Path.Combine(dllDir, string.Format("{0}.py", Assembly.GetExecutingAssembly().GetName().Name));
+            var netVersionDir = Directory.GetParent(loaderDir!)?.FullName;
+            var engineDir = Path.GetDirectoryName(netVersionDir);
+            return Path.Combine(engineDir!, $"{Assembly.GetExecutingAssembly().GetName().Name}.py");
         }
 
         Result IExternalApplication.OnShutdown(UIControlledApplication application) {

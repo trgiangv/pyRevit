@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
+using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 /* Note:
  * It is necessary that this code object do not have any references to IronPython.

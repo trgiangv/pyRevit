@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Xml;
 
 using pyRevitLabs.Common;
 using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.NLog;
+using NLog;
 
 namespace pyRevitLabs.TargetApps.Revit {
     public class RevitAddonManifest {
@@ -19,11 +18,7 @@ namespace pyRevitLabs.TargetApps.Revit {
             VendorId = doc.DocumentElement.SelectSingleNode("/RevitAddIns/AddIn/VendorId").InnerText;
 
             var addInIdNode = doc.DocumentElement.SelectSingleNode("/RevitAddIns/AddIn/AddInId");
-            if(addInIdNode != null) {
-                AddInId = addInIdNode.InnerText;
-            } else {
-                AddInId = doc.DocumentElement.SelectSingleNode("/RevitAddIns/AddIn/ClientId").InnerText;
-            }
+            AddInId = addInIdNode != null ? addInIdNode.InnerText : doc.DocumentElement.SelectSingleNode("/RevitAddIns/AddIn/ClientId").InnerText;
         }
 
         public string FilePath { get; set; }

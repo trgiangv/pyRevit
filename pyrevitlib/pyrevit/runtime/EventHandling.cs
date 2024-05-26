@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Interop;
@@ -15,8 +12,10 @@ using UIFramework;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Controls;
 
-using pyRevitLabs.NLog;
+using NLog;
 using pyRevitLabs.PyRevit;
+using Brush = System.Windows.Media.Brush;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public enum EventType {
@@ -142,7 +141,8 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private static JournalListener journalListener;
         private static UpdaterListener updaterListener;
 
-        private static Dictionary<EventType, string> eventNames = new Dictionary<EventType, string> {
+        private static Dictionary<EventType, string> eventNames = new()
+        {
             { EventType.UIApplication_ApplicationClosing,  "app-closing" },
             { EventType.UIApplication_Idling, "app-idling" },
             { EventType.Application_ApplicationInitialized, "app-init" },
@@ -980,7 +980,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         public TabColoringStyle(string name) => Name = name;
 
-        public static readonly Thickness DefaultBorderThickness = new Thickness();
+        public static readonly Thickness DefaultBorderThickness = new();
         public static readonly Brush DefaultBorderBrush = Brushes.White;
         public static readonly Brush DefaultBackground = Brushes.Transparent;
         public static readonly Brush DefaultSelectedBackground = Brushes.White;
@@ -1119,7 +1119,8 @@ namespace PyRevitLabs.PyRevit.Runtime {
             }
         }
 
-        public static readonly List<Brush> DefaultBrushes = new List<Brush> {
+        public static readonly List<Brush> DefaultBrushes = new()
+        {
             PyRevitConsts.PyRevitAccentBrush,
             PyRevitConsts.PyRevitBackgroundBrush,
             Brushes.Blue,
@@ -1135,7 +1136,8 @@ namespace PyRevitLabs.PyRevit.Runtime {
         public static readonly uint DefaultTabColoringStyleIndex = 0;
         public static readonly uint DefaultFamilyTabColoringStyleIndex = 4;
 
-        public static readonly List<TabColoringStyle> AvailableStyles = new List<TabColoringStyle> {
+        public static readonly List<TabColoringStyle> AvailableStyles = new()
+        {
             new TabColoringStyle("Top Bar - Light") { BorderThickness = new Thickness(0,1,0,0) },
             new TabColoringStyle("Top Bar - Medium") { BorderThickness = new Thickness(0,2,0,0) },
             new TabColoringStyle("Top Bar - Heavy") { BorderThickness = new Thickness(0,3,0,0) },
@@ -1153,10 +1155,10 @@ namespace PyRevitLabs.PyRevit.Runtime {
         string _lastTabState = string.Empty;
         
         // storage for tab original styles set. this is used when resetting tabs
-        Dictionary<TabItem, Style> _tabOrigStyles = new Dictionary<TabItem, Style>();
+        Dictionary<TabItem, Style> _tabOrigStyles = new();
         
         // used slots for coloring rules
-        List<RuleSlot> _ruleSlots = new List<RuleSlot>();
+        List<RuleSlot> _ruleSlots = new();
 
         public List<RuleSlot> StyledDocuments => _ruleSlots.ToList();
         
@@ -1347,7 +1349,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         public static bool IsUpdatingDocumentTabs { get; private set; }
 
-        static object UpdateLock = new object();
+        static object UpdateLock = new();
 
         static TabColoringTheme _tabColoringTheme;
         public static TabColoringTheme TabColoringTheme {
@@ -1474,7 +1476,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public static bool IsUpdatingRibbon { get; private set; }
-        private static object UpdateLock = new object();
+        private static object UpdateLock = new();
 
         // updating flow direction on tabs
         public static StackPanel PanelSet;

@@ -1,8 +1,5 @@
-using System;
 using System.Windows;
 using System.IO;
-using System.Linq;
-using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -14,6 +11,11 @@ using System.Diagnostics;
 using pyRevitLabs.Common;
 using pyRevitLabs.CommonWPF.Controls;
 using pyRevitLabs.Emojis;
+using Brushes = System.Windows.Media.Brushes;
+using Button = System.Windows.Controls.Button;
+using Clipboard = System.Windows.Forms.Clipboard;
+using Color = System.Windows.Media.Color;
+using ToolTip = System.Windows.Controls.ToolTip;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public struct ScriptConsoleDebugger {
@@ -50,7 +52,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         public static string ProgressBarId = "pbar";
         public static string InlineWaitBlock = "<div class=\"inlinewait\" id=\"inlnwait\">\u280b Preparing results...</div>";
         public static string InlineWaitBlockId = "inlnwait";
-        public static List<string> InlineWaitSequence = new List<string>(){
+        public static List<string> InlineWaitSequence = new(){
             "\u280b Preparing results...",
             "\u2819 Preparing results...",
             "\u2838 Preparing results...",
@@ -172,7 +174,8 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private UIApplication _uiApp;
 
         private List<ScriptConsoleDebugger> _supportedDebuggers = 
-            new List<ScriptConsoleDebugger> {
+            new()
+            {
                 new ScriptConsoleDebugger() {
                     Name = "Pdb (IronPython|CPython)",
                     PromptFinder = new Regex(@"\(pdb\)"),
@@ -182,11 +185,11 @@ namespace PyRevitLabs.PyRevit.Runtime {
                     DebugStepOutKey = "r",
                     DebugStopKey = "q",
                     StopFinders = new List<Tuple<Regex, string>> {
-                        new Tuple<Regex, string> (
+                        new(
                             new Regex(@"bdb.BdbQuit|BdbQuit :"),
                             "Debugger stopped (bdb.BdbQuit exception)"
                         ),
-                        new Tuple<Regex, string> (
+                        new(
                             new Regex(@"pdb.Restart|Restart :"),
                             "Debugger stopped. Restart by running the script again (pdb.Restart exception)"
                         )

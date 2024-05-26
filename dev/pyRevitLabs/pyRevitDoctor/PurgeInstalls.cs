@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
 namespace pyRevitDoctor {
     public struct RegistryTarget {
@@ -11,22 +9,26 @@ namespace pyRevitDoctor {
 
     static class PurgeInstalls {
         static RegistryTarget[] SearchTargets = new RegistryTarget[] {
-            new RegistryTarget {
+            new()
+            {
                 BaseKey = RegistryHive.LocalMachine,
                 SubKeyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
                 TestFunc = CheckProductNameOrVersion
             },
-            new RegistryTarget {
+            new()
+            {
                 BaseKey = RegistryHive.LocalMachine,
                 SubKeyName = @"SOFTWARE\Classes\Installer\Products",
                 TestFunc = CheckInstallerProducts
             },
-            new RegistryTarget {
+            new()
+            {
                 BaseKey = RegistryHive.CurrentUser,
                 SubKeyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
                 TestFunc = CheckProductNameOrVersion
             },
-            new RegistryTarget {
+            new()
+            {
                 BaseKey = RegistryHive.CurrentUser,
                 SubKeyName = @"SOFTWARE\Microsoft\Installer\Products",
                 TestFunc = CheckInstallerProducts

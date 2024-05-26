@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
+using NLog;
 using pyRevitLabs.Common;
-
-using pyRevitLabs.NLog;
 
 namespace pyRevitLabs.DeffrelDB {
     // datastore
@@ -36,7 +29,7 @@ namespace pyRevitLabs.DeffrelDB {
         public Encoding DataFormatEncoding { get; private set; }
 
         public override string ToString() {
-            return string.Format("<DataStoreType path:{0} version:{1} encoding:{2}>", Path, DataFormatVersion, DataFormatEncoding);
+            return $"<DataStoreType path:{Path} version:{DataFormatVersion} encoding:{DataFormatEncoding}>";
         }
 
         // equality checks
@@ -47,7 +40,7 @@ namespace pyRevitLabs.DeffrelDB {
         }
 
         public override int GetHashCode() {
-            return string.Format("{0}{1}", DataFormatVersion, DataFormatEncoding.WebName).GetHashCode();
+            return $"{DataFormatVersion}{DataFormatEncoding.WebName}".GetHashCode();
         }
     }
 
@@ -69,7 +62,7 @@ namespace pyRevitLabs.DeffrelDB {
         public DataLineCommitType CommitType { get; set; }
 
         public override string ToString() {
-            return string.Format("<DataLine contents:\"{0}...\" ctype:{1}", Contents, CommitType);
+            return $"<DataLine contents:\"{Contents}...\" ctype:{CommitType}";
         }
 
         public override bool Equals(object obj) {

@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
-
-using pyRevitLabs.Common;
-using pyRevitLabs.Common.Extensions;
-
-using pyRevitLabs.NLog;
-using pyRevitLabs.Json;
-using pyRevitLabs.Json.Linq;
+﻿using System.IO;
+using Newtonsoft.Json;
+using NLog;
 
 
 namespace pyRevitLabs.Common {
     public class JSONDataSource<T> {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private List<T> _cache = new List<T>();
+        private List<T> _cache = new();
         private string _cacheVersion = string.Empty;
 
         private string _dataSourceName = string.Empty;

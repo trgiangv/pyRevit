@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
 namespace pyRevitLabs.PyRevit.Controls {
     public class PyRevitWindow : Window {

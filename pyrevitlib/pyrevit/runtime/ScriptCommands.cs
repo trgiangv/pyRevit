@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Input;
-using System.Windows.Controls;
-
 using Autodesk.Revit.UI;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.Attributes;
+using ContextMenu = System.Windows.Controls.ContextMenu;
+using MenuItem = System.Windows.Controls.MenuItem;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class CommandTypeExecConfigs {
@@ -31,7 +28,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         public ScriptData ScriptData;
         public ScriptRuntimeConfigs ScriptRuntimeConfigs;
 
-        public CommandTypeExecConfigs ExecConfigs = new CommandTypeExecConfigs();
+        public CommandTypeExecConfigs ExecConfigs = new();
 
         public ScriptCommand(
                 string scriptSource,
@@ -513,7 +510,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
             
             public abstract string Separator { get; }
 
-            public HashSet<Condition> Conditions = new HashSet<Condition>();
+            public HashSet<Condition> Conditions = new();
 
             public override bool Equals(object obj) {
                 if (obj is HashSet<Condition> conditions)
@@ -780,7 +777,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         }
 
         class AllCondition : CompoundCondition {
-            public override string Separator => new string(new char[] { CONTEXT_CONDITION_ALL_SEP });
+            public override string Separator => new(new char[] { CONTEXT_CONDITION_ALL_SEP });
 
             public override bool IsMatch(UIApplication uiApp, CategorySet selectedCategories) {
                 bool res = Conditions.All(c => c.IsMatch(uiApp, selectedCategories));
@@ -789,7 +786,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         }
 
         class AnyCondition: CompoundCondition {
-            public override string Separator => new string(new char[] { CONTEXT_CONDITION_ANY_SEP });
+            public override string Separator => new(new char[] { CONTEXT_CONDITION_ANY_SEP });
 
             public override bool IsMatch(UIApplication uiApp, CategorySet selectedCategories) {
                 bool res = Conditions.Any(c => c.IsMatch(uiApp, selectedCategories));
@@ -798,7 +795,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         }
 
         class ExactCondition: CompoundCondition {
-            public override string Separator => new string(new char[] { CONTEXT_CONDITION_EXACT_SEP });
+            public override string Separator => new(new char[] { CONTEXT_CONDITION_EXACT_SEP });
 
             public override bool IsMatch(UIApplication uiApp, CategorySet selectedCategories) {
                 var catConditions = Conditions.OfType<CategoryCondition>();

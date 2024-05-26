@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-using pyRevitLabs.Common;
+﻿using pyRevitLabs.Common;
 using pyRevitLabs.Common.Extensions;
 
 using MadMilkman.Ini;
-using pyRevitLabs.NLog;
+using NLog;
 
 
 namespace pyRevitLabs.PyRevit {
@@ -57,14 +54,14 @@ namespace pyRevitLabs.PyRevit {
 
         // get config key value
         public string GetValue(string sectionName, string keyName) {
-            logger.Debug(string.Format("Try getting config \"{0}:{1}\"", sectionName, keyName));
+            logger.Debug($"Try getting config \"{sectionName}:{keyName}\"");
             if (_config.Sections.Contains(sectionName) && _config.Sections[sectionName].Keys.Contains(keyName)) {
                 var cfgValue = _config.Sections[sectionName].Keys[keyName].Value as string;
-                logger.Debug(string.Format("Config \"{0}:{1}\" = \"{2}\"", sectionName, keyName, cfgValue));
+                logger.Debug($"Config \"{sectionName}:{keyName}\" = \"{cfgValue}\"");
                 return cfgValue;
             }
             else {
-                logger.Debug(string.Format("Config \"{0}:{1}\" not set.", sectionName, keyName));
+                logger.Debug($"Config \"{sectionName}:{keyName}\" not set.");
                 return null;
             }
         }
@@ -133,13 +130,13 @@ namespace pyRevitLabs.PyRevit {
     
         // removes a value from config file
         public bool DeleteValue(string sectionName, string keyName) {
-            logger.Debug(string.Format("Try getting config \"{0}:{1}\"", sectionName, keyName));
+            logger.Debug($"Try getting config \"{sectionName}:{keyName}\"");
             if (_config.Sections.Contains(sectionName) && _config.Sections[sectionName].Keys.Contains(keyName)) {
-                logger.Debug(string.Format("Removing config \"{0}:{1}\"", sectionName, keyName));
+                logger.Debug($"Removing config \"{sectionName}:{keyName}\"");
                 return _config.Sections[sectionName].Keys.Remove(keyName);
             }
             else {
-                logger.Debug(string.Format("Config \"{0}:{1}\" not set.", sectionName, keyName));
+                logger.Debug($"Config \"{sectionName}:{keyName}\" not set.");
                 return false;
             }
         }

@@ -1,9 +1,5 @@
-using System;
-using System.Linq;
-
-using Autodesk.Revit.UI;
-
 using pyRevitLabs.Common;
+using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class HyperlinkEngine : ScriptEngine {
@@ -32,9 +28,6 @@ namespace PyRevitLabs.PyRevit.Runtime {
                 dialog.ExpandedContent = $"{hyperlinkEx.Message}\n{hyperlinkEx.StackTrace}";
                 dialog.Show();
                 return ScriptExecutorResultCodes.ExecutionException;
-            }
-            finally {
-                // whatever
             }
         }
     }

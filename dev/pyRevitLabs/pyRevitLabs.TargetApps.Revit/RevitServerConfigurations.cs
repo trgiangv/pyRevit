@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.IO;
 
 
@@ -15,7 +13,7 @@ namespace pyRevitLabs.TargetApps.Revit {
         }
 
         public override string ToString() {
-            return String.Format("{0} / {1}", Version, Name);
+            return $"{Version} / {Name}";
         }
     }
 

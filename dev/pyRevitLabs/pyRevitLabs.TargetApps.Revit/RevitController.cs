@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-using pyRevitLabs.NLog;
+﻿using System.Diagnostics;
+using NLog;
 
 namespace pyRevitLabs.TargetApps.Revit {
     public class RevitController {

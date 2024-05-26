@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.IO;
 using System.Diagnostics;
@@ -7,9 +5,10 @@ using System.Diagnostics;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
 
-using pyRevitLabs.Json;
+using Newtonsoft.Json;
 using pyRevitLabs.Common;
 using pyRevitLabs.TargetApps.Revit;
+using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class TelemetryRecord {

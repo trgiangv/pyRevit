@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.IO;
 using pyRevitLabs.Common;
 
-using pyRevitLabs.Json.Linq;
-using pyRevitLabs.NLog;
+using Newtonsoft.Json.Linq;
+using NLog;
 
 namespace pyRevitLabs.PyRevit {
     public enum PyRevitExtensionTypes {
@@ -48,7 +42,7 @@ namespace pyRevitLabs.PyRevit {
         }
 
         public override string ToString() {
-            return string.Format("Name: \"{0}\" | Type: \"{1}\" | Repo: \"{2}\"", Name, Type, Url);
+            return $"Name: \"{Name}\" | Type: \"{Type}\" | Repo: \"{Url}\"";
         }
 
         public bool BuiltIn { get { return bool.Parse(_jsonObj.builtin); } }
@@ -182,7 +176,7 @@ namespace pyRevitLabs.PyRevit {
                 if (command.Name.ToLower() == commandName.ToLower())
                     return command;
             }
-            throw new PyRevitException(string.Format("Run command \"{0}\" does not exist.", commandName));
+            throw new PyRevitException($"Run command \"{commandName}\" does not exist.");
         }
 
         // get origin remote url

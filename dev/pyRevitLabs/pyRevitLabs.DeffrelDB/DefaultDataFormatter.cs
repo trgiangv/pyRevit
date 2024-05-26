@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-
-using pyRevitLabs.NLog;
+using NLog;
 
 namespace pyRevitLabs.DeffrelDB {
     internal class DefaultDataFormatter: IDataFormatter {

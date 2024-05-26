@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-using Microsoft.Win32;
-
+﻿using NLog;
 using pyRevitLabs.Common;
-using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.NLog;
 
 namespace pyRevitLabs.PyRevit {
     public class PyRevitProductInfo {
@@ -24,7 +14,7 @@ namespace pyRevitLabs.PyRevit {
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static JSONDataSource<PyRevitProductInfo> _dstore = new JSONDataSource<PyRevitProductInfo>(
+        private static JSONDataSource<PyRevitProductInfo> _dstore = new(
             "pyrevit-products.json",
             dataSourceUrl: ProductFileURL,
             dataCachePath: PyRevitLabsConsts.CacheDirectory
@@ -65,7 +55,7 @@ namespace pyRevitLabs.PyRevit {
         }
 
         public override string ToString() {
-            return string.Format("{0} | Version: {1} | Release: {2} | Installer Id: \"{3}\"", Name, Version, Release, InstallerId);
+            return $"{Name} | Version: {Version} | Release: {Release} | Installer Id: \"{InstallerId}\"";
         }
 
         public override int GetHashCode() {

@@ -1,13 +1,9 @@
-using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Runtime.Remoting;
 using System.Reflection;
-
-using Autodesk.Revit.UI;
-
 using pyRevitLabs.Common;
-using pyRevitLabs.Json;
+using Newtonsoft.Json;
+using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class DynamoBIMEngineConfigs : ScriptEngineConfigs {
@@ -21,7 +17,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
     }
 
     public class DynamoBIMEngine : ScriptEngine {
-        public DynamoBIMEngineConfigs ExecEngineConfigs = new DynamoBIMEngineConfigs();
+        public DynamoBIMEngineConfigs ExecEngineConfigs = new();
 
         public override void Init(ref ScriptRuntime runtime) {
             base.Init(ref runtime);

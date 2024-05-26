@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
 
 namespace pyRevitLabs.CommonWPF.Converters
@@ -8,7 +6,7 @@ namespace pyRevitLabs.CommonWPF.Converters
     public class BitmapToImageSourceConverter : IValueConverter
     {
         private static readonly Lazy<BitmapToImageSourceConverter> InstanceObj =
-           new Lazy<BitmapToImageSourceConverter>(() => new BitmapToImageSourceConverter());
+           new(() => new BitmapToImageSourceConverter());
 
         public static BitmapToImageSourceConverter Instance
         {

@@ -1,15 +1,11 @@
-using System;
 using System.Numerics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 
-using pyRevitLabs.NLog;
+using NLog;
 using Autodesk.Revit.UI.Events;
+using View = Autodesk.Revit.DB.View;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class EventTelemetryRecord : TelemetryRecord {

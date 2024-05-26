@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Management;
+﻿using System.Text.RegularExpressions;
 using System.Security.Principal;
 using System.IO;
+using System.Management;
 using System.Runtime.InteropServices;
-using System.Security.AccessControl;
-
-using DotNetVersionFinder;
-using pyRevitLabs.NLog;
+using NLog;
 
 
 // user default folder implementation from https://stackoverflow.com/a/21953690/2350244
@@ -47,7 +39,7 @@ namespace pyRevitLabs.Common {
         }
 
         public static Version GetInstalledDotNetVersion() {
-            return DotNetVersion.Find();
+            return Environment.Version;
         }
 
         public static List<string> GetInstalledDotnetTargetPacks() {

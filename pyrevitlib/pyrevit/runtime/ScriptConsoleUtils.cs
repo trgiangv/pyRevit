@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using View = Autodesk.Revit.DB.View;
 
 #if (REVIT2013 || REVIT2014)
 using Autodesk.Revit.UI.Selection;

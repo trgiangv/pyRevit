@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.CodeDom.Compiler;
 using System.CodeDom;
-using System.Web;
-
-using pyRevitLabs.NLog;
-using pyRevitLabs.Json;
+using Newtonsoft.Json;
+using NLog;
 
 namespace pyRevitLabs.Common.Extensions {
     public static class CharExtensions {
@@ -87,12 +81,12 @@ namespace pyRevitLabs.Common.Extensions {
         // private logger and data
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static Regex DriveLetterFinder = new Regex(@"^(?<drive>[A-Za-z]):");
-        private static Regex GuidFinder = new Regex(@".*(?<guid>[0-9A-Fa-f]{8}[-]" +
-                                                        "[0-9A-Fa-f]{4}[-]" +
-                                                        "[0-9A-Fa-f]{4}[-]" +
-                                                        "[0-9A-Fa-f]{4}[-]" + 
-                                                        "[0-9A-Fa-f]{12}).*");
+        private static Regex DriveLetterFinder = new(@"^(?<drive>[A-Za-z]):");
+        private static Regex GuidFinder = new(@".*(?<guid>[0-9A-Fa-f]{8}[-]" +
+                                              "[0-9A-Fa-f]{4}[-]" +
+                                              "[0-9A-Fa-f]{4}[-]" +
+                                              "[0-9A-Fa-f]{4}[-]" + 
+                                              "[0-9A-Fa-f]{12}).*");
 
         public static string GetDisplayPath(this string sourceString) {
             var separator = Path.AltDirectorySeparatorChar.ToString();
@@ -351,7 +345,7 @@ namespace pyRevitLabs.Common.Extensions {
 
     public static class DateTimeExtensions {
         public static string NeatTime(this DateTime sourceDate) {
-            return String.Format("{0:dd/MM/yyyy HH:mm:ss}", sourceDate);
+            return $"{sourceDate:dd/MM/yyyy HH:mm:ss}";
         }
     }
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using pyRevitLabs.Common;
-using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.TargetApps.Revit;
-using pyRevitLabs.PyRevit;
+﻿using pyRevitLabs.Common.Extensions;
 
 namespace pyRevitCLI {
     internal static class PyRevitCLIAppHelps {

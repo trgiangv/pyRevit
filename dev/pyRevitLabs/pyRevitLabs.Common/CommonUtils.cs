@@ -1,14 +1,11 @@
 ﻿using OpenMcdf;
-using System;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-
-using pyRevitLabs.NLog;
-using System.Threading;
+using NLog;
 
 namespace pyRevitLabs.Common {
     public static class CommonUtils {
@@ -82,8 +79,8 @@ namespace pyRevitLabs.Common {
             }
             catch (Exception ex) {
                 throw new PyRevitException(
-                    string.Format("Error copying \"{0}\" to \"{1}\" | {2}", sourceDir, destDir, ex.Message)
-                    );
+                    $"Error copying \"{sourceDir}\" to \"{destDir}\" | {ex.Message}"
+                );
             }
         }
 
@@ -239,9 +236,9 @@ namespace pyRevitLabs.Common {
             }
             else {
                 if (logErrMsg is null)
-                    logErrMsg = string.Format("Error opening url \"{0}\"", url);
+                    logErrMsg = $"Error opening url \"{url}\"";
 
-                logger.Error(string.Format("{0}. No internet connection detected.", logErrMsg));
+                logger.Error($"{logErrMsg}. No internet connection detected.");
             }
         }
 

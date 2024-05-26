@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using pyRevitLabs.Json;
+using Newtonsoft.Json;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class ScriptTelemetryRecordEngineInfo {

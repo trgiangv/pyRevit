@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace pyRevitLabs.Common {
+﻿namespace pyRevitLabs.Common {
     // ERROR CODES ===================================================================================================
     // error codes are to be used for non-critical, non-breaking errors
 
@@ -19,7 +13,7 @@ namespace pyRevitLabs.Common {
     // >>> Errors.LatestError = ErrorCodes.OccuredErrorCode;
     public sealed class Errors {
         private static Errors instance = null;
-        private static readonly object padlock = new object();
+        private static readonly object padlock = new();
 
         Errors() {
         }
@@ -60,7 +54,7 @@ namespace pyRevitLabs.Common {
 
         public override string Message {
             get {
-                return String.Format("\"{0}\" does not exist.", Path);
+                return $"\"{Path}\" does not exist.";
             }
         }
     }
@@ -83,7 +77,7 @@ namespace pyRevitLabs.Common {
 
         public override string Message {
             get {
-                return string.Format("Invalid URL {0}", URL);
+                return $"Invalid URL {URL}";
             }
         }
 

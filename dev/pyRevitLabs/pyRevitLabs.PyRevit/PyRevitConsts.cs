@@ -1,10 +1,10 @@
-using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 
-using pyRevitLabs.NLog;
+using NLog;
 using pyRevitLabs.Common;
+using Color = System.Windows.Media.Color;
 
 namespace pyRevitLabs.PyRevit {
     public static class PyRevitConsts {
@@ -13,9 +13,10 @@ namespace pyRevitLabs.PyRevit {
         // repo info
         public const string DefaultCloneInstallName = PyRevitLabsConsts.ProductName;
         public const string DefaultCloneRemoteName = PyRevitLabsConsts.DefaultRemoteName;
-        public static string DefaultCopyInstallName = string.Format("{0}Copy", PyRevitLabsConsts.ProductName);
+        public static string DefaultCopyInstallName = $"{PyRevitLabsConsts.ProductName}Copy";
 
-        public static string ExtensionsDefinitionFileUri = string.Format(@"https://github.com/pyrevitlabs/pyRevit/raw/{0}/extensions/{1}", PyRevitLabsConsts.TragetBranch, ExtensionsDefFileName);
+        public static string ExtensionsDefinitionFileUri =
+            $@"https://github.com/pyrevitlabs/pyRevit/raw/{PyRevitLabsConsts.TragetBranch}/extensions/{ExtensionsDefFileName}";
 
         // cli
         public const string CLIHelpUrl = @"https://github.com/pyrevitlabs/pyRevit/blob/cli-v{0}/docs/cli.md";
@@ -167,8 +168,8 @@ namespace pyRevitLabs.PyRevit {
         public const string BundleScriptRevitFamilyPostfix = ".rfa";
 
         // theme
-        public static SolidColorBrush PyRevitAccentBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0xf3, 0x9c, 0x12));
-        public static SolidColorBrush PyRevitBackgroundBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x2c, 0x3e, 0x50));
+        public static SolidColorBrush PyRevitAccentBrush = new(Color.FromArgb(0xFF, 0xf3, 0x9c, 0x12));
+        public static SolidColorBrush PyRevitBackgroundBrush = new(Color.FromArgb(0xFF, 0x2c, 0x3e, 0x50));
 
 
         // methods

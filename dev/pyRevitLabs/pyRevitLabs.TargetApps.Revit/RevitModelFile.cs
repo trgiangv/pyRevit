@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-
+using NLog;
 using pyRevitLabs.Common;
 using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.NLog;
 
 namespace pyRevitLabs.TargetApps.Revit {
     public enum RevitModelFileOpenWorksetConfig {
@@ -87,7 +83,7 @@ namespace pyRevitLabs.TargetApps.Revit {
                     );
             }
             else
-                throw new PyRevitException(string.Format("Target is not a valid Revit model \"{0}\"", filePath));
+                throw new PyRevitException($"Target is not a valid Revit model \"{filePath}\"");
 
             // extract ProjectInformation (Revit Project Files)
             // ProjectInformation is a PK Zip stream
@@ -132,7 +128,7 @@ namespace pyRevitLabs.TargetApps.Revit {
         }
 
         private Regex buildFieldRegex(string fieldName, string captureId) {
-            return new Regex(string.Format(@"{0}(?<{1}>.*$)", fieldName, captureId));
+            return new Regex($@"{fieldName}(?<{captureId}>.*$)");
         }
 
         private void ProcessBasicFileInfo(IEnumerable<string> basicInfoDataLines) {
@@ -298,9 +294,9 @@ namespace pyRevitLabs.TargetApps.Revit {
 
         public int DocumentIncrement { get; private set; } = 0;
 
-        public Guid UniqueId { get; private set; } = new Guid();
+        public Guid UniqueId { get; private set; } = new();
 
-        public Guid LastReloadLatestUniqueId { get; private set; } = new Guid();
+        public Guid LastReloadLatestUniqueId { get; private set; } = new();
 
         public RevitProduct RevitProduct { get; private set; } = null;
 

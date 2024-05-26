@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace pyRevitLabs.CommonWPF.Controls {
     /// <summary>
@@ -20,12 +10,12 @@ namespace pyRevitLabs.CommonWPF.Controls {
     /// </summary>
     public partial class InputBar : UserControl {
         // input control mechanism
-        private object _inputLock = new object();
+        private object _inputLock = new();
         private bool _waiting = false;
 
         // input history
         private int _historyPointer = -1;
-        private List<string> _history = new List<string>();
+        private List<string> _history = new();
 
         // input buffer
         private string _input = string.Empty;

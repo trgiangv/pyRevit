@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
-
+﻿using NLog;
 using pyRevitLabs.Common;
-
-using pyRevitLabs.NLog;
-using pyRevitLabs.Json;
 
 namespace pyRevitLabs.PyRevit {
     public static class PyRevitReleases {

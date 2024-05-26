@@ -1,22 +1,17 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
-using System.Drawing;
-using System.Linq;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Reflection;
-using System.Resources;
 
 namespace pyRevitLabs.Emojis {
     public static class Emojis {
         private static ZipArchive _emojiZip = null;
-        private static ImageConverter _converter = new ImageConverter();
-        private static Dictionary<string, string> _encodedEmoji = new Dictionary<string, string>();
+        private static ImageConverter _converter = new();
+        private static Dictionary<string, string> _encodedEmoji = new();
         
         public const string EmojiSpanTemplate = "<span><img src=\"data:image/png;base64,{0}\" class=\"emoji\" title=\"{1}\"></span>";
 
-        public static Dictionary<string, string> EmojiDict = new Dictionary<string, string>() {
+        public static Dictionary<string, string> EmojiDict = new() {
             { "1st_place_medal", "1F947" },
             { "2nd_place_medal", "1F948" },
             { "3rd_place_medal", "1F949" },
@@ -2654,9 +2649,9 @@ namespace pyRevitLabs.Emojis {
             foreach (var emojiShortCode in matches) {
                 if (EmojiDict.ContainsKey(emojiShortCode)) {
                     // find the emoji unicode
-                    var shortHand = string.Format(":{0}:", emojiShortCode);
+                    var shortHand = $":{emojiShortCode}:";
                     // find the emoji image
-                    var emojiFile = string.Format("{0}.png", EmojiDict[emojiShortCode].ToLower());
+                    var emojiFile = $"{EmojiDict[emojiShortCode].ToLower()}.png";
                     // convert emoji image data to base64
                     try {
                         string encodedEmoji = string.Empty;

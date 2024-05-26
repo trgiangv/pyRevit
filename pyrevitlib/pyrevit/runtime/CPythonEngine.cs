@@ -1,7 +1,4 @@
-using System;
 using System.IO;
-using System.Linq;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 // cpython
@@ -9,13 +6,13 @@ using Python.Runtime;
 using CpyRuntime = Python.Runtime.Runtime;
 
 using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.NLog;
+using NLog;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class CPythonEngine : ScriptEngine {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private List<string> _sysPaths = new List<string>();
+        private List<string> _sysPaths = new();
 
         public override void Init(ref ScriptRuntime runtime) {
             base.Init(ref runtime);
@@ -62,7 +59,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                 catch (PythonException cpyex) {
                     string cleanedPyTraceback = string.Empty;
                     string pyNetTraceback = string.Empty;
-                    if (cpyex.StackTrace != null && cpyex.StackTrace != string.Empty) {
+                    if (string.IsNullOrEmpty(cpyex.StackTrace)) {
                         var traceBackParts = cpyex.StackTrace.Split(']');
                         int nextIdx = 0;
                         // if stack trace contains file info, clean it up
@@ -127,7 +124,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private void SetupBuiltins(ref ScriptRuntime runtime) {
             // get builtins
-            IntPtr builtins = CpyRuntime.PyEval_GetBuiltins();
+            IntPtr builtins = CpyRuntime.MainManagedThreadId;
 
             // Add timestamp and executuin uuid
             SetVariable(builtins, "__execid__", runtime.ExecId);
@@ -177,7 +174,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private void SetupStreams(ref ScriptRuntime runtime) {
             // set output stream
-            PyObject sys = PythonEngine.ImportModule("sys");
+            PyObject sys = PyModule.Import("sys");
             var baseStream = PyObject.FromManagedObject(runtime.OutputStream);
             sys.SetAttr("stdout", baseStream);
             sys.SetAttr("stdin", baseStream);
@@ -186,7 +183,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private void SetupCaching(ref ScriptRuntime runtime) {
             // set output stream
-            PyObject sys = PythonEngine.ImportModule("sys");
+            PyObject sys = PyModule.Import("sys");
             // dont write bytecode (__pycache__)
             // https://docs.python.org/3.7/library/sys.html?highlight=pythondontwritebytecode#sys.dont_write_bytecode
             sys.SetAttr("dont_write_bytecode", PyObject.FromManagedObject(true));
@@ -212,7 +209,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private void SetupArguments(ref ScriptRuntime runtime) {
             // setup arguments (sets sys.argv)
-            PyObject sys = PythonEngine.ImportModule("sys");
+            PyObject sys = PyModule.Import("sys");
             PyObject sysArgv = sys.GetAttr("argv");
 
             var pythonArgv = new PyList();
@@ -243,7 +240,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
             _sysPaths = new List<string>();
             long itemsCount = currentSysPath.Length();
             for (long i = 0; i < itemsCount; i++) {
-                BorrowedReference item = 
+                var item = 
                     CpyRuntime.PyList_GetItem(currentSysPath.Handle, i);
                 string path = CpyRuntime.GetManagedString(item);
                 _sysPaths.Add(path);
@@ -264,13 +261,13 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private PyList GetSysPaths() {
             // set sys paths
-            PyObject sys = PythonEngine.ImportModule("sys");
+            PyObject sys = PyModule.Import("sys");
             PyObject sysPathsObj = sys.GetAttr("path");
             return PyList.AsList(sysPathsObj);
         }
 
         private void SetSysPaths(PyList sysPaths) {
-            PyObject sys = PythonEngine.ImportModule("sys");
+            PyObject sys = PyModule.Import("sys");
             sys.SetAttr("path", sysPaths);
         }
 
@@ -280,6 +277,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                 key: key,
                 value: value
             );
+            Environment.SetEnvironmentVariable(key, "asdasd", EnvironmentVariableTarget.Process);
         }
 
         private static void SetVariable(IntPtr? globals, string key, object value) {

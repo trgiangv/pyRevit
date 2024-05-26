@@ -1,7 +1,4 @@
-using System;
 using System.IO;
-using System.Threading;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using Autodesk.Revit.UI;
@@ -35,7 +32,8 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private string JournalFile = "";
         private Thread jtail;
 
-        private static List<Regex> JournalCommandExtractors = new List<Regex> {
+        private static List<Regex> JournalCommandExtractors = new()
+        {
                 new Regex(@".*Jrn\.RibbonEvent\s""Execute external command\:(?<command_id>.+)\:(.+)"""),
                 new Regex(@".*Jrn.Command "".+""\s\,\s"".*\s\,\s(?<command_id>.+)"""),
         };

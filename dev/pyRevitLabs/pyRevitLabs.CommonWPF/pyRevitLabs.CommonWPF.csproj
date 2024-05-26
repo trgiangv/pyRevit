@@ -4,7 +4,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="pyRevitLabs.MahAppsMetro" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.MahAppsMetro.dll" Private="false" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +15,11 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 
-  <Target Name="DeployDependencies" AfterTargets="Deploy">
-    <Copy SourceFiles="$(OutputPath)\System.Windows.Interactivity.dll" DestinationFolder="$(PyRevitBinDir)" />
+  <Target Name="DeployToNET8" AfterTargets="Deploy" Condition="$(TargetFramework) != 'net48'">
+    <Copy SourceFiles="$(OutputPath)\System.Windows.Interactivity.dll" DestinationFolder="$(PyRevitBinDir)\reference\NET8" />
+  </Target>
+
+  <Target Name="DeployToNET48" AfterTargets="Deploy" Condition="$(TargetFramework) == 'net48'">
+    <Copy SourceFiles="$(OutputPath)\System.Windows.Interactivity.dll" DestinationFolder="$(PyRevitBinDir)\reference\NET48" />
   </Target>
 </Project>

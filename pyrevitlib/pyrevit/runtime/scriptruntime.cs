@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 
 using Autodesk.Revit.UI;
@@ -8,6 +6,7 @@ using Autodesk.Revit.ApplicationServices;
 
 using pyRevitLabs.Common;
 using pyRevitLabs.PyRevit;
+using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public enum ScriptRuntimeType {
@@ -70,8 +69,8 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private Application _app;
 
         // output window and stream
-        private WeakReference<ScriptConsole> _scriptOutput = new WeakReference<ScriptConsole>(null);
-        private WeakReference<ScriptIO> _outputStream = new WeakReference<ScriptIO>(null);
+        private WeakReference<ScriptConsole> _scriptOutput = new(null);
+        private WeakReference<ScriptIO> _outputStream = new(null);
 
         // dict for command result data
         private Dictionary<string, string> _resultsDict;

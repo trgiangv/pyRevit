@@ -20,12 +20,11 @@
   <!-- Core Configuration -->
   <PropertyGroup>
         <UseWPF>true</UseWPF>
-        <UseWindowForms>true</UseWindowForms>
+        <UseWindowsForms>true</UseWindowsForms>
         <LangVersion>latest</LangVersion>
         <OutputType>Library</OutputType>
         <PlatformTarget>x64</PlatformTarget>
         <ImplicitUsings>true</ImplicitUsings>
-        <PublishAddinFiles>false</PublishAddinFiles>
         <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
         <Configurations>Debug R19;Debug R20;Debug R21;Debug R22;Debug R23;Debug R24;Debug R25</Configurations>
         <Configurations>$(Configurations);Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25</Configurations>
@@ -89,37 +88,37 @@
   <Choose>
         <When Condition="$(RevitVersion) == '2019'">
             <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2019" Version="4.0.0" />
+                <PackageReference Include="ModPlus.Revit.API.2019" Version="4.0.0" ExcludeAssets="runtime"/>
             </ItemGroup>
         </When>
         <When Condition="$(RevitVersion) == '2020'">
             <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2020" Version="4.0.0" />
+                <PackageReference Include="ModPlus.Revit.API.2020" Version="4.0.0" ExcludeAssets="runtime"/>
             </ItemGroup>
         </When>
         <When Condition="$(RevitVersion) == '2021'">
             <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2021" Version="4.0.0" />
+                <PackageReference Include="ModPlus.Revit.API.2021" Version="4.0.0" ExcludeAssets="runtime"/>
             </ItemGroup>
         </When>
         <When Condition="$(RevitVersion) == '2022'">
             <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2022" Version="4.0.0" />
+                <PackageReference Include="ModPlus.Revit.API.2022" Version="4.0.0" ExcludeAssets="runtime"/>
             </ItemGroup>
         </When>
         <When Condition="$(RevitVersion) == '2023'">
             <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2023" Version="4.0.0" />
+                <PackageReference Include="ModPlus.Revit.API.2023" Version="4.0.0" ExcludeAssets="runtime"/>
             </ItemGroup>
         </When>
         <When Condition="$(RevitVersion) == '2024'">
             <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2024" Version="4.0.0" />
+                <PackageReference Include="ModPlus.Revit.API.2024" Version="4.0.0" ExcludeAssets="runtime"/>
             </ItemGroup>
         </When>
         <When Condition="$(RevitVersion) == '2025'">
             <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2025" Version="4.0.0" />
+                <PackageReference Include="ModPlus.Revit.API.2025" Version="4.0.0" ExcludeAssets="runtime"/>
             </ItemGroup>
         </When>
     </Choose>

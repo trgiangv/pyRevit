@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace pyRevitLabs.PyRevit {
+﻿namespace pyRevitLabs.PyRevit {
     public enum PyRevitScriptTypes {
         Unknown,
         Python,

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Diagnostics;
-
+using NLog;
 using pyRevitLabs.Common;
 using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.NLog;
 using pyRevitLabs.TargetApps.Revit;
 
 namespace pyRevitLabs.PyRevit {
@@ -19,7 +13,7 @@ namespace pyRevitLabs.PyRevit {
             return $"{Name} | \"{Path}\"";
         }
 
-        public string Name => System.IO.Path.GetFileName(Path).Replace(PyRevitConsts.ExtensionUICommandPostfix, "");
+        public string Name => System.IO.Path.GetFileName(Path)?.Replace(PyRevitConsts.ExtensionUICommandPostfix, "");
         public string Path { get; }
     }
 

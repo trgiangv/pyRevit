@@ -1,12 +1,8 @@
-﻿using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-
-using pyRevitLabs.Common.Extensions;
+﻿using pyRevitLabs.Common.Extensions;
 
 namespace pyRevitLabs.PyRevit {
     public class PyRevitEngineVersion {
-        static public PyRevitEngineVersion Default => new PyRevitEngineVersion(0);
+        static public PyRevitEngineVersion Default => new(0);
         
         public int Version { get; private set; }
         bool IsDefault => Version == 0;
@@ -14,7 +10,7 @@ namespace pyRevitLabs.PyRevit {
         public PyRevitEngineVersion(int version) => Version = version;
 
         public static implicit operator int(PyRevitEngineVersion v) => v.Version;
-        public static explicit operator PyRevitEngineVersion(int v) => new PyRevitEngineVersion(v);
+        public static explicit operator PyRevitEngineVersion(int v) => new(v);
         public static bool operator ==(PyRevitEngineVersion v1, PyRevitEngineVersion v2) => v1.Version == v2.Version;
         public static bool operator !=(PyRevitEngineVersion v1, PyRevitEngineVersion v2) => v1.Version != v2.Version;
         public static bool operator >(PyRevitEngineVersion v1, PyRevitEngineVersion v2) => v1.Version > v2.Version;

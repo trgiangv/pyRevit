@@ -1,14 +1,10 @@
-using System;
 using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-
 using Autodesk.Revit.UI;
 using Autodesk.Revit.DB;
 
 using pyRevitLabs.Common;
 
-using pyRevitLabs.NLog;
+using NLog;
 using Autodesk.Revit.UI.Events;
 
 namespace PyRevitLabs.PyRevit.Runtime {

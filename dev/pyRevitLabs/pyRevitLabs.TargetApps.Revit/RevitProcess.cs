@@ -34,7 +34,7 @@ namespace pyRevitLabs.TargetApps.Revit {
         }
 
         public override string ToString() {
-            return string.Format("PID: {0} | {1}", _process.Id, RevitProduct.ToString());
+            return $"PID: {_process.Id} | {RevitProduct.ToString()}";
         }
 
         public void Kill() {

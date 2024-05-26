@@ -1,6 +1,4 @@
-using System;
 using System.IO;
-using System.Collections.Generic;
 using IronPython.Runtime;
 
 using pyRevitLabs.Common;
@@ -80,8 +78,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         public string AppTelemetryServerUrl;
         public string AppTelemetryEventFlags;
 
-        public Dictionary<string, Dictionary<string, string>> EventHooks = 
-            new Dictionary<string, Dictionary<string, string>>();
+        public Dictionary<string, Dictionary<string, string>> EventHooks = new();
 
         public string ActiveStyleSheet;
         public bool AutoUpdate;

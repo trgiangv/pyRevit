@@ -1,39 +1,50 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <Reference Include="pyRevitLabs.Json" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.Json.dll" Private="false" />
-    <Reference Include="pyRevitLabs.NLog" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.NLog.dll" Private="false" />
-  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetVersionFinder" Version="1.1.3" />
-    <PackageReference Include="LibGit2Sharp" Version="0.29.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog" Version="5.3.2" />
+    <PackageReference Include="LibGit2Sharp" Version="0.30.0" />
     <PackageReference Include="MadMilkman.Ini" Version="1.0.6" />
-    <PackageReference Include="OpenMcdf" Version="2.2.1.6" />
-    <PackageReference Include="YamlDotNet" Version="8.1.2" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.4.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="3.4.0" />
-    <Reference Include="System.Management" />
+    <PackageReference Include="OpenMcdf" Version="2.3.1" />
+    <PackageReference Include="YamlDotNet" Version="15.1.4" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.9.2" />
+    <PackageReference Include="System.Management" Version="8.0.0"/>
   </ItemGroup>
 
-  <Target Name="DeployDependencies" AfterTargets="Deploy">
+  <Target Name="DeployToNET8" AfterTargets="Deploy" Condition="$(TargetFramework) != 'net48'">
     <ItemGroup>
       <LibGit2SharpNative Include="$(OutputPath)\lib\win32\x64\*.dll" />
     </ItemGroup>
-    <Copy SourceFiles="$(OutputPath)\DotNetVersionFinder.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\LibGit2Sharp.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="@(LibGit2SharpNative)" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\MadMilkman.Ini.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\OpenMcdf.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\YamlDotNet.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.CSharp.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.VisualBasic.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\System.Collections.Immutable.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\System.Memory.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\System.Numerics.Vectors.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\System.Reflection.Metadata.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\System.Runtime.CompilerServices.Unsafe.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\System.Text.Encoding.CodePages.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\System.Threading.Tasks.Extensions.dll" DestinationFolder="$(PyRevitBinDir)" />
+    <Copy SourceFiles="$(OutputPath)\LibGit2Sharp.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="@(LibGit2SharpNative)" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\MadMilkman.Ini.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\OpenMcdf.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\YamlDotNet.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.CSharp.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.VisualBasic.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\System.Collections.Immutable.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\System.Reflection.Metadata.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\System.Text.Encoding.CodePages.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+    <Copy SourceFiles="$(OutputPath)\System.Threading.Tasks.Extensions.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+  </Target>
+
+  <Target Name="DeployToNET48" AfterTargets="Deploy" Condition="$(TargetFramework) == 'net48'">
+    <ItemGroup>
+      <LibGit2SharpNative Include="$(OutputPath)\lib\win32\x64\*.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="$(OutputPath)\LibGit2Sharp.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="@(LibGit2SharpNative)" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\MadMilkman.Ini.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\OpenMcdf.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\YamlDotNet.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.CSharp.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.VisualBasic.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\System.Collections.Immutable.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\System.Reflection.Metadata.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\System.Text.Encoding.CodePages.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+    <Copy SourceFiles="$(OutputPath)\System.Threading.Tasks.Extensions.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
   </Target>
 </Project>

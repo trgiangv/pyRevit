@@ -1,10 +1,4 @@
-﻿using System;
-
-using pyRevitLabs.Common;
-using pyRevitLabs.Common.Extensions;
-
-using pyRevitLabs.NLog;
-using pyRevitLabs.Json.Linq;
+﻿using pyRevitLabs.Common;
 
 namespace pyRevitLabs.PyRevit {
 

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using pyRevitLabs.Common.Extensions;
+﻿using pyRevitLabs.Common.Extensions;
 
 namespace pyRevitLabs.PyRevit {
     public class PyRevitDeployment {

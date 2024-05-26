@@ -1,6 +1,4 @@
-using System;
 using System.IO;
-using System.Collections.Generic;
 
 // iron languages
 using Microsoft.Scripting;
@@ -11,8 +9,8 @@ using IronPython.Runtime.Exceptions;
 using IronPython.Runtime.Operations;
 
 using pyRevitLabs.Common.Extensions;
-using pyRevitLabs.Json;
-using pyRevitLabs.NLog;
+using Newtonsoft.Json;
+using NLog;
 
 namespace PyRevitLabs.PyRevit.Runtime {
     public class IronPythonEngineConfigs : ScriptEngineConfigs {
@@ -25,7 +23,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public Microsoft.Scripting.Hosting.ScriptEngine Engine { get; private set; }
-        public IronPythonEngineConfigs ExecEngineConfigs = new IronPythonEngineConfigs();
+        public IronPythonEngineConfigs ExecEngineConfigs = new();
 
         public static Tuple<Stream, System.Text.Encoding> DefaultOutputStreamConfig {
             get => (Tuple<Stream, System.Text.Encoding>)AppDomain.CurrentDomain.GetData(DomainStorageKeys.IronPythonEngineDefaultOutputStreamCfgKey);
@@ -301,7 +299,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
     }
 
     public class IronPythonErrorReporter : ErrorListener {
-        public List<string> Errors = new List<string>();
+        public List<string> Errors = new();
 
         public override void ErrorReported(ScriptSource source, string message,
                                            SourceSpan span, int errorCode, Severity severity) {

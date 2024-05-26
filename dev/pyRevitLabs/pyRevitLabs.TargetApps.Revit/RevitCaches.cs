@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
+using NLog;
 using pyRevitLabs.Common;
-using pyRevitLabs.NLog;
 
 namespace pyRevitLabs.TargetApps.Revit {
     public enum RevitCacheType {

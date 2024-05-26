@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace PyRevitLabs.PyRevit.Runtime {
     public static class ScriptEngineManager {
         public static T GetEngine<T>(ref ScriptRuntime runtime) where T : ScriptEngine, new() {

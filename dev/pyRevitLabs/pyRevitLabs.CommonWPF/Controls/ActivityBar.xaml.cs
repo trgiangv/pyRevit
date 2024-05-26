@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using Brushes = System.Windows.Media.Brushes;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace pyRevitLabs.CommonWPF.Controls {
     /// <summary>
@@ -117,7 +116,7 @@ namespace pyRevitLabs.CommonWPF.Controls {
             _taskCounter--;
             RefreshProgressState();
 
-            ConsoleLog(String.Format("✓ {0} Task Completed.", taskName));
+            ConsoleLog($"✓ {taskName} Task Completed.");
             return task;
         }
 
@@ -131,7 +130,7 @@ namespace pyRevitLabs.CommonWPF.Controls {
             _taskCounter--;
             RefreshProgressState();
 
-            ConsoleLog(String.Format("✓ {0} Task Completed.", taskName));
+            ConsoleLog($"✓ {taskName} Task Completed.");
         }
 
         private void actionBar_Click(object sender, MouseButtonEventArgs e) {

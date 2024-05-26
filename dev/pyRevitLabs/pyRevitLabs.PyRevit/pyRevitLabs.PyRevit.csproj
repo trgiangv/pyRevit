@@ -1,13 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <Reference Include="pyRevitLabs.Json" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.Json.dll" Private="false" />
-    <Reference Include="pyRevitLabs.NLog" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.NLog.dll" Private="false" />
-    <Reference Include="pyRevitLabs.MahAppsMetro" HintPath="$(PyRevitDevLibsDir)\pyRevitLabs.MahAppsMetro.dll" Private="false" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
-    <PackageReference Include="LibGit2Sharp" Version="0.29.0" />
+    <PackageReference Include="LibGit2Sharp" Version="0.30.0" />
     <PackageReference Include="MadMilkman.Ini" Version="1.0.6" />
     <PackageReference Include="Nett" Version="0.15.0" />
     <Reference Include="PresentationCore" />
@@ -23,7 +18,11 @@
     <ProjectReference Include="..\pyRevitLabs.TargetApps.Revit\pyRevitLabs.TargetApps.Revit.csproj" />
   </ItemGroup>
 
-  <Target Name="DeployDependencies" AfterTargets="Deploy">
-    <Copy SourceFiles="$(OutputPath)\Nett.dll" DestinationFolder="$(PyRevitBinDir)" />
+  <Target Name="DeployToNET8" AfterTargets="Deploy" Condition="$(TargetFramework) != 'net48'">
+    <Copy SourceFiles="$(OutputPath)\Nett.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+  </Target>
+
+  <Target Name="DeployToNET48" AfterTargets="Deploy" Condition="$(TargetFramework) == 'net48'">
+    <Copy SourceFiles="$(OutputPath)\Nett.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
   </Target>
 </Project>
