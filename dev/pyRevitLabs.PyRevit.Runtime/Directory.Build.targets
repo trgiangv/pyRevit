@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+    
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="NLog" Version="5.3.2" />
         <PackageReference Include="MahApps.Metro" Version="2.4.10" />
         <!-- Python -->
-        <PackageReference Include="pythonnet" Version="3.0.3" />
+<!--        <PackageReference Include="pythonnet" Version="3.0.3" />-->
+        <Reference Include="pyRevitLabs.PythonNet" HintPath="$(PyRevitEnginesDir)\CPY385\pyRevitLabs.PythonNet.dll" />
         <PackageReference Include="IronPython" Version="3.4.1" />
         <!-- System -->
         <Reference Include="Microsoft.CSharp" />
     </ItemGroup>
     
-    <ItemGroup Condition="$(TargetFramework) == 'net48'">
+    <ItemGroup>
         <!-- pyRevitLabs -->
-        <Reference Include="pyRevitLabs.Common" HintPath="$(PyRevitBinDir)\NETFramework\pyRevitLabs.Common.dll" />
-        <Reference Include="pyRevitLabs.CommonWPF" HintPath="$(PyRevitBinDir)\NETFramework\pyRevitLabs.CommonWPF.dll" />
-        <Reference Include="pyRevitLabs.Emojis" HintPath="$(PyRevitBinDir)\NETFramework\pyRevitLabs.Emojis.dll" />
-        <Reference Include="pyRevitLabs.PyRevit" HintPath="$(PyRevitBinDir)\NETFramework\pyRevitLabs.PyRevit.dll" />
-        <Reference Include="pyRevitLabs.PyRevit.Runtime.Shared" HintPath="$(PyRevitBinDir)\NETFramework\pyRevitLabs.PyRevit.Runtime.Shared.dll" />
-        <Reference Include="pyRevitLabs.TargetApps.Revit" HintPath="$(PyRevitBinDir)\NETFramework\pyRevitLabs.TargetApps.Revit.dll" />
-        <!-- IronPython-->
-        <Reference Include="pyRevitLoader" HintPath="$(PyRevitEnginesDir)\NETFramework\IPY341\pyRevitLoader.dll" />
+        <Reference Include="pyRevitLabs.Common" HintPath="$(PyRevitBinDir)\pyRevitLabs.Common.dll" />
+        <Reference Include="pyRevitLabs.CommonWPF" HintPath="$(PyRevitBinDir)\pyRevitLabs.CommonWPF.dll" />
+        <Reference Include="pyRevitLabs.Emojis" HintPath="$(PyRevitBinDir)\pyRevitLabs.Emojis.dll" />
+        <Reference Include="pyRevitLabs.PyRevit" HintPath="$(PyRevitBinDir)\pyRevitLabs.PyRevit.dll" />
+        <Reference Include="pyRevitLabs.PyRevit.Runtime.Shared" HintPath="$(PyRevitBinDir)\pyRevitLabs.PyRevit.Runtime.Shared.dll" />
+        <Reference Include="pyRevitLabs.TargetApps.Revit" HintPath="$(PyRevitBinDir)\pyRevitLabs.TargetApps.Revit.dll" />
     </ItemGroup>
-    
+
+    <!-- IronPython-->
     <ItemGroup Condition="$(TargetFramework) != 'net48'">
-        <!-- pyRevitLabs -->
-        <Reference Include="pyRevitLabs.Common" HintPath="$(PyRevitBinDir)\NETCore\pyRevitLabs.Common.dll" />
-        <Reference Include="pyRevitLabs.CommonWPF" HintPath="$(PyRevitBinDir)\NETCore\pyRevitLabs.CommonWPF.dll" />
-        <Reference Include="pyRevitLabs.Emojis" HintPath="$(PyRevitBinDir)\NETCore\pyRevitLabs.Emojis.dll" />
-        <Reference Include="pyRevitLabs.PyRevit" HintPath="$(PyRevitBinDir)\NETCore\pyRevitLabs.PyRevit.dll" />
-        <Reference Include="pyRevitLabs.PyRevit.Runtime.Shared" HintPath="$(PyRevitBinDir)\NETCore\pyRevitLabs.PyRevit.Runtime.Shared.dll" />
-        <Reference Include="pyRevitLabs.TargetApps.Revit" HintPath="$(PyRevitBinDir)\NETCore\pyRevitLabs.TargetApps.Revit.dll" />
-        <!-- IronPython-->
         <Reference Include="pyRevitLoader" HintPath="$(PyRevitEnginesDir)\NETCore\IPY341\pyRevitLoader.dll" />
+    </ItemGroup>
+
+    <ItemGroup Condition="$(TargetFramework) == 'net48'">
+        <Reference Include="pyRevitLoader" HintPath="$(PyRevitEnginesDir)\NETFramework\IPY341\pyRevitLoader.dll" />
     </ItemGroup>
 
     <ItemGroup>

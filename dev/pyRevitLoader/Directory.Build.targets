@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    
+
+    <!-- Project specific properties -->
     <ItemGroup Condition="$(UseRunner)=='' OR $(UseRunner)==False">
         <Compile Include="Source\PyRevitLoaderApplication.cs" Link="Source\PyRevitLoaderApplication.cs" />
         <Compile Include="Source\ScriptExecutor.cs" Link="Source\ScriptExecutor.cs" />
@@ -12,22 +16,28 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference  Include="Microsoft.CSharp" />
         <PackageReference Include="IronPython" Version="3.4.1"/>
+        <Reference Include="Microsoft.CSharp" />
     </ItemGroup>
 
     <ItemGroup>
         <EmbeddedResource Include="$(IronPythonStdLibDir)\$(IronPythonStdLib)" />
     </ItemGroup>
-
+    
+    <!-- Copy dlls -->
     <Target Name="DeployToNET8" AfterTargets="AfterBuild" Condition="$(TargetFramework) != 'net48'">
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PyRevitEnginesDir)\NETCore\$(IronPythonVersion)" />
+        <ItemGroup>
+            <AllDlls Include="$(OutputPath)\*.dll" />
+        </ItemGroup>
+        <Copy SourceFiles="@(AllDlls)" DestinationFolder="$(PyRevitEnginesNETCoreDir)\$(IronPythonVersion)" />
     </Target>
 
     <Target Name="DeployToNET48" AfterTargets="AfterBuild" Condition="$(TargetFramework) == 'net48'">
-        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PyRevitEnginesDir)\NETFramework\$(IronPythonVersion)" />
+        <ItemGroup>
+            <AllDlls Include="$(OutputPath)\*.dll" />
+        </ItemGroup>
+        <Copy SourceFiles="@(AllDlls)" DestinationFolder="$(PyRevitEnginesNETFrameworkDir)\$(IronPythonVersion)" />
     </Target>
     
-
     <Import Project="../Directory.Build.targets" />
 </Project>

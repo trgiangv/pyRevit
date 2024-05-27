@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<PropertyGroup>
+	    <IsPackable>false</IsPackable>
+	    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	    <BaseOutputPath></BaseOutputPath>
+    </PropertyGroup>
+		
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NLog" Version="5.3.2" />
@@ -9,42 +14,14 @@
     <PackageReference Include="YamlDotNet" Version="15.1.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
     <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.9.2" />
-    <PackageReference Include="System.Management" Version="8.0.0"/>
+    <PackageReference Include="System.Management" Version="8.0.0" />
   </ItemGroup>
 
-  <Target Name="DeployToNET8" AfterTargets="Deploy" Condition="$(TargetFramework) != 'net48'">
-    <ItemGroup>
-      <LibGit2SharpNative Include="$(OutputPath)\lib\win32\x64\*.dll" />
-    </ItemGroup>
-    <Copy SourceFiles="$(OutputPath)\LibGit2Sharp.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="@(LibGit2SharpNative)" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\MadMilkman.Ini.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\OpenMcdf.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\YamlDotNet.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.CSharp.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.VisualBasic.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\System.Collections.Immutable.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\System.Reflection.Metadata.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\System.Text.Encoding.CodePages.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-    <Copy SourceFiles="$(OutputPath)\System.Threading.Tasks.Extensions.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-  </Target>
-
-  <Target Name="DeployToNET48" AfterTargets="Deploy" Condition="$(TargetFramework) == 'net48'">
-    <ItemGroup>
-      <LibGit2SharpNative Include="$(OutputPath)\lib\win32\x64\*.dll" />
-    </ItemGroup>
-    <Copy SourceFiles="$(OutputPath)\LibGit2Sharp.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="@(LibGit2SharpNative)" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\MadMilkman.Ini.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\OpenMcdf.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\YamlDotNet.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.CSharp.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\Microsoft.CodeAnalysis.VisualBasic.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\System.Collections.Immutable.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\System.Reflection.Metadata.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\System.Text.Encoding.CodePages.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-    <Copy SourceFiles="$(OutputPath)\System.Threading.Tasks.Extensions.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-  </Target>
+	<Target Name="DeployDependencies" AfterTargets="Deploy">
+		<ItemGroup>
+			<LibGit2SharpNative Include="$(OutputPath)\lib\win32\x64\*.dll" />
+		</ItemGroup>
+		<Copy SourceFiles="@(LibGit2SharpNative)" DestinationFolder="$(PyRevitBinDir)" />
+	</Target>
+  
 </Project>

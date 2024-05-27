@@ -124,7 +124,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private void SetupBuiltins(ref ScriptRuntime runtime) {
             // get builtins
-            IntPtr builtins = CpyRuntime.MainManagedThreadId;
+            IntPtr builtins = CpyRuntime.PyEval_GetBuiltins();
 
             // Add timestamp and executuin uuid
             SetVariable(builtins, "__execid__", runtime.ExecId);
@@ -174,7 +174,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private void SetupStreams(ref ScriptRuntime runtime) {
             // set output stream
-            PyObject sys = PyModule.Import("sys");
+            PyObject sys = PythonEngine.ImportModule("sys");
             var baseStream = PyObject.FromManagedObject(runtime.OutputStream);
             sys.SetAttr("stdout", baseStream);
             sys.SetAttr("stdin", baseStream);
@@ -183,7 +183,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private void SetupCaching(ref ScriptRuntime runtime) {
             // set output stream
-            PyObject sys = PyModule.Import("sys");
+            PyObject sys = PythonEngine.ImportModule("sys");
             // dont write bytecode (__pycache__)
             // https://docs.python.org/3.7/library/sys.html?highlight=pythondontwritebytecode#sys.dont_write_bytecode
             sys.SetAttr("dont_write_bytecode", PyObject.FromManagedObject(true));
@@ -209,7 +209,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private void SetupArguments(ref ScriptRuntime runtime) {
             // setup arguments (sets sys.argv)
-            PyObject sys = PyModule.Import("sys");
+            PyObject sys = PythonEngine.ImportModule("sys");
             PyObject sysArgv = sys.GetAttr("argv");
 
             var pythonArgv = new PyList();
@@ -261,13 +261,13 @@ namespace PyRevitLabs.PyRevit.Runtime {
 
         private PyList GetSysPaths() {
             // set sys paths
-            PyObject sys = PyModule.Import("sys");
+            PyObject sys = PythonEngine.ImportModule("sys");
             PyObject sysPathsObj = sys.GetAttr("path");
             return PyList.AsList(sysPathsObj);
         }
 
         private void SetSysPaths(PyList sysPaths) {
-            PyObject sys = PyModule.Import("sys");
+            PyObject sys = PythonEngine.ImportModule("sys");
             sys.SetAttr("path", sysPaths);
         }
 

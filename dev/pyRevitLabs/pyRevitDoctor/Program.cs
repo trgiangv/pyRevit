@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 using pyRevitDoctor.Properties;
@@ -42,11 +45,11 @@ Usage:
                 PrintCommands();
 
             else if (args.Length > 0) {
-                if (Commands.Where(x => x.Name == args[0]).FirstOrDefault() is DoctorCommand command)
+                if (Commands.FirstOrDefault(x => x.Name == args[0]) is DoctorCommand command)
                     command.Command(dryrun);
             }
             else {
-                if (AskForCommand() is DoctorCommand command) {
+                if (AskForCommand() is { } command) {
                     command.Command(dryrun);
                     Console.WriteLine("Press any key to close");
                     Console.ReadLine();

@@ -1,4 +1,6 @@
-﻿namespace pyRevitLabs.DeffrelDB {
+﻿using System;
+
+namespace pyRevitLabs.DeffrelDB {
     public class DeffrelDBException : Exception {
         public DeffrelDBException() { }
 

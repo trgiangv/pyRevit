@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using System;
+using System.Linq;
+using Microsoft.Win32;
 
 namespace pyRevitDoctor {
     public struct RegistryTarget {

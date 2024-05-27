@@ -186,8 +186,6 @@ namespace PyRevitLoader {
             Errors.Add($"{message} (line {span.Start.Line})");
         }
 
-        public int Count {
-            get { return Errors.Count; }
-        }
+        public int Count => Errors.Count;
     }
 }

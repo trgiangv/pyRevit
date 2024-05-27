@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <Reference Include="System.IO.Compression" />
-  </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.IO.Compression" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Emojis.zip" />
-  </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Emojis.zip" />
+    </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
-﻿using OpenMcdf;
+﻿using System;
+using OpenMcdf;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using NLog;
 
@@ -18,13 +20,13 @@ namespace pyRevitLabs.Common {
         private static extern int StgIsStorageFile([MarshalAs(UnmanagedType.LPWStr)] string pwcsName);
 
         public static bool VerifyFile(string filePath) {
-            if (filePath != null && filePath != string.Empty)
+            if (!string.IsNullOrEmpty(filePath))
                 return System.IO.File.Exists(filePath);
             return false;
         }
 
         public static bool VerifyPath(string path) {
-            if (path != null && path != string.Empty)
+            if (!string.IsNullOrEmpty(path))
                 return Directory.Exists(path);
             return false;
         }
@@ -90,10 +92,9 @@ namespace pyRevitLabs.Common {
 
         public static void EnsureFile(string filePath) {
             EnsurePath(Path.GetDirectoryName(filePath));
-            if (!System.IO.File.Exists(filePath)) {
-                var file = System.IO.File.CreateText(filePath);
-                file.Close();
-            }
+            if (System.IO.File.Exists(filePath)) return;
+            var file = System.IO.File.CreateText(filePath);
+            file.Close();
         }
 
         public static string EnsureFileExtension(string filepath, string extension) => Path.ChangeExtension(filepath, extension);
@@ -136,25 +137,25 @@ namespace pyRevitLabs.Common {
         }
 
         public static string DownloadFile(string url, string destPath) {
-            try {
-                using (var client = GetWebClient()) {
-                    client.Headers.Add("User-Agent", "pyrevit-cli");
-                    //if (GlobalConfigs.ReportProgress) {
-                    //    logger.Debug("Downloading (async) \"{0}\"", url);
+            try
+            {
+                using var client = GetWebClient();
+                client.Headers.Add("User-Agent", "pyrevit-cli");
+                //if (GlobalConfigs.ReportProgress) {
+                //    logger.Debug("Downloading (async) \"{0}\"", url);
 
-                    //    client.DownloadProgressChanged += Client_DownloadProgressChanged;
+                //    client.DownloadProgressChanged += Client_DownloadProgressChanged;
 
-                    //    lastReport = 0;
-                    //    client.DownloadFileAsync(new Uri(url), destPath, progressToken);
+                //    lastReport = 0;
+                //    client.DownloadFileAsync(new Uri(url), destPath, progressToken);
 
-                    //    // wait until download is complete
-                    //    while (client.IsBusy) ;
-                    //}
-                    //else {
-                    logger.Debug("Downloading \"{0}\"", url);
-                    client.DownloadFile(url, destPath);
-                    //}
-                }
+                //    // wait until download is complete
+                //    while (client.IsBusy) ;
+                //}
+                //else {
+                logger.Debug("Downloading \"{0}\"", url);
+                client.DownloadFile(url, destPath);
+                //}
             }
             catch (Exception dlEx) {
                 logger.Debug("Error downloading file. | {0}", dlEx.Message);
@@ -196,8 +197,9 @@ namespace pyRevitLabs.Common {
         //}
 
         public static bool CheckInternetConnection() {
-            try {
-                using (var client = new WebClient())
+            try
+            {
+                using var client = new WebClient();
                 using (client.OpenRead("http://clients3.google.com/generate_204")) {
                     return true;
                 }
@@ -215,12 +217,10 @@ namespace pyRevitLabs.Common {
             if (res == 0) {
                 CompoundFile cf = new CompoundFile(filePath);
                 logger.Debug($"Found CF Root: {cf.RootStorage}");
-                if (cf.RootStorage.TryGetStream(streamName, out var foundStream)) {
-                    byte[] streamData = foundStream.GetData();
-                    cf.Close();
-                    return streamData;
-                }
-                return null;
+                if (!cf.RootStorage.TryGetStream(streamName, out var foundStream)) return null;
+                byte[] streamData = foundStream.GetData();
+                cf.Close();
+                return streamData;
             }
             else {
                 throw new NotSupportedException("File is not a structured storage file");
@@ -234,24 +234,23 @@ namespace pyRevitLabs.Common {
                 logger.Debug("Opening {0}", url);
                 Process.Start(url);
             }
-            else {
-                if (logErrMsg is null)
-                    logErrMsg = $"Error opening url \"{url}\"";
+            else
+            {
+                logErrMsg ??= $"Error opening url \"{url}\"";
 
                 logger.Error($"{logErrMsg}. No internet connection detected.");
             }
         }
 
         public static bool VerifyUrl(string url) {
-            if (CheckInternetConnection()) {
-                HttpWebRequest request = GetHttpWebRequest(url);
-                try {
-                    var response = request.GetResponse();
-                }
-                catch (Exception ex) {
-                    logger.Debug(ex);
-                    return false;
-                }
+            if (!CheckInternetConnection()) return true;
+            HttpWebRequest request = GetHttpWebRequest(url);
+            try {
+                var response = request.GetResponse();
+            }
+            catch (Exception ex) {
+                logger.Debug(ex);
+                return false;
             }
 
             return true;
@@ -373,19 +372,17 @@ namespace pyRevitLabs.Common {
         public static string GetProcessPath() => Path.GetDirectoryName(GetProcessFileName());
         public static string GetAssemblyPath<T>() => Path.GetDirectoryName(typeof(T).Assembly.Location);
 
-        public static string GenerateSHA1Hash(string filePath) {
+        public static string GenerateSHA1Hash(string filePath)
+        {
             // Use input string to calculate SHA1 hash
-            using (FileStream fs = new FileStream(filePath, FileMode.Open)) {
-                using (BufferedStream bs = new BufferedStream(fs)) {
-                    using (var sha1 = new System.Security.Cryptography.SHA1Managed()) {
-                        StringBuilder sb = new StringBuilder();
-                        foreach (byte b in sha1.ComputeHash(bs)) {
-                            sb.Append(b.ToString("X2"));
-                        }
-                        return sb.ToString();
-                    }
-                }
+            using FileStream fs = new FileStream(filePath, FileMode.Open);
+            using BufferedStream bs = new BufferedStream(fs);
+            using var sha1 = SHA1.Create();
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in sha1.ComputeHash(bs)) {
+                sb.Append(b.ToString("X2"));
             }
+            return sb.ToString();
         }
     }
 }

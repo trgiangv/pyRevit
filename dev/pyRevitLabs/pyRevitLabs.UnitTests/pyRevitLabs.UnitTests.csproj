@@ -1,16 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TestProjectType>UnitTest</TestProjectType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TestProjectType>UnitTest</TestProjectType>	
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
+		<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\pyRevitLabs.Common\pyRevitLabs.Common.csproj" />
-    <ProjectReference Include="..\pyRevitLabs.pyRevit\pyRevitLabs.PyRevit.csproj" />
-    <ProjectReference Include="..\pyRevitLabs.TargetApps.Revit\pyRevitLabs.TargetApps.Revit.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\pyRevitLabs.Common\pyRevitLabs.Common.csproj" />
+		<ProjectReference Include="..\pyRevitLabs.pyRevit\pyRevitLabs.PyRevit.csproj" />
+		<ProjectReference Include="..\pyRevitLabs.TargetApps.Revit\pyRevitLabs.TargetApps.Revit.csproj" />
+	</ItemGroup>
+
+	<Target Name="DeployToNET8" AfterTargets="Deploy" Condition="$(TargetFramework) != 'net48'">
+		<Copy SourceFiles="$(OutputPath)\pyRevitLabs.UnitTests.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
+	</Target>
+
+	<Target Name="DeployToNET48" AfterTargets="Deploy" Condition="$(TargetFramework) == 'net48'">
+		<Copy SourceFiles="$(OutputPath)\pyRevitLabs.UnitTests.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
+	</Target>
 </Project>

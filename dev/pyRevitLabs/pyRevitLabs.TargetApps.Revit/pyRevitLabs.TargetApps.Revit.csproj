@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <PackageReference Include="NLog" Version="5.3.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="NLog" Version="5.3.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.IO.Compression" />
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="System.IO.Compression" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\pyRevitLabs.Common\pyRevitLabs.Common.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\pyRevitLabs.Common\pyRevitLabs.Common.csproj" />
+	</ItemGroup>
 </Project>

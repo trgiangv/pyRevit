@@ -1,4 +1,6 @@
-﻿namespace pyRevitLabs.Common {
+﻿using System;
+
+namespace pyRevitLabs.Common {
     // ERROR CODES ===================================================================================================
     // error codes are to be used for non-critical, non-breaking errors
 

@@ -6,6 +6,8 @@
         <OutputPath>bin\$(Configuration)\$(IronPythonVersion)\Loader</OutputPath>
         <BaseIntermediateOutputPath>obj\$(Configuration)\$(IronPythonVersion)\Loader</BaseIntermediateOutputPath>
         <TargetDir>$(ProjectDir)$(OutputPath)</TargetDir>
+	    <IsPackable>false</IsPackable>
+	    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(UseRunner)==True" >

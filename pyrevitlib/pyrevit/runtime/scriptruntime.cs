@@ -69,7 +69,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
         private Application _app;
 
         // output window and stream
-        private WeakReference<ScriptConsole> _scriptOutput = new(null);
+        private WeakReference<ScriptConsoleConfigs.ScriptConsole> _scriptOutput = new(null);
         private WeakReference<ScriptIO> _outputStream = new(null);
 
         // dict for command result data
@@ -272,16 +272,16 @@ namespace PyRevitLabs.PyRevit.Runtime {
         }
 
         // output
-        public ScriptConsole OutputWindow {
+        public ScriptConsoleConfigs.ScriptConsole OutputWindow {
             get {
                 // get ScriptOutput from the weak reference
-                ScriptConsole output;
+                ScriptConsoleConfigs.ScriptConsole output;
                 var re = _scriptOutput.TryGetTarget(out output);
                 if (re && output != null)
                     return output;
                 else {
                     // Stating a new output window
-                    var newOutput = new ScriptConsole(ScriptRuntimeConfigs.DebugMode, UIApp);
+                    var newOutput = new ScriptConsoleConfigs.ScriptConsole(ScriptRuntimeConfigs.DebugMode, UIApp);
 
                     // Set output window title to command name
                     newOutput.OutputTitle = ScriptData.CommandName;
@@ -297,7 +297,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
                         EnvDict.RevitVersion
                         );
 
-                    _scriptOutput = new WeakReference<ScriptConsole>(newOutput);
+                    _scriptOutput = new WeakReference<ScriptConsoleConfigs.ScriptConsole>(newOutput);
                     return newOutput;
                 }
             }
@@ -341,7 +341,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
             ControlledApp = null;
             _uiApp = null;
             _app = null;
-            _scriptOutput = new WeakReference<ScriptConsole>(null);
+            _scriptOutput = new WeakReference<ScriptConsoleConfigs.ScriptConsole>(null);
             _outputStream = new WeakReference<ScriptIO>(null);;
             _resultsDict = null;
         }

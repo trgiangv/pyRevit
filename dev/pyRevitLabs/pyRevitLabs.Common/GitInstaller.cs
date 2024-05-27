@@ -1,3 +1,4 @@
+using System;
 using LibGit2Sharp;
 using NLog;
 

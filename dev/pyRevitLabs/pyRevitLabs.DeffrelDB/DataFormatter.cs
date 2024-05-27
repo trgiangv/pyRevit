@@ -1,4 +1,6 @@
-﻿namespace pyRevitLabs.DeffrelDB {
+﻿using System.Collections.Generic;
+
+namespace pyRevitLabs.DeffrelDB {
     // data formatter
     public enum EntryChangeType {
         Insert,

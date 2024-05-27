@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <!-- Directory Configuration -->
-  <PropertyGroup>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
-    <PyRevitRootDir>$(MSBuildThisFileDirectory)\..\</PyRevitRootDir>
-    
-    <PyRevitBinDir>$(PyRevitRootDir)\bin\</PyRevitBinDir>
-    <PyRevitEnginesDir>$(PyRevitBinDir)engines\</PyRevitEnginesDir>
-    
-    <PyRevitDevDir>$(PyRevitRootDir)\dev\</PyRevitDevDir>
-    <PyRevitDevLibsDir>$(PyRevitDevDir)\libs\</PyRevitDevLibsDir>
-    <PyRevitDevModulesDir>$(PyRevitDevDir)\modules\</PyRevitDevModulesDir>
-    
-    <PyRevitLibDir>$(PyRevitRootDir)\pyrevitlib\</PyRevitLibDir>
-    <PyRevitExtDir>$(PyRevitRootDir)\extensions\</PyRevitExtDir>
-  </PropertyGroup>
+    <!-- Directory Configuration -->
+    <PropertyGroup>
+        <OutputPath>bin\$(Configuration)\</OutputPath>
+        <PyRevitRootDir>$(MSBuildThisFileDirectory)\..\</PyRevitRootDir>
 
-  <!-- Core Configuration -->
-  <PropertyGroup>
-        <UseWPF>true</UseWPF>
-        <UseWindowsForms>true</UseWindowsForms>
+        <!-- Bin Directories -->
+        <PyRevitBinDir>$(PyRevitRootDir)\bin\</PyRevitBinDir>
+
+        <!-- Engine Directories -->
+        <PyRevitEnginesDir>$(PyRevitBinDir)engines\</PyRevitEnginesDir>
+        <PyRevitEnginesNETCoreDir>$(PyRevitBinDir)engines\NETCore</PyRevitEnginesNETCoreDir>
+        <PyRevitEnginesNETFrameworkDir>$(PyRevitBinDir)engines\NETFramework</PyRevitEnginesNETFrameworkDir>
+
+        <!-- Dev Directories -->
+        <PyRevitDevDir>$(PyRevitRootDir)\dev\</PyRevitDevDir>
+        <PyRevitDevLibsDir>$(PyRevitDevDir)\libs\</PyRevitDevLibsDir>
+        <PyRevitDevModulesDir>$(PyRevitDevDir)\modules\</PyRevitDevModulesDir>
+
+        <!-- Lib & Extension Directories -->
+        <PyRevitLibDir>$(PyRevitRootDir)\pyrevitlib\</PyRevitLibDir>
+        <PyRevitExtDir>$(PyRevitRootDir)\extensions\</PyRevitExtDir>
+    </PropertyGroup>
+
+    <!-- Core Configuration -->
+    <PropertyGroup>
         <LangVersion>latest</LangVersion>
         <OutputType>Library</OutputType>
         <PlatformTarget>x64</PlatformTarget>
-        <ImplicitUsings>true</ImplicitUsings>
         <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
-        <Configurations>Debug R19;Debug R20;Debug R21;Debug R22;Debug R23;Debug R24;Debug R25</Configurations>
-        <Configurations>$(Configurations);Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25</Configurations>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
@@ -41,92 +43,10 @@
         <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
     </PropertyGroup>
 
-    <PropertyGroup Condition="$(Configuration.Contains('R19'))">
-        <RevitVersion>2019</RevitVersion>
-        <TargetFramework>net48</TargetFramework>
-        <DefineConstants>$(DefineConstants);REVIT2019</DefineConstants>
-        <DefineConstants>$(DefineConstants);REVIT2019_OR_GREATER</DefineConstants>
+    <!-- Assemblies Info -->
+    <PropertyGroup>
+        <Version>4.8.15.24089+0912</Version>
+        <Copyright>Copyright © 2014-2024</Copyright>
+        <Company>pyRevitLabs.io</Company>
     </PropertyGroup>
-    <PropertyGroup Condition="$(Configuration.Contains('R20'))">
-        <RevitVersion>2020</RevitVersion>
-        <TargetFramework>net48</TargetFramework>
-        <DefineConstants>$(DefineConstants);REVIT2020</DefineConstants>
-        <DefineConstants>$(DefineConstants);REVIT2019_OR_GREATER;REVIT2020_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="$(Configuration.Contains('R21'))">
-        <RevitVersion>2021</RevitVersion>
-        <TargetFramework>net48</TargetFramework>
-        <DefineConstants>$(DefineConstants);REVIT2021</DefineConstants>
-        <DefineConstants>$(DefineConstants);REVIT2019_OR_GREATER;REVIT2020_OR_GREATER;REVIT2021_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="$(Configuration.Contains('R22'))">
-        <RevitVersion>2022</RevitVersion>
-        <TargetFramework>net48</TargetFramework>
-        <DefineConstants>$(DefineConstants);REVIT2022</DefineConstants>
-        <DefineConstants>$(DefineConstants);REVIT2019_OR_GREATER;REVIT2020_OR_GREATER;REVIT2021_OR_GREATER;REVIT2022_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="$(Configuration.Contains('R23'))">
-        <RevitVersion>2023</RevitVersion>
-        <TargetFramework>net48</TargetFramework>
-        <DefineConstants>$(DefineConstants);REVIT2023</DefineConstants>
-        <DefineConstants>$(DefineConstants);REVIT2019_OR_GREATER;REVIT2020_OR_GREATER;REVIT2021_OR_GREATER;REVIT2022_OR_GREATER;REVIT2023_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="$(Configuration.Contains('R24'))">
-        <RevitVersion>2024</RevitVersion>
-        <TargetFramework>net48</TargetFramework>
-        <DefineConstants>$(DefineConstants);REVIT2024</DefineConstants>
-        <DefineConstants>$(DefineConstants);REVIT2019_OR_GREATER;REVIT2020_OR_GREATER;REVIT2021_OR_GREATER;REVIT2022_OR_GREATER;REVIT2023_OR_GREATER;REVIT2024_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="$(Configuration.Contains('R25'))">
-        <RevitVersion>2025</RevitVersion>
-        <TargetFramework>net8.0-windows</TargetFramework>
-        <DefineConstants>$(DefineConstants);REVIT2025</DefineConstants>
-        <DefineConstants>$(DefineConstants);REVIT2019_OR_GREATER;REVIT2020_OR_GREATER;REVIT2021_OR_GREATER;REVIT2022_OR_GREATER;REVIT2023_OR_GREATER;REVIT2024_OR_GREATER;REVIT2025_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-
-  <!-- Revit API -->
-  <Choose>
-        <When Condition="$(RevitVersion) == '2019'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2019" Version="4.0.0" ExcludeAssets="runtime"/>
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2020'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2020" Version="4.0.0" ExcludeAssets="runtime"/>
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2021'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2021" Version="4.0.0" ExcludeAssets="runtime"/>
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2022'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2022" Version="4.0.0" ExcludeAssets="runtime"/>
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2023'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2023" Version="4.0.0" ExcludeAssets="runtime"/>
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2024'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2024" Version="4.0.0" ExcludeAssets="runtime"/>
-            </ItemGroup>
-        </When>
-        <When Condition="$(RevitVersion) == '2025'">
-            <ItemGroup>
-                <PackageReference Include="ModPlus.Revit.API.2025" Version="4.0.0" ExcludeAssets="runtime"/>
-            </ItemGroup>
-        </When>
-    </Choose>
-
-  <!-- Assemblies Info -->
-  <PropertyGroup>
-    <Version>4.8.15.24089+0912</Version>
-    <Copyright>Copyright © 2014-2024</Copyright>
-    <Company>pyRevitLabs.io</Company>
-  </PropertyGroup>
 </Project>

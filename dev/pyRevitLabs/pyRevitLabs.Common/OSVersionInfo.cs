@@ -1,4 +1,6 @@
-﻿namespace pyRevitLabs.Common {
+﻿using System;
+
+namespace pyRevitLabs.Common {
     // https://code.msdn.microsoft.com/windowsapps/How-to-determine-the-263b1850
     public class OSVersionInfo {
 

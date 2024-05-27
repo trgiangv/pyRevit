@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -10,12 +11,12 @@ namespace pyRevitLabs.CommonWPF.Controls
     public partial class LabelledTextBox : UserControl
     {
         public static readonly DependencyProperty LabelProperty =
-            DependencyProperty.Register("Label", typeof(String), typeof(LabelledTextBox),
-                                        new FrameworkPropertyMetadata(String.Empty));
+            DependencyProperty.Register("Label", typeof(string), typeof(LabelledTextBox),
+                                        new FrameworkPropertyMetadata(string.Empty));
 
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(String), typeof(LabelledTextBox),
-                                        new FrameworkPropertyMetadata(String.Empty));
+            DependencyProperty.Register("Text", typeof(string), typeof(LabelledTextBox),
+                                        new FrameworkPropertyMetadata(string.Empty));
 
 
         public LabelledTextBox()

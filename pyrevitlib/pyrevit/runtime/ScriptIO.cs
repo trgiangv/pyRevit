@@ -8,7 +8,7 @@ namespace PyRevitLabs.PyRevit.Runtime {
     /// Only a minimal subset is actually implemented - this is all we really expect to use.
     public class ScriptIO : Stream, IDisposable {
         private WeakReference<ScriptRuntime> _runtime;
-        private WeakReference<ScriptConsole> _gui;
+        private WeakReference<ScriptConsoleConfigs.ScriptConsole> _gui;
         private string _outputBuffer;
         private bool _inputReceived;
         private bool _errored;
@@ -19,22 +19,22 @@ namespace PyRevitLabs.PyRevit.Runtime {
         public ScriptIO(ScriptRuntime runtime) {
             _outputBuffer = string.Empty;
             _runtime = new WeakReference<ScriptRuntime>(runtime);
-            _gui = new WeakReference<ScriptConsole>(null);
+            _gui = new WeakReference<ScriptConsoleConfigs.ScriptConsole>(null);
         }
 
-        public ScriptIO(ScriptConsole gui) {
+        public ScriptIO(ScriptConsoleConfigs.ScriptConsole gui) {
             _outputBuffer = string.Empty;
             _runtime = new WeakReference<ScriptRuntime>(null);
-            _gui = new WeakReference<ScriptConsole>(gui);
+            _gui = new WeakReference<ScriptConsoleConfigs.ScriptConsole>(gui);
         }
 
-        public ScriptConsole GetOutput() {
+        public ScriptConsoleConfigs.ScriptConsole GetOutput() {
             ScriptRuntime runtime;
             var re = _runtime.TryGetTarget(out runtime);
             if (re && runtime != null)
                 return runtime.OutputWindow;
 
-            ScriptConsole output;
+            ScriptConsoleConfigs.ScriptConsole output;
             re = _gui.TryGetTarget(out output);
             if (re && output != null)
                 return output;

@@ -1,25 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<IsPackable>false</IsPackable>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MahApps.Metro" Version="2.4.10" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-
-  <Target Name="DeployToNET8" AfterTargets="Deploy" Condition="$(TargetFramework) != 'net48'">
-    <Copy SourceFiles="$(OutputPath)\System.Windows.Interactivity.dll" DestinationFolder="$(PyRevitBinDir)\reference\NET8" />
-  </Target>
-
-  <Target Name="DeployToNET48" AfterTargets="Deploy" Condition="$(TargetFramework) == 'net48'">
-    <Copy SourceFiles="$(OutputPath)\System.Windows.Interactivity.dll" DestinationFolder="$(PyRevitBinDir)\reference\NET48" />
-  </Target>
+	<Target Name="DeployDependencies" AfterTargets="Deploy">
+		<Copy SourceFiles="$(OutputPath)\System.Windows.Interactivity.dll" DestinationFolder="$(PyRevitBinDir)" />
+	</Target>
 </Project>

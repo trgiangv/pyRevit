@@ -1,4 +1,8 @@
-﻿namespace pyRevitLabs.DeffrelDB {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace pyRevitLabs.DeffrelDB {
     internal static class DataFunctions {
         // dstore
         public static void CreateDataStore(DataStore dstore) {
