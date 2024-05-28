@@ -17,13 +17,7 @@ namespace pyRevitLabs.PyRevit
         public string ConfigSection { get; set; }
         public string ConfigKey { get; set; }
 
-        public override string Message
-        {
-            get
-            {
-                return $"Config value not set \"{ConfigSection}:{ConfigKey}\"";
-            }
-        }
+        public override string Message => $"Config value not set \"{ConfigSection}:{ConfigKey}\"";
     }
 
     public enum PyRevitLogLevels
@@ -120,7 +114,7 @@ namespace pyRevitLabs.PyRevit
             string sourceFile = templateConfigFilePath;
             string targetFile = PyRevitConsts.ConfigFilePath;
 
-            if (sourceFile is string)
+            if (sourceFile != null)
             {
                 logger.Debug("Seeding config file \"{0}\" to \"{1}\"", sourceFile, targetFile);
 
@@ -145,7 +139,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsTelemetrySection, PyRevitConsts.ConfigsTelemetryUTCTimestampsKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsTelemetryUTCTimestampsDefault;
+            return status == null || bool.Parse(status);
         }
 
         public static void SetUTCStamps(bool state)
@@ -160,7 +154,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsRoutesSection, PyRevitConsts.ConfigsRoutesServerKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsRoutesServerDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetRoutesServerStatus(bool state)
@@ -202,7 +196,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsRoutesSection, PyRevitConsts.ConfigsLoadCoreAPIKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsRoutesServerDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetRoutesLoadCoreAPIStatus(bool state)
@@ -216,7 +210,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsTelemetrySection, PyRevitConsts.ConfigsTelemetryStatusKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsTelemetryStatusDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetTelemetryStatus(bool state)
@@ -240,8 +234,7 @@ namespace pyRevitLabs.PyRevit
         public static void EnableTelemetry(string telemetryFileDir = null, string telemetryServerUrl = null)
         {
             var cfg = GetConfigFile();
-            logger.Debug(string.Format("Enabling telemetry... path: \"{0}\" server: {1}",
-                                       telemetryFileDir, telemetryServerUrl));
+            logger.Debug($"Enabling telemetry... path: \"{telemetryFileDir}\" server: {telemetryServerUrl}");
             SetTelemetryStatus(true);
 
             if (telemetryFileDir != null)
@@ -268,7 +261,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsTelemetrySection, PyRevitConsts.ConfigsTelemetryIncludeHooksKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsTelemetryIncludeHooksDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetTelemetryIncludeHooks(bool state)
@@ -289,7 +282,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsTelemetrySection, PyRevitConsts.ConfigsAppTelemetryStatusKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsAppTelemetryStatusDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetAppTelemetryStatus(bool state)
@@ -354,7 +347,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsCheckUpdatesKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsCheckUpdatesDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetCheckUpdates(bool state)
@@ -368,7 +361,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsAutoUpdateKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsAutoUpdateDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetAutoUpdate(bool state)
@@ -382,7 +375,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsRocketModeKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsRocketModeDefault;
+            return status == null || bool.Parse(status);
         }
 
         public static void SetRocketMode(bool state)
@@ -396,10 +389,10 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var verboseCfg = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsVerboseKey);
-            bool verbose = verboseCfg != null ? bool.Parse(verboseCfg) : PyRevitConsts.ConfigsVerboseDefault;
+            bool verbose = verboseCfg != null && bool.Parse(verboseCfg);
 
             var debugCfg = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsDebugKey);
-            bool debug = debugCfg != null ? bool.Parse(debugCfg) : PyRevitConsts.ConfigsDebugDefault;
+            bool debug = debugCfg != null && bool.Parse(debugCfg);
 
             if (verbose && !debug)
                 return PyRevitLogLevels.Verbose;
@@ -412,22 +405,20 @@ namespace pyRevitLabs.PyRevit
         public static void SetLoggingLevel(PyRevitLogLevels level)
         {
             var cfg = GetConfigFile();
-            if (level == PyRevitLogLevels.Quiet)
+            switch (level)
             {
-                cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsVerboseKey, false);
-                cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsDebugKey, false);
-            }
-
-            if (level == PyRevitLogLevels.Verbose)
-            {
-                cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsVerboseKey, true);
-                cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsDebugKey, false);
-            }
-
-            if (level == PyRevitLogLevels.Debug)
-            {
-                cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsVerboseKey, true);
-                cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsDebugKey, true);
+                case PyRevitLogLevels.Quiet:
+                    cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsVerboseKey, false);
+                    cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsDebugKey, false);
+                    break;
+                case PyRevitLogLevels.Verbose:
+                    cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsVerboseKey, true);
+                    cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsDebugKey, false);
+                    break;
+                case PyRevitLogLevels.Debug:
+                    cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsVerboseKey, true);
+                    cfg.SetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsDebugKey, true);
+                    break;
             }
         }
 
@@ -436,7 +427,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsFileLoggingKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsFileLoggingDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetFileLogging(bool state)
@@ -463,7 +454,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var timeout = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsRequiredHostBuildKey);
-            return timeout != null ? timeout : string.Empty;
+            return timeout ?? string.Empty;
         }
 
         public static void SetRequiredHostBuild(string buildnumber)
@@ -490,7 +481,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsLoadBetaKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsLoadBetaDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetLoadBetaTools(bool state)
@@ -544,21 +535,21 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsUserCanUpdateKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsUserCanUpdateDefault;
+            return status == null || bool.Parse(status);
         }
 
         public static bool GetUserCanExtend()
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsUserCanExtendKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsUserCanExtendDefault;
+            return status == null || bool.Parse(status);
         }
 
         public static bool GetUserCanConfig()
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsUserCanConfigKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsUserCanConfigDefault;
+            return status == null || bool.Parse(status);
         }
 
         public static void SetUserCanUpdate(bool state)
@@ -583,7 +574,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsColorizeDocsKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsColorizeDocsDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetColorizeDocs(bool state)
@@ -596,7 +587,7 @@ namespace pyRevitLabs.PyRevit
         {
             var cfg = GetConfigFile();
             var status = cfg.GetValue(PyRevitConsts.ConfigsCoreSection, PyRevitConsts.ConfigsAppendTooltipExKey);
-            return status != null ? bool.Parse(status) : PyRevitConsts.ConfigsAppendTooltipExDefault;
+            return status != null && bool.Parse(status);
         }
 
         public static void SetAppendTooltipEx(bool state)

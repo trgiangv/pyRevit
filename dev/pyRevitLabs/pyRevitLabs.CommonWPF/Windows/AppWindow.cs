@@ -92,7 +92,7 @@ namespace pyRevitLabs.CommonWPF.Windows {
         }
 
         // current user id
-        public string CurrentUser { get { return System.Security.Principal.WindowsIdentity.GetCurrent().Name; } }
+        public string CurrentUser => System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 
         // helper for loading and setting icons into window
         public ImageSource LoadIcon(Uri path) {

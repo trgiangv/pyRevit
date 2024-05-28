@@ -2,7 +2,6 @@
 	<PropertyGroup>
 	    <IsPackable>false</IsPackable>
 	    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-	    <BaseOutputPath></BaseOutputPath>
     </PropertyGroup>
 		
   <ItemGroup>
@@ -16,12 +15,12 @@
     <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.9.2" />
     <PackageReference Include="System.Management" Version="8.0.0" />
   </ItemGroup>
-
-	<Target Name="DeployDependencies" AfterTargets="Deploy">
-		<ItemGroup>
-			<LibGit2SharpNative Include="$(OutputPath)\lib\win32\x64\*.dll" />
-		</ItemGroup>
-		<Copy SourceFiles="@(LibGit2SharpNative)" DestinationFolder="$(PyRevitBinDir)" />
-	</Target>
+    
+    <Target Name="DeployDependencies" AfterTargets="Deploy">
+        <ItemGroup>
+            <LibGit2SharpNative Include="$(OutputPath)\lib\win32\x64\*.dll" />
+        </ItemGroup>
+        <Copy SourceFiles="@(LibGit2SharpNative)" DestinationFolder="$(PyRevitBinDir)" />
+    </Target>
   
 </Project>

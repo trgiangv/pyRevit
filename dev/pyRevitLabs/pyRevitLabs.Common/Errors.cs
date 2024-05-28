@@ -54,22 +54,13 @@ namespace pyRevitLabs.Common {
 
         public string Path { get; private set; }
 
-        public override string Message {
-            get {
-                return $"\"{Path}\" does not exist.";
-            }
-        }
+        public override string Message => $"\"{Path}\" does not exist.";
     }
 
     public class pyRevitNoInternetConnectionException : PyRevitException {
         public pyRevitNoInternetConnectionException() { }
 
-        public override string Message {
-            get {
-                return "No internet connection detected.";
-            }
-        }
-
+        public override string Message => "No internet connection detected.";
     }
 
     public class pyRevitInvalidURLException : PyRevitException {
@@ -77,12 +68,7 @@ namespace pyRevitLabs.Common {
 
         public string URL { get; private set; }
 
-        public override string Message {
-            get {
-                return $"Invalid URL {URL}";
-            }
-        }
-
+        public override string Message => $"Invalid URL {URL}";
     }
 
 }

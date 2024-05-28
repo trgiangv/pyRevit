@@ -13,12 +13,4 @@
 		<ProjectReference Include="..\pyRevitLabs.pyRevit\pyRevitLabs.PyRevit.csproj" />
 		<ProjectReference Include="..\pyRevitLabs.TargetApps.Revit\pyRevitLabs.TargetApps.Revit.csproj" />
 	</ItemGroup>
-
-	<Target Name="DeployToNET8" AfterTargets="Deploy" Condition="$(TargetFramework) != 'net48'">
-		<Copy SourceFiles="$(OutputPath)\pyRevitLabs.UnitTests.dll" DestinationFolder="$(PyRevitBinDir)\NETCore" />
-	</Target>
-
-	<Target Name="DeployToNET48" AfterTargets="Deploy" Condition="$(TargetFramework) == 'net48'">
-		<Copy SourceFiles="$(OutputPath)\pyRevitLabs.UnitTests.dll" DestinationFolder="$(PyRevitBinDir)\NETFramework" />
-	</Target>
 </Project>

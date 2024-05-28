@@ -83,26 +83,20 @@ Jrn.Data ""TaskDialogResult"" , ""Do you want to save changes to Untitled?"", ""
         public bool AllowDialogs { get; private set; }
         public bool PurgeAfterExec { get; private set; }
 
-        public RevitProduct Revit { get { return Attachment.Product; } }
-        public PyRevitClone Clone { get { return Attachment.Clone; } }
-        public PyRevitEngine Engine { get { return Attachment.Engine; } }
+        public RevitProduct Revit => Attachment.Product;
+        public PyRevitClone Clone => Attachment.Clone;
+        public PyRevitEngine Engine => Attachment.Engine;
 
         public string ExecutionId { get; private set; }
         public string WorkingDirectory { get; private set; }
 
-        public string JournalFile {
-            get { return Path.Combine(WorkingDirectory, string.Format(JournalNameTemplate, ExecutionId)); }
-        }
+        public string JournalFile => Path.Combine(WorkingDirectory, string.Format(JournalNameTemplate, ExecutionId));
 
-        public string LogFile {
-            get { return Path.Combine(WorkingDirectory, string.Format(LogNameTemplate, ExecutionId)); }
-        }
+        public string LogFile => Path.Combine(WorkingDirectory, string.Format(LogNameTemplate, ExecutionId));
 
         public string PyRevitCloneRunner => Path.Combine(Engine.Path, "pyRevitRunner.dll");
 
-        public string PyRevitRunnerManifestFile {
-            get { return Path.Combine(WorkingDirectory, ManifestNameTemplate); }
-        }
+        public string PyRevitRunnerManifestFile => Path.Combine(WorkingDirectory, ManifestNameTemplate);
 
         public bool Purged { get; private set; } = false;
 

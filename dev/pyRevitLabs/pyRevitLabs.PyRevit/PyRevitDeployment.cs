@@ -10,8 +10,7 @@ namespace pyRevitLabs.PyRevit {
         }
 
         public override string ToString() {
-            return string.Format("PyRevitDeployment Name: \"{0}\" | Paths: \"{1}\"",
-                                 Name, Paths.ConvertToCommaSeparatedString());
+            return $"PyRevitDeployment Name: \"{Name}\" | Paths: \"{Paths.ConvertToCommaSeparatedString()}\"";
         }
 
         public string Name { get; private set; }

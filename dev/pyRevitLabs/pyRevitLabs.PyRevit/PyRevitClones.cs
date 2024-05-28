@@ -12,11 +12,7 @@ namespace pyRevitLabs.PyRevit {
 
         public pyRevitInvalidPyRevitCloneException(string invalidClonePath) : base(invalidClonePath) { }
 
-        public override string Message {
-            get {
-                return $"Path \"{Path}\" is not a valid git pyRevit clone.";
-            }
-        }
+        public override string Message => $"Path \"{Path}\" is not a valid git pyRevit clone.";
     }
 
     public static class PyRevitClones {
@@ -221,14 +217,13 @@ namespace pyRevitLabs.PyRevit {
                     RegisterClone(cloneName, clonedPath);
                 }
                 catch (Exception ex) {
-                    logger.Debug(string.Format("Exception occured after clone complete. Deleting clone \"{0}\" | {1}",
-                                               clonedPath, ex.Message));
+                    logger.Debug(
+                        $"Exception occured after clone complete. Deleting clone \"{clonedPath}\" | {ex.Message}");
                     try {
                         CommonUtils.DeleteDirectory(clonedPath);
                     }
                     catch (Exception delEx) {
-                        logger.Error(string.Format("Error post-install cleanup on \"{0}\" | {1}",
-                                                   clonedPath, delEx.Message));
+                        logger.Error($"Error post-install cleanup on \"{clonedPath}\" | {delEx.Message}");
                     }
 
                     // cleanup completed, now baloon up the exception
@@ -345,8 +340,7 @@ namespace pyRevitLabs.PyRevit {
                         CommonUtils.DeleteDirectory(stagedImage);
                     }
                     catch (Exception delEx) {
-                        logger.Error(string.Format("Error cleaning up temp staging files \"{0}\" | {1}",
-                                                   destPath, delEx.Message));
+                        logger.Error($"Error cleaning up temp staging files \"{destPath}\" | {delEx.Message}");
                     }
 
                     // record image deployment settings
@@ -360,8 +354,7 @@ namespace pyRevitLabs.PyRevit {
                             CommonUtils.DeleteDirectory(destPath);
                         }
                         catch (Exception delEx) {
-                            logger.Error(string.Format("Error post-install cleanup on \"{0}\" | {1}",
-                                                       destPath, delEx.Message));
+                            logger.Error($"Error post-install cleanup on \"{destPath}\" | {delEx.Message}");
                         }
 
                         // cleanup completed, now baloon up the exception
@@ -392,14 +385,12 @@ namespace pyRevitLabs.PyRevit {
                 RegisterClone(cloneName, clonePath);
             }
             catch (Exception ex) {
-                logger.Debug(string.Format("Exception occured after clone complete. Deleting clone \"{0}\" | {1}",
-                                           clonePath, ex.Message));
+                logger.Debug($"Exception occured after clone complete. Deleting clone \"{clonePath}\" | {ex.Message}");
                 try {
                     CommonUtils.DeleteDirectory(clonePath);
                 }
                 catch (Exception delEx) {
-                    logger.Error(string.Format("Error post-install cleanup on \"{0}\" | {1}",
-                                               clonePath, delEx.Message));
+                    logger.Error($"Error post-install cleanup on \"{clonePath}\" | {delEx.Message}");
                 }
 
                 // cleanup completed, now baloon up the exception
@@ -423,8 +414,7 @@ namespace pyRevitLabs.PyRevit {
             }
 
             // means no deployment were found with given name
-            throw new PyRevitException(string.Format("Can not find deployment \"{0}\" in \"{1}\"",
-                                                        deploymentName, fromPath));
+            throw new PyRevitException($"Can not find deployment \"{deploymentName}\" in \"{fromPath}\"");
         }
 
         // private helper to deploy destination location by deployment
@@ -459,8 +449,7 @@ namespace pyRevitLabs.PyRevit {
                                                  string imagePath,
                                                  string clonePath) {
             var cloneMemoryFilePath = Path.Combine(clonePath, PyRevitConsts.DeployFromImageConfigsFilename);
-            logger.Debug(string.Format("Recording deploy parameters for image clone \"{0}\" to \"{1}\"",
-                                       cloneName, cloneMemoryFilePath));
+            logger.Debug($"Recording deploy parameters for image clone \"{cloneName}\" to \"{cloneMemoryFilePath}\"");
 
             try {
                 var f = File.CreateText(cloneMemoryFilePath);
@@ -470,8 +459,8 @@ namespace pyRevitLabs.PyRevit {
                 f.Close();
             }
             catch (Exception ex) {
-                throw new PyRevitException(string.Format("Error writing deployment arguments to \"{0}\" | {1}",
-                                                         cloneMemoryFilePath, ex.Message));
+                throw new PyRevitException(
+                    $"Error writing deployment arguments to \"{cloneMemoryFilePath}\" | {ex.Message}");
             }
         }
 

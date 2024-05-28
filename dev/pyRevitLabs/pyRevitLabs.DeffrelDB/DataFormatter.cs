@@ -13,7 +13,7 @@ namespace pyRevitLabs.DeffrelDB {
         public int Last { get; set; } = 0;
         public int Total { get; set; } = 0;
 
-        public int Count { get { return Last - First + 1; } }
+        public int Count => Last - First + 1;
 
         public override string ToString() {
             return $"<DataFormatRange {First}:{Last} of {Total} count:{Count}>";

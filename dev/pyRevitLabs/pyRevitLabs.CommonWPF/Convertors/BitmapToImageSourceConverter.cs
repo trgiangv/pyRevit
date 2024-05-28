@@ -10,10 +10,7 @@ namespace pyRevitLabs.CommonWPF.Converters
         private static readonly Lazy<BitmapToImageSourceConverter> InstanceObj =
            new(() => new BitmapToImageSourceConverter());
 
-        public static BitmapToImageSourceConverter Instance
-        {
-            get { return InstanceObj.Value; }
-        }
+        public static BitmapToImageSourceConverter Instance => InstanceObj.Value;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

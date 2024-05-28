@@ -199,7 +199,7 @@ namespace pyRevitLabs.PyRevit {
             get {
                 string configRoot = UserEnv.IsRunAsElevated() ? PyRevitLabsConsts.PyRevitProgramDataPath : PyRevitLabsConsts.PyRevitPath;
                 var cfgFile = FindConfigFileInDirectory(configRoot);
-                return cfgFile != null ? cfgFile : Path.Combine(configRoot, DefaultConfigsFileName);
+                return cfgFile ?? Path.Combine(configRoot, DefaultConfigsFileName);
             }
         }
 
@@ -208,7 +208,7 @@ namespace pyRevitLabs.PyRevit {
         public static string AdminConfigFilePath {
             get {
                 var cfgFile = FindConfigFileInDirectory(PyRevitLabsConsts.PyRevitProgramDataPath);
-                return cfgFile != null ? cfgFile : Path.Combine(PyRevitLabsConsts.PyRevitProgramDataPath, DefaultConfigsFileName);
+                return cfgFile ?? Path.Combine(PyRevitLabsConsts.PyRevitProgramDataPath, DefaultConfigsFileName);
             }
         }
     }

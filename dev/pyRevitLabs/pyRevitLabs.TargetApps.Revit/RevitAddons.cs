@@ -114,18 +114,14 @@ namespace pyRevitLabs.TargetApps.Revit {
                 foreach (string file in Directory.GetFiles(addinPath)) {
                     if (file.ToLower().EndsWith(".addin")) {
                         try {
-                            logger.Debug(string.Format("Reading Revit \"{0}\" manifest file \"{1}\"",
-                                                       revitYear, file));
+                            logger.Debug($"Reading Revit \"{revitYear}\" manifest file \"{file}\"");
                             var revitManifest = new RevitAddonManifest(file);
                             if (revitManifest.Name.ToLower() == addinName.ToLower())
                                 return revitManifest;
                         }
                         catch (Exception ex) {
-                            logger.Debug(string.Format("Not pyRevit \"{0}\" manifest file \"{1}\" | {2}",
-                                    revitYear,
-                                    file,
-                                    ex.Message)
-                                );
+                            logger.Debug($"Not pyRevit \"{revitYear}\" manifest file \"{file}\" | {ex.Message}"
+                            );
                         }
                     }
                 }

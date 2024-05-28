@@ -20,11 +20,7 @@ namespace pyRevitLabs.DeffrelDB {
         public ConnectionLock NewLock { get; set; }
         public ConnectionLock RestrictingLock { get; set; }
 
-        public override string Message {
-            get {
-                return $"Requested lock {NewLock} is restricted by {RestrictingLock}";
-            }
-        }
+        public override string Message => $"Requested lock {NewLock} is restricted by {RestrictingLock}";
     }
 
     public class AccessRestrictedByExistingLockException : DeffrelDBException {
@@ -38,12 +34,9 @@ namespace pyRevitLabs.DeffrelDB {
         public ConnectionLock NewLock { get; set; }
         public ConnectionLock RestrictingLock { get; set; }
 
-        public override string Message {
-            get {
-                return $"Requested lock {NewLock} is not on the same path as active connection lock" +
-                       $" {RestrictingLock}. Active lock must be released first.";
-            }
-        }
+        public override string Message =>
+            $"Requested lock {NewLock} is not on the same path as active connection lock" +
+            $" {RestrictingLock}. Active lock must be released first.";
     }
 
 

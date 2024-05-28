@@ -15,8 +15,4 @@
 		<ProjectReference Include="..\pyRevitLabs.CommonWPF\pyRevitLabs.CommonWPF.csproj" />
 		<ProjectReference Include="..\pyRevitLabs.TargetApps.Revit\pyRevitLabs.TargetApps.Revit.csproj" />
 	</ItemGroup>
-
-	<Target Name="DeployDependencies" AfterTargets="Deploy">
-		<Copy SourceFiles="$(OutputPath)\Nett.dll" DestinationFolder="$(PyRevitBinDir)" />
-	</Target>
 </Project>

@@ -121,8 +121,7 @@ namespace pyRevitCLI {
                             clone.SetBranch(branchName);
                         }
                         else {
-                            Console.WriteLine(string.Format("Clone \"{0}\" is on branch \"{1}\"",
-                                                             clone.Name, clone.Branch));
+                            Console.WriteLine($"Clone \"{clone.Name}\" is on branch \"{clone.Branch}\"");
                         }
                     }
                     else
@@ -167,8 +166,7 @@ namespace pyRevitCLI {
                         clone.SetCommit(commitHash);
                     }
                     else {
-                        Console.WriteLine(string.Format("Clone \"{0}\" is on commit \"{1}\"",
-                                                         clone.Name, clone.Commit));
+                        Console.WriteLine($"Clone \"{clone.Name}\" is on commit \"{clone.Commit}\"");
                     }
                 }
                 else
@@ -187,8 +185,7 @@ namespace pyRevitCLI {
                         clone.SetOrigin(newUrl);
                     }
                     else {
-                        Console.WriteLine(string.Format("Clone \"{0}\" origin is at \"{1}\"",
-                                                        clone.Name, clone.Origin));
+                        Console.WriteLine($"Clone \"{clone.Name}\" origin is at \"{clone.Origin}\"");
                     }
                 }
                 else

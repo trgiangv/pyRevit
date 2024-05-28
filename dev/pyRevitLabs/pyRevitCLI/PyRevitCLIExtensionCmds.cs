@@ -131,8 +131,7 @@ namespace pyRevitCLI {
                         extension.SetOrigin(originUrl);
                     }
                     else {
-                        Console.WriteLine(string.Format("Extension \"{0}\" origin is at \"{1}\"",
-                                                        extension.Name, extension.Origin));
+                        Console.WriteLine($"Extension \"{extension.Name}\" origin is at \"{extension.Origin}\"");
                     }
                 }
             }

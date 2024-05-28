@@ -130,8 +130,7 @@ namespace pyRevitLabs.PyRevit {
             foreach (var ext in GetInstalledExtensions()) {
                 logger.Debug("-----------> {0}", ext.Name);
                 if (CompareExtensionNames(ext.Name, searchPattern)) {
-                    logger.Debug(string.Format("\"{0}\" Matched installed extension \"{1}\"",
-                                               searchPattern, ext.Name));
+                    logger.Debug($"\"{searchPattern}\" Matched installed extension \"{ext.Name}\"");
                     return ext;
                 }
             }
@@ -156,8 +155,8 @@ namespace pyRevitLabs.PyRevit {
             try {
                 var existExt = GetInstalledExtension(extensionName);
                 if (existExt != null)
-                    throw new PyRevitException(string.Format("Extension \"{0}\" is already installed under \"{1}\"",
-                                                             existExt.Name, existExt.InstallPath));
+                    throw new PyRevitException(
+                        $"Extension \"{existExt.Name}\" is already installed under \"{existExt.InstallPath}\"");
             }
             catch {
                 // extension is not installed so everything is fine
@@ -195,8 +194,7 @@ namespace pyRevitLabs.PyRevit {
                         CommonUtils.DeleteDirectory(repoPath);
                     }
                     catch (Exception delEx) {
-                        logger.Error(string.Format("Error post-install cleanup on \"{0}\" | {1}",
-                                                   repoPath, delEx.Message));
+                        logger.Error($"Error post-install cleanup on \"{repoPath}\" | {delEx.Message}");
                     }
                 }
             }
@@ -475,8 +473,7 @@ namespace pyRevitLabs.PyRevit {
                             logger.Debug("Registered extension \"{0}\"", extDef.Name);
                             if (searchPattern != null) {
                                 if (CompareExtensionNames(extDef.Name, searchPattern)) {
-                                    logger.Debug(string.Format("\"{0}\" Matched registered extension \"{1}\"",
-                                                               searchPattern, extDef.Name));
+                                    logger.Debug($"\"{searchPattern}\" Matched registered extension \"{extDef.Name}\"");
                                     pyrevtExts.Add(extDef);
                                 }
                             }

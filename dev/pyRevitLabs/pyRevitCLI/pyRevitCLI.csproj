@@ -19,18 +19,8 @@
     <ProjectReference Include="..\pyRevitLabs.pyRevit\pyRevitLabs.PyRevit.csproj" />
     <ProjectReference Include="..\pyRevitLabs.TargetApps.Revit\pyRevitLabs.TargetApps.Revit.csproj" />
   </ItemGroup>
-
-  <Target Name="DeployDependencies" AfterTargets="Deploy">
-    <ItemGroup>
-      <CustomDependencies Include="$(PyRevitDevLibsDir)\*.dll" />
-      <CustomBinaries Include="$(PyRevitDevLibsDir)\*.exe" />
-    </ItemGroup>
-    <Copy SourceFiles="pyrevit.ico" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="pyrevit_cli.ico" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="pyrevit_pkg.ico" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\Colorful.Console.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="$(OutputPath)\DocoptNet.dll" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="@(CustomDependencies)" DestinationFolder="$(PyRevitBinDir)" />
-    <Copy SourceFiles="@(CustomBinaries)" DestinationFolder="$(PyRevitBinDir)" />
-  </Target>
+  
+<!--  <Target Name="PostBuild" AfterTargets="PostBuildEvent">-->
+<!--    <Exec Command="copy &quot;$(OutputPath)&quot; &quot;$(pyRevitBinDir)&quot;&#xA;xcopy &quot;$(OutputPath)*.dll&quot; &quot;$(pyRevitBinDir)&quot; /Y&#xA;xcopy &quot;$(OutputPath)*.exe&quot; &quot;$(pyRevitBinDir)&quot; /Y&#xA;xcopy &quot;$(OutputPath)*.ico&quot; &quot;$(pyRevitBinDir)&quot; /Y&#xA;xcopy &quot;$(OutputPath)*.svg&quot; &quot;$(pyRevitBinDir)&quot; /Y" />-->
+<!--  </Target>-->
 </Project>

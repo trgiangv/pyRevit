@@ -177,11 +177,8 @@ namespace pyRevitLabs.TargetApps.Revit {
         public string BuildNumber { get; private set; }
         public string BuildTarget { get; private set; }
 
-        public string DefaultInstallLocation {
-            get {
-                return Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            }
-        }
+        public string DefaultInstallLocation => Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+
         public string InstallLocation {
             get {
                 if (_registeredInstallPath is null || _registeredInstallPath == string.Empty) {

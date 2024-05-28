@@ -11,11 +11,7 @@ namespace pyRevitLabs.Common {
 
         public string Path { get; set; }
 
-        public override string Message {
-            get {
-                return $"Path \"{Path}\" is not a valid git clone.";
-            }
-        }
+        public override string Message => $"Path \"{Path}\" is not a valid git clone.";
     }
 
     public enum UpdateStatus {

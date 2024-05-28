@@ -36,11 +36,7 @@ namespace pyRevitLabs.DeffrelDB {
         public IEnumerable<Wire> Wires { get; set; } = new List<Wire>();
 
         // first field is always treated as key
-        public Field Key {
-            get {
-                return Fields.First();
-            }
-        }
+        public Field Key => Fields.First();
 
         public string Description = "";
         public string FieldDelimiter { get; set; } = "\t";

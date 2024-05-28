@@ -49,8 +49,8 @@ namespace pyRevitLabs.PyRevit {
                 _config.Save(PyRevitConsts.ConfigFilePath);
             }
             catch (Exception ex) {
-                throw new PyRevitException(string.Format("Failed to save config to \"{0}\". | {1}",
-                                                         PyRevitConsts.ConfigFilePath, ex.Message));
+                throw new PyRevitException(
+                    $"Failed to save config to \"{PyRevitConsts.ConfigFilePath}\". | {ex.Message}");
             }
         }
 

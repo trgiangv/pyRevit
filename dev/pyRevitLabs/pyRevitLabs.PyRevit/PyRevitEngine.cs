@@ -49,9 +49,8 @@ namespace pyRevitLabs.PyRevit {
         }
 
         public override string ToString() {
-            return string.Format(
-                "{0} | Kernel: {1} | Version: {2} | Runtime: {3} | Path: \"{4}\" | Desc: \"{5}\"",
-                Id, KernelName, Version, Runtime, AssemblyPath, Description);
+            return
+                $"{Id} | Kernel: {KernelName} | Version: {Version} | Runtime: {Runtime} | Path: \"{AssemblyPath}\" | Desc: \"{Description}\"";
         }
 
         public string Id { get; private set; }
@@ -62,11 +61,7 @@ namespace pyRevitLabs.PyRevit {
         public string KernelName { get; private set; }
         public bool IsDefault { get; private set; }
 
-        public string AssemblyPath {
-            get {
-                return System.IO.Path.Combine(Path, AssemblyName).NormalizeAsPath();
-            }
-        }
+        public string AssemblyPath => System.IO.Path.Combine(Path, AssemblyName).NormalizeAsPath();
 
         public string Description { get; private set; }
     }

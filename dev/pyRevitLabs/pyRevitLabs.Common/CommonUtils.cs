@@ -57,8 +57,7 @@ namespace pyRevitLabs.Common {
                     Directory.Delete(targetDir, false);
                 }
                 catch (Exception ex) {
-                    throw new PyRevitException(string.Format("Error recursive deleting directory \"{0}\" | {1}",
-                                                             targetDir, ex.Message));
+                    throw new PyRevitException($"Error recursive deleting directory \"{targetDir}\" | {ex.Message}");
                 }
             }
         }
@@ -210,8 +209,7 @@ namespace pyRevitLabs.Common {
         }
 
         public static byte[] GetStructuredStorageStream(string filePath, string streamName) {
-            logger.Debug(string.Format("Attempting to read \"{0}\" stream from structured storage file at \"{1}\"",
-                                       streamName, filePath));
+            logger.Debug($"Attempting to read \"{streamName}\" stream from structured storage file at \"{filePath}\"");
             int res = StgIsStorageFile(filePath);
 
             if (res == 0) {

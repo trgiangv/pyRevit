@@ -45,8 +45,8 @@ namespace pyRevitLabs.UnitTests {
 
 
         public TestContext TestContext {
-            get { return _testContextInstance; }
-            set { _testContextInstance = value; }
+            get => _testContextInstance;
+            set => _testContextInstance = value;
         }
     }
 }

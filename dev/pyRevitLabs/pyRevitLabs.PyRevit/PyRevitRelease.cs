@@ -4,14 +4,12 @@ namespace pyRevitLabs.PyRevit {
 
     public class PyRevitRelease: GithubReleaseInfo {
         // Check whether this is a pyRevit release
-        public bool IsPyRevitRelease { get { return !tag_name.Contains(PyRevitConsts.CLIReleasePrefix); } }
+        public bool IsPyRevitRelease => !tag_name.Contains(PyRevitConsts.CLIReleasePrefix);
 
         // Check whether this is a CLI release
-        public bool IsCLIRelease { get { return tag_name.Contains(PyRevitConsts.CLIReleasePrefix); } }
+        public bool IsCLIRelease => tag_name.Contains(PyRevitConsts.CLIReleasePrefix);
 
         // Extract archive download url from zipball_url
-        public string ArchiveURL {
-            get { return GithubAPI.GetTagArchiveUrl(PyRevitLabsConsts.OriginalRepoId, Tag); }
-        }
+        public string ArchiveURL => GithubAPI.GetTagArchiveUrl(PyRevitLabsConsts.OriginalRepoId, Tag);
     }
 }

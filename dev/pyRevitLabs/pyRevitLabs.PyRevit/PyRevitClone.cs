@@ -75,13 +75,11 @@ namespace pyRevitLabs.PyRevit {
 
         public override string ToString() {
             if (IsRepoDeploy)
-                return string.Format(
-                    "{0} | Branch: \"{1}\" | Version: \"{2}\" | Path: \"{3}\"",
-                    Name, Branch, $"{ModuleVersion}:{ShortCommit}", ClonePath);
+                return
+                    $"{Name} | Branch: \"{Branch}\" | Version: \"{$"{ModuleVersion}:{ShortCommit}"}\" | Path: \"{ClonePath}\"";
             else {
-                return string.Format(
-                    "{0} | Deploy: \"{1}\" | Branch: \"{2}\" | Version: \"{3}\" | Path: \"{4}\"",
-                    Name, Deployment?.Name, Branch, ModuleVersion, ClonePath);
+                return
+                    $"{Name} | Deploy: \"{Deployment?.Name}\" | Branch: \"{Branch}\" | Version: \"{ModuleVersion}\" | Path: \"{ClonePath}\"";
             }
         }
 
@@ -96,9 +94,7 @@ namespace pyRevitLabs.PyRevit {
 
         public bool IsValid => IsCloneValid(ClonePath);
 
-        public bool HasDeployments {
-            get { return VerifyHasDeployments(ClonePath); }
-        }
+        public bool HasDeployments => VerifyHasDeployments(ClonePath);
 
         public string ModuleVersion => GetDeployedVersion(ClonePath);
 
@@ -332,8 +328,7 @@ namespace pyRevitLabs.PyRevit {
                 }
             }
             catch (Exception ex) {
-                logger.Debug(string.Format("Error parsing clone \"{0}\" engines configs from \"{1}\" | {2}",
-                                           clonePath, prFile, ex.Message));
+                logger.Debug($"Error parsing clone \"{clonePath}\" engines configs from \"{prFile}\" | {ex.Message}");
             }
 
             return engines;
@@ -356,8 +351,7 @@ namespace pyRevitLabs.PyRevit {
                 }
             }
             catch (Exception ex) {
-                logger.Debug(string.Format("Error parsing clone \"{0}\" deployment configs at \"{1}\" | {2}",
-                                           clonePath, prFile, ex.Message));
+                logger.Debug($"Error parsing clone \"{clonePath}\" deployment configs at \"{prFile}\" | {ex.Message}");
             }
 
             return deps;
@@ -500,8 +494,7 @@ namespace pyRevitLabs.PyRevit {
                 return args;
             }
             catch (Exception ex) {
-                throw new PyRevitException(string.Format("Error reading deployment arguments from \"{0}\" | {1}",
-                                                         clonePath, ex.Message));
+                throw new PyRevitException($"Error reading deployment arguments from \"{clonePath}\" | {ex.Message}");
             }
         }
 

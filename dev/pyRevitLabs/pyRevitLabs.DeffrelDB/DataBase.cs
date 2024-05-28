@@ -175,9 +175,7 @@ namespace pyRevitLabs.DeffrelDB {
         public string LockTargetTable { get; private set; }
         public object LockTargetRecordKey { get; private set; }
 
-        public bool IsDataStoreLock {
-            get { return LockTargetDB is null && LockTargetTable is null && LockTargetRecordKey is null; }
-        }
+        public bool IsDataStoreLock => LockTargetDB is null && LockTargetTable is null && LockTargetRecordKey is null;
 
         public bool IsDBLock {
             get { return LockTargetDB != null && LockTargetTable is null && LockTargetRecordKey is null; }
@@ -192,8 +190,7 @@ namespace pyRevitLabs.DeffrelDB {
         }
 
         public override string ToString() {
-            return string.Format("<ConnectionLock id:\"{0}\" sig:\"{1}\" locking:\"{2}\">",
-                                 LockId, LockConnectionSignature, LockHierarchy);
+            return $"<ConnectionLock id:\"{LockId}\" sig:\"{LockConnectionSignature}\" locking:\"{LockHierarchy}\">";
         }
 
         public ConnectionLockType LockType {
@@ -349,7 +346,7 @@ namespace pyRevitLabs.DeffrelDB {
             LogManager.Configuration = config;
         }
 
-        public string ConnectionSource { get { return Environment.MachineName.ToLower(); } }
+        public string ConnectionSource => Environment.MachineName.ToLower();
         public string ConnectionRequester { get; private set; }
         public string ConnectionId { get; private set; }
         public DataStoreType ActiveDataStoreType;
@@ -780,9 +777,8 @@ namespace pyRevitLabs.DeffrelDB {
 
                 if (!existingDStoreType.Equals(dstore.DataStoreType))
                     throw new Exception(
-                        string.Format("Requested Datastore type \"{0}\" does not match existing \"{1}\"",
-                                      dstore.DataStoreType, existingDStoreType)
-                        );
+                        $"Requested Datastore type \"{dstore.DataStoreType}\" does not match existing \"{existingDStoreType}\""
+                    );
             }
             catch (FormatException) {
                 // there is no datastore so there is no point in opening a txn

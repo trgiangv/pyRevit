@@ -24,21 +24,11 @@ namespace pyRevitLabs.PyRevit {
             if (_clone != null) {
                 var engine = Engine;
 
-                return string.Format(
-                    "{0} | Product: \"{1}\" | Engine: {2} | Path: \"{3}\" {4}",
-                    _clone.Name,
-                    Product.Name,
-                    engine != null ? $"{engine.Id} ({engine.Version})" : "?",
-                    _clone.ClonePath,
-                    AllUsers ? "| AllUsers" : ""
-                    );
+                return
+                    $"{_clone.Name} | Product: \"{Product.Name}\" | Engine: {(engine != null ? $"{engine.Id} ({engine.Version})" : "?")} | Path: \"{_clone.ClonePath}\" {(AllUsers ? "| AllUsers" : "")}";
             }
             else {
-                return string.Format(
-                    "Unknown | Product: \"{0}\" | Manifest: \"{1}\"",
-                    Product.Name,
-                    Manifest.FilePath
-                    );
+                return $"Unknown | Product: \"{Product.Name}\" | Manifest: \"{Manifest.FilePath}\"";
             }
         }
 

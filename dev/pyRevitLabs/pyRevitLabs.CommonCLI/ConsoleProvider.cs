@@ -47,10 +47,7 @@ namespace pyRevitLabs.CommonCLI
         [DllImport(KEREL32_DLLNAME, SetLastError = true)]
         private static extern FileType GetFileType(IntPtr handle);
 
-        public static bool HasConsole
-        {
-            get { return GetConsoleWindow() != IntPtr.Zero; }
-        }
+        public static bool HasConsole => GetConsoleWindow() != IntPtr.Zero;
 
         /// <summary>
         /// Creates a new console instance if the process is not attached to a console already.

@@ -4,11 +4,7 @@ namespace pyRevitLabs.Common {
     // https://code.msdn.microsoft.com/windowsapps/How-to-determine-the-263b1850
     public class OSVersionInfo {
 
-        public string FullName {
-            get {
-                return "Microsoft " + Name + " " + "[Version " + Major + "." + Minor + "." + Build + "]";
-            }
-        }
+        public string FullName => "Microsoft " + Name + " " + "[Version " + Major + "." + Minor + "." + Build + "]";
 
         public string Name { get; set; }
         public int Minor { get; set; }

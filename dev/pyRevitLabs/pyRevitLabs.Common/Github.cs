@@ -20,8 +20,8 @@ namespace pyRevitLabs.Common {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public override string ToString() {
-            return string.Format("{0} | Tag: {1} | Version: {2} | Url: \"{3}\"",
-                                 PreRelease ? Name + " (pre-release)" : Name, Tag, Version, Url);
+            return
+                $"{(PreRelease ? Name + " (pre-release)" : Name)} | Tag: {Tag} | Version: {Version} | Url: \"{Url}\"";
         }
 
         // Github API JSON Properties

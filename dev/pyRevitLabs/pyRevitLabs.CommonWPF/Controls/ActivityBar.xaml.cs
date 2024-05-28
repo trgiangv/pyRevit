@@ -74,9 +74,7 @@ namespace pyRevitLabs.CommonWPF.Controls {
         public void ConsoleLogWarning(string logEntry) { _consoleLog(logEntry, indicate: Brushes.Orange); }
 
         public bool IsActive {
-            get {
-                return _taskCounter > 0 || _manualActive;
-            }
+            get => _taskCounter > 0 || _manualActive;
             set {
                 _manualActive = (bool)value;
                 RefreshProgressState();

@@ -47,7 +47,7 @@ namespace pyRevitLabs.PyRevit {
             return $"Name: \"{Name}\" | Type: \"{Type}\" | Repo: \"{Url}\"";
         }
 
-        public bool BuiltIn { get { return bool.Parse(_jsonObj.builtin); } }
+        public bool BuiltIn => bool.Parse(_jsonObj.builtin);
 
         public bool DefaultEnabled { get { return bool.Parse(_jsonObj.default_enabled); } }
 
@@ -106,8 +106,7 @@ namespace pyRevitLabs.PyRevit {
         public PyRevitExtensionDefinition Definition { get; private set; } = null;
 
         public override string ToString() {
-            return string.Format("{0} | Type: {1} | Repo: \"{2}\" | Installed: \"{3}\"",
-                                 Name, Type, Url, InstallPath);
+            return $"{Name} | Type: {Type} | Repo: \"{Url}\" | Installed: \"{InstallPath}\"";
         }
 
         // grab parameters from definition or set to default

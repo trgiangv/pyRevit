@@ -142,8 +142,7 @@ namespace pyRevitCLI {
         PrinUserEnv() {
             PrintHeader("User Environment");
             Console.WriteLine(UserEnv.GetWindowsVersion());
-            Console.WriteLine(string.Format("Executing User: {0}\\{1}",
-                                            Environment.UserDomainName, Environment.UserName));
+            Console.WriteLine($"Executing User: {Environment.UserDomainName}\\{Environment.UserName}");
             Console.WriteLine($"Active User: {UserEnv.GetLoggedInUserName()}");
             Console.WriteLine($"Admin Access: {(UserEnv.IsRunAsAdmin() ? "Yes" : "No")}");
             Console.WriteLine($"%APPDATA%: \"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\"");
@@ -184,11 +183,8 @@ namespace pyRevitCLI {
                             logger.Debug("Latest release: {0}", latestVersion);
                             if (PyRevitCLI.CLIVersion < latestVersion) {
                                 Console.WriteLine(
-                                    string.Format(
-                                        "Newer v{0} is available.\nGo to {1} to download the installer.",
-                                        latestVersion,
-                                        PyRevitLabsConsts.ReleasesUrl)
-                                    );
+                                    $"Newer v{latestVersion} is available.\nGo to {PyRevitLabsConsts.ReleasesUrl} to download the installer."
+                                );
                             }
                             else
                                 Console.WriteLine("You have the latest version.");

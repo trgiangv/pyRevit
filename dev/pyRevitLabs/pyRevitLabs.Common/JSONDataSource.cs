@@ -21,9 +21,7 @@ namespace pyRevitLabs.Common {
         public string DefaultDataFilePath => CommonUtils.GetAssemblyPath<T>();
 
         public string DataFileName {
-            get {
-                return _dataSourceName;
-            }
+            get => _dataSourceName;
             set {
                 if (value != null || value != string.Empty)
                     _dataSourceName = value;

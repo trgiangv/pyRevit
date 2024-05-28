@@ -103,10 +103,10 @@ namespace pyRevitLabs.DeffrelDB {
         public bool ExclusiveAccess { get; private set; }
 
         // convenience properties
-        public string FilePath { get { return DataStoreType.Path; } }
-        public string FileName { get { return Path.GetFileName(FilePath); } }
-        public Version Version { get { return DataStoreType.DataFormatVersion; } }
-        public Encoding Encoding { get { return DataStoreType.DataFormatEncoding; } }
+        public string FilePath => DataStoreType.Path;
+        public string FileName => Path.GetFileName(FilePath);
+        public Version Version => DataStoreType.DataFormatVersion;
+        public Encoding Encoding => DataStoreType.DataFormatEncoding;
         public int IOTimeOut { get; private set; }
 
         // data lines formatter
@@ -116,9 +116,7 @@ namespace pyRevitLabs.DeffrelDB {
         public List<DataLine> DataLines { get; private set; }
 
         // has datalines been modified?
-        public bool IsModified {
-            get { return true; }
-        }
+        public bool IsModified => true;
 
         // commit function
         public void Commit() {
@@ -128,14 +126,11 @@ namespace pyRevitLabs.DeffrelDB {
 
         // private
         // access control lock mechanism
-        private string LockFilePath {
-            get {
-                return Path.Combine(Path.GetDirectoryName(FilePath),
-                                    Path.GetFileNameWithoutExtension(FileName) + ".lock");
-            }
-        }
+        private string LockFilePath =>
+            Path.Combine(Path.GetDirectoryName(FilePath),
+                Path.GetFileNameWithoutExtension(FileName) + ".lock");
 
-        private bool LockExists { get { return File.Exists(LockFilePath); } }
+        private bool LockExists => File.Exists(LockFilePath);
 
         // main lock state control
         private DataStoreLockState LockState = DataStoreLockState.Unlocked;

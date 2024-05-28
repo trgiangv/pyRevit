@@ -7,8 +7,4 @@
 	<ItemGroup>
 		<PackageReference Include="MahApps.Metro" Version="2.4.10" />
 	</ItemGroup>
-
-	<Target Name="DeployDependencies" AfterTargets="Deploy">
-		<Copy SourceFiles="$(OutputPath)\System.Windows.Interactivity.dll" DestinationFolder="$(PyRevitBinDir)" />
-	</Target>
 </Project>

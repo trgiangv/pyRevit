@@ -14,17 +14,9 @@ namespace pyRevitLabs.TargetApps.Revit {
             return false;
         }
 
-        public int ProcessId {
-            get {
-                return _process.Id;
-            }
-        }
+        public int ProcessId => _process.Id;
 
-        public string Module {
-            get {
-                return _process.MainModule.FileName;
-            }
-        }
+        public string Module => _process.MainModule.FileName;
 
         public RevitProduct RevitProduct {
             get {

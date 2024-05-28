@@ -32,14 +32,14 @@ namespace pyRevitLabs.CommonWPF.Controls
 
         public string Label
         {
-            get { return GetValue(LabelProperty) as String; }
-            set { SetValue(LabelProperty, value); }
+            get => GetValue(LabelProperty) as String;
+            set => SetValue(LabelProperty, value);
         }
 
         public string Text
         {
-            get { return GetValue(TextProperty) as String; }
-            set { SetValue(TextProperty, value); }
+            get => GetValue(TextProperty) as String;
+            set => SetValue(TextProperty, value);
         }
     }
 }
