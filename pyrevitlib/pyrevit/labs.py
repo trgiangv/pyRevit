@@ -5,15 +5,15 @@ import os.path as op
 #pylint: disable=superfluous-parens,useless-import-alias
 from pyrevit import HOST_APP, EXEC_PARAMS, HOME_DIR, BIN_DIR
 from pyrevit.framework import clr
-from pyrevit.compat import PY2
+from pyrevit.compat import PY2, NET_FRAMEWORK_VERSION, NET_CORE_VERSION
 
 # try loading pyrevitlabs
 clr.AddReference('Nett')
 clr.AddReference('MadMilkman.Ini')
 clr.AddReference('OpenMcdf')
 clr.AddReference('YamlDotNet')
-clr.AddReference('pyRevitLabs.NLog')
-clr.AddReference('pyRevitLabs.MahAppsMetro')
+clr.AddReference('NLog')
+clr.AddReference('MahApps.Metro')
 # roslyn csharp compiler dependencies are referenced by
 # pyRevitLabs.Common thus loading ahead
 clr.AddReference('System.Threading.Tasks.Extensions')
@@ -22,16 +22,17 @@ clr.AddReference('System.Numerics.Vectors')
 clr.AddReference('System.Text.Encoding.CodePages')
 # Revit, and its builtin addons, ship multiple versions of this assembly
 # let's make sure our specific version is loaded
-if PY2:
-    clr.AddReferenceToFileAndPath(
-        op.join(BIN_DIR, 'System.Runtime.CompilerServices.Unsafe.dll')
-        )
-    clr.AddReferenceToFileAndPath(
-        op.join(BIN_DIR, 'System.Memory.dll')
-        )
-else:
-    clr.AddReference('System.Runtime.CompilerServices.Unsafe')
-    clr.AddReference('System.Memory.dll')
+if NET_FRAMEWORK_VERSION:
+    if PY2:
+        clr.AddReferenceToFileAndPath(
+            op.join(BIN_DIR, 'System.Runtime.CompilerServices.Unsafe.dll')
+            )
+        clr.AddReferenceToFileAndPath(
+            op.join(BIN_DIR, 'System.Memory.dll')
+            )
+    else:
+        clr.AddReference('System.Runtime.CompilerServices.Unsafe')
+        clr.AddReference('System.Memory.dll')
 # clr.AddReference('System.Memory')
 clr.AddReference('System.Reflection.Metadata')
 clr.AddReference('Microsoft.CodeAnalysis')
@@ -45,13 +46,13 @@ clr.AddReference('pyRevitLabs.Language')
 clr.AddReference('pyRevitLabs.DeffrelDB')
 clr.AddReference('pyRevitLabs.TargetApps.Revit')
 clr.AddReference('pyRevitLabs.PyRevit')
-clr.AddReference('PythonStubsBuilder')
+
 import Nett
 import MadMilkman.Ini
 import OpenMcdf
 import YamlDotNet as libyaml
-import pyRevitLabs.MahAppsMetro
-from pyRevitLabs import NLog
+import MahApps.Metro
+import NLog
 from pyRevitLabs import Common
 from pyRevitLabs import CommonCLI
 from pyRevitLabs import CommonWPF
@@ -60,7 +61,7 @@ from pyRevitLabs import Language
 from pyRevitLabs import DeffrelDB
 from pyRevitLabs import TargetApps
 from pyRevitLabs import PyRevit
-from PythonStubs import PythonStubsBuilder
+
 
 from pyrevit import coreutils
 from pyrevit.coreutils import logger

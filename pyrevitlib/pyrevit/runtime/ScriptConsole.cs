@@ -137,18 +137,18 @@ namespace PyRevitLabs.PyRevit.Runtime
             {
                 Resources.MergedDictionaries.Add(new ResourceDictionary()
                 {
-                    Source = new Uri("pack://application:,,,/pyRevitLabs.MahAppsMetro;component/Styles/Controls.xaml")
+                    Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml")
                 });
 
                 Resources.MergedDictionaries.Add(new ResourceDictionary()
                 {
-                    Source = new Uri("pack://application:,,,/pyRevitLabs.MahAppsMetro;component/Styles/Fonts.xaml")
+                    Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml")
                 });
 
                 Resources.MergedDictionaries.Add(new ResourceDictionary()
                 {
                     Source = new Uri(
-                        "pack://application:,,,/pyRevitLabs.MahAppsMetro;component/Styles/Themes/Light.Blue.xaml")
+                        "pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml")
                 });
 
                 var accentResDict = Resources;

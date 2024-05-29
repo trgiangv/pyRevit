@@ -3,6 +3,7 @@ import os
 import os.path as op
 import sys
 import json
+import clr
 
 from pyrevit import PyRevitException, EXEC_PARAMS, HOST_APP
 import pyrevit.engine as eng
@@ -263,11 +264,11 @@ def get_references():
         'RevitAPI', 'RevitAPIUI', 'AdWindows', 'UIFramework',
         # pyrevit loader assembly
         'pyRevitLoader',
+        # third party assemblies
+        'MahApps.Metro', 'NLog', 'Newtonsoft.Json',
         # pyrevit labs
-        'pyRevitLabs.Common', 'pyRevitLabs.CommonWPF',
-        'pyRevitLabs.MahAppsMetro',
-        'pyRevitLabs.NLog',
-        'pyRevitLabs.Json',
+        'pyRevitLabs.Common', 
+        'pyRevitLabs.CommonWPF',
         'pyRevitLabs.Emojis',
         'pyRevitLabs.TargetApps.Revit',
         'pyRevitLabs.PyRevit',
@@ -305,7 +306,7 @@ def _generate_runtime_asm():
                 debug=False,
             )
         except TypeError:
-            msgs = List[str]()
+            msgs = clr.StrongBox[List[str]](List[str]())
             res = labs.Common.CodeCompiler.CompileCSharp(
                 Array[str](source_list),
                 RUNTIME_ASSM_FILE,

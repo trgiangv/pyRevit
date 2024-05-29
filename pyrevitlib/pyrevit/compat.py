@@ -7,6 +7,10 @@ Examples:
 """
 
 import sys
+from System import Environment
+
+NET_FRAMEWORK_VERSION = Environment.Version.Major == 4
+NET_CORE_VERSION = Environment.Version.Major >= 8
 
 PY3 = sys.version_info[0] == 3
 PY2 = sys.version_info[0] == 2

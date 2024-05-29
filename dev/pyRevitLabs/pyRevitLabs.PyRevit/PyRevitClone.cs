@@ -609,15 +609,17 @@ namespace pyRevitLabs.PyRevit {
             string enginesDir = Path.Combine(clonePath,
                                              PyRevitConsts.BinDirName,
                                              PyRevitConsts.BinEnginesDirName);
-            if (!CommonUtils.VerifyPath(enginesDir)) {
-                enginesDir = Path.Combine(clonePath,
-                                          PyRevitConsts.LibDirName,
-                                          PyRevitConsts.ModuleDirName,
-                                          PyRevitConsts.ModuleLoaderDirName,
-                                          PyRevitConsts.ModuleLegacyAddinDirName);
-                if (!CommonUtils.VerifyPath(enginesDir))
-                    throw new pyRevitInvalidGitCloneException(clonePath);
-            }
+            
+            if (CommonUtils.VerifyPath(enginesDir)) return enginesDir;
+            
+            enginesDir = Path.Combine(clonePath,
+                PyRevitConsts.LibDirName,
+                PyRevitConsts.ModuleDirName,
+                PyRevitConsts.ModuleLoaderDirName,
+                PyRevitConsts.ModuleLegacyAddinDirName);
+            
+            if (!CommonUtils.VerifyPath(enginesDir))
+                throw new pyRevitInvalidGitCloneException(clonePath);
 
             return enginesDir;
         }
